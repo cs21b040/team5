@@ -1,35 +1,31 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { FaBars, FaTimes } from "react-icons/fa";
-import "./Styles/header.css";
-
-function Header() {
-    const [click, setClick] = useState(false);
-    const handleClick = () => setClick(!click);
-    const [color, setColor] = useState(false);
-    const changeColor = () => {
-      if(window.scrollY >= 100){
-        setColor(true);
-      }
-      else setColor(false);
-    }
-    window.addEventListener('scroll',changeColor);
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
+function BasicExample() {
   return (
-    <div className={color ? "header-bg" :"header"}>
-        <Link to="/">
-        <h1 style={{ fontSize: "3rem" }}>IIT Hub</h1>
-      </Link>
-      <ul className={click ? "Nav-menu active":"Nav-menu" }>
-        <li><Link to="/">Home</Link></li> 
-        <li><Link to="/alumni">Alumni</Link></li>
-        <li><Link to="/academic">Academic</Link></li>
-        <li><Link to="/research">Research</Link></li>
-        </ul>
-        <div className="menu-style" onClick={handleClick}>
-            {click ?  (<FaTimes size={30} style={{color:"#black"}}/>):(<FaBars size={30} style={{color:"#black"}}/>)}
-      </div>
-    </div>
+    <Navbar expand="lg"  bg="dark" data-bs-theme="dark">
+      <Container>
+        <Navbar.Brand href="/" className='me-auto'>IIT Hub</Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="ms-auto">
+            <Nav.Link href="/">Home</Nav.Link>
+            <NavDropdown title="Academics" id="basic-nav-dropdown">
+              <NavDropdown.Item href="#action/3.1">CSE</NavDropdown.Item>
+              <NavDropdown.Item href="#action/3.2">EEE</NavDropdown.Item>
+              <NavDropdown.Item href="#action/3.3">ME</NavDropdown.Item>
+              <NavDropdown.Item href="#action/3.3">CE</NavDropdown.Item>
+              <NavDropdown.Item href="#action/3.3">CH</NavDropdown.Item>
+              <NavDropdown.Divider />
+            </NavDropdown>
+            <Nav.Link href="/Academic">Academic</Nav.Link>
+            <Nav.Link href="/Alumni">Alumni</Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 }
 
-export default Header;
+export default BasicExample;
