@@ -1,0 +1,25 @@
+import React from 'react';
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
+import logo from './assets/iittp.png';
+
+function Project(props) {
+    return (
+      <div className="mx-2 my-2">
+        <Card style={{ width: '25rem' }}>
+        <Card.Img variant="top" src={logo}/>
+        <Card.Body>
+          <Card.Title>{props.title}</Card.Title>
+          <Card.Text>
+            {props.professor} <br/>
+            {props.desc} <br/>
+            {props.date}
+          </Card.Text>
+          <Button variant="info">Get Info</Button>
+        </Card.Body>
+        </Card>
+      </div>
+    );
+  }
+  
+  export default Project;
