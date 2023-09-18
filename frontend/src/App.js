@@ -6,6 +6,8 @@ import Alumni from './routes/Alumni';
 import Research from './routes/Research';
 import SignUp from './routes/SignUp';
 import Login from './routes/Login';
+import Profile from './routes/Profile';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 function App() {
   return (
@@ -17,6 +19,7 @@ function App() {
           <Route path="/academic" element={<Academic />} />
           <Route path="/alumni" element={<Alumni />} /> 
           <Route path="/research" element={<Research />} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
      </BrowserRouter>
   );

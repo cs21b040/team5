@@ -19,6 +19,7 @@ function Header() {
             </NavDropdown>
             <Nav.Link href="/Research">Research</Nav.Link>
             <Nav.Link href="/Alumni" className='mx-3'>Alumni</Nav.Link>
+            <Nav.Link href="/Profile" className='mx-3'>Profile</Nav.Link>
           </Nav>
         </Navbar.Collapse>
     </Navbar>
