@@ -2,7 +2,6 @@ import React from 'react';
 import Header from '../Components/Header'; 
 import Project from '../Components/Research-card';
 import CardGroup from 'react-bootstrap/CardGroup';
-import { Button } from 'react-bootstrap';
 import { useState } from 'react';
 
 
@@ -22,7 +21,7 @@ function Research() {
     },
   ];
 
-  const [cardCount, setCardCount] = useState(1);
+  const [cardCount, setCardCount] = useState(0);
 
   const addCard = (cardNum) => {
     const cards = [];
