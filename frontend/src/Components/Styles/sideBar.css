@@ -1,0 +1,86 @@
+.sideBar{
+    height: 100vh;
+    width:300px;
+    background-color: #2F4050;
+}
+.sideBarList{
+    height: auto;
+    padding: 0;
+    width: 100%;
+}
+.sideBarList .row, .row-split{
+    width: 100%;
+    height: 50px;
+    margin: 0;
+    border:1px solid black;
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    color: white;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+
+}
+.sideBarList .row:hover{
+    background-color: #1A2228;
+    cursor: pointer;
+}
+.sideBarList #active{
+    background-color: #1A2228;
+}
+.row-split #icon{
+    /* background-color: black; */
+    flex: 30%;
+    height: 50px;
+    border-left: 1px solid #1A2228;
+    display: grid;
+    place-items: center;
+}
+.row-split #add{
+    flex: 70%;
+    height: 50px;
+    border-right: 1px solid #1A2228;
+    display: grid;
+    place-items: center;
+}
+.passive{
+    display: none;
+    
+}
+.request{
+    width: 100%;
+    height: 50px;
+    margin: 0;
+    border:1px solid black;
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    color: white;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+.request #inp{
+    flex: 70%;
+    height: 50px;
+    border-right: 1px solid #1A2228;
+    display: grid;
+    place-items: center;
+}
+.temp{
+    height: 50px;
+    width:100%;
+}
+.request #plus,#cross{
+    flex: 15%;
+    height: 50px;
+    border-right: 1px solid #1A2228;
+    display: grid;
+    place-items: center;
+}
+@media screen and (max-width: 600px) {
+    .sideBar{
+        display: none;
+    }
+}
