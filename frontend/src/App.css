@@ -2,5 +2,33 @@
     position: fixed;
     bottom: 50px;
     right: 60px;
-    
+    display: block;
+}
+
+#lightbox {
+    position: fixed;
+    display: none;
+    width: 75%;
+    height: 80%;
+    opacity: 1.0;
+    z-index: 100;
+    background-color: white;
+    padding: auto;
+    margin: auto;
+    left: 0;
+    top: 0;
+}
+
+#close {
+    position: absolute;
+    top: 50px;
+    right: 60px;
+}
+
+.content {
+    position: relative;
+    margin: auto;
+    padding: 20px;
+    width: 80%;
+    height: 100%;
 }
