@@ -1,5 +1,4 @@
 import React from 'react'
-import { useState } from 'react'
 import './Styles/sideBar.css'
 import {FaPlus,FaTimes} from 'react-icons/fa'
 import {BiLeftArrowAlt} from 'react-icons/bi'
