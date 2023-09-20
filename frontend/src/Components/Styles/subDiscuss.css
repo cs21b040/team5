@@ -1,0 +1,33 @@
+.discuss{
+    display: flex;
+    flex-direction: column;
+    flex: 0.75;
+}
+.discuss__header{
+    padding:10px;
+    display: flex;
+    border-bottom: 1px solid lightgray;
+}
+
+.discuss__header > h3{
+    font-size: 20px;
+    font-weight: 400;
+    color: gray;
+    margin: auto;
+}
+
+.discuss_body{
+    display: flex;
+    flex-direction: column;
+    padding: 2px 0 2px 0;
+    overflow: scroll;
+    align-items: center;
+}
+.discuss_body > h3{
+    padding:8px;
+    margin: 3px;
+    width:90%;
+    text-align: center;
+    background-color: rgb(204, 222, 194);
+    color: gray;
+}

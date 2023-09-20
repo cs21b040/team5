@@ -1,0 +1,23 @@
+.sidebar{
+    display: flex;
+    flex-direction: column;
+    flex: 0.25;
+}
+.sidebar__header{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-right: 1px solid lightgray;
+    background-color: #d8cfcf;
+}
+.sidebar__header > h5{
+    font-size: 20px;
+    font-weight: 400;
+    color: gray;
+    margin: auto;
+}
+.sidebar_subjects{
+    flex:1;
+    overflow: scroll;
+    background-color: #f2f3e9;
+}
