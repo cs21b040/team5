@@ -1,6 +1,8 @@
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Offcanvas from 'react-bootstrap/Offcanvas';
+import NavDropdown from 'react-bootstrap/NavDropdown';
+
 import { useState } from 'react';
 
 function Header() {
@@ -35,6 +37,15 @@ function Header() {
             </Navbar>
             <Nav.Link href="/Research">Research</Nav.Link>
             <Nav.Link href="/Alumni" className='me-3'>Alumni</Nav.Link>
+
+            <NavDropdown title="User" id="basic-nav-dropdown">
+             <NavDropdown.Item href="/Profile">Profile</NavDropdown.Item>
+             <NavDropdown.Item href="/Darkmode">Dark mode</NavDropdown.Item>
+             <NavDropdown.Divider />
+             <NavDropdown.Item href="/Logout">Logout</NavDropdown.Item>
+              
+              </NavDropdown>
+              
           </Nav>
         </Navbar.Collapse>
     </Navbar>
