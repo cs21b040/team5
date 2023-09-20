@@ -68,6 +68,28 @@
     height: 100%;
     float: right;
 }
+.second2{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #fff;
+  width: 50%;
+  border-radius: 50px;
+  height: 100%;
+  float: right;
+}
+.second3{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #fff;
+  width: 50%;
+  border-radius: 50px;
+  height: 100%;
+  float: right;
+}
 .header2 {
     display: flex;
     flex-direction: column;
@@ -80,7 +102,7 @@
     flex-direction: column;
     align-items: center;
     width: 80%;
-    font-size: 50px;
+    font-size: 45px;
     font-weight: 700;
     color: #280b54;
   }
@@ -122,6 +144,14 @@
 .input2 .radio-button{
     flex:33.33%;
 
+}
+.img{
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+  width: 80%;
+  height: 15%;
+  border-radius: 6px;
 }
 .button1 input{
     display: flex;

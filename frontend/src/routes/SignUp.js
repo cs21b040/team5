@@ -11,10 +11,31 @@ function SignUp() {
   const [user,setUser] =useState(' ');
   const [image,setImage]=useState();
   const [loading ,setLoading]=useState(false);
+  const [discipline, setDiscipline] = useState('');
+  const [branch, setBranch] = useState('');
+  const [graduationyear, setGraduationyear] = useState('');
+  const [workingas, setWorkingas] = useState('');
+  const [company, setCompany] = useState('');
   const navigate=useNavigate();
+  const [step, setStep] = useState(1);
+
+  const nextStep = () => {
+    setStep(step + 1);
+  };
   const handleSignUp = async ()=> {
     const collegeName=college;
     const userType=user;
+    console.log(name);
+    console.log(email);
+    console.log(password);
+    console.log(collegeName);
+    console.log(userType);
+    console.log(image);
+    console.log(discipline);
+    console.log(branch);
+    console.log(graduationyear);
+    console.log(workingas);
+    console.log(company);
     if (!name||!email||!password||!college||!user) {
       alert("Please Fill All The Details");
       return;
@@ -27,6 +48,11 @@ function SignUp() {
       collegeName,
       userType,
       image,
+      discipline,
+      branch,
+      graduationyear,
+      workingas,
+      company,
     };
     console.log(SignUpData);
   
@@ -46,13 +72,18 @@ function SignUp() {
           userType,
           password,
           image,
+          discipline,
+          branch,
+          graduationyear,
+          workingas,
+          company,
         },
         config
         );
         console.log("ih");
         console.log(data);
-      // localStorage.setItem('userInfo', JSON.stringify(data));
-      // setLoading(false);
+      localStorage.setItem('userInfo', JSON.stringify(data));
+      setLoading(false);
       navigate('/');
     } 
     catch (error) {
@@ -96,32 +127,30 @@ const postDetails=(image)=>{
   return (
     <div className='box1'>
       <div className='container1'>
-        <div className='first1'>
-          <div className="header1">
-            <div className="position1">Welcome,</div>
-            <div className="position2">Sign Up to access the website</div>
+          <div className='first1'>
+            <div className='header1'>
+              <div className='position1'>Welcome,</div>
+              <div className='position2'>Sign Up to access the website</div>
+            </div>
           </div>
-        </div>
-        <div className='second1'>
-          <div className="header2">
-            <div className="position3">Sign Up</div>
-          </div>
-          <div className='inputs1'>
-            <div className='input1'>
-              <input type="name" onChange={(e)=>{setName(e.target.value)}} placeholder='Name' /> 
+        {step === 1 && (
+          <div className='second1'>
+            <div className='header2'>
+              <div className='position3'>Credentials</div>
             </div>
+            <div className='inputs1'>
             <div className='input1'>
-              <input type="email" onChange={(e)=>{setEmail(e.target.value)}}placeholder='Email ID'/>
-            </div>
-            <div className='input1'>
-              <input type="password" onChange={(e)=>{setPassword(e.target.value)}} placeholder='Password'/>
-            </div>
-            <div className='input1'>
-              <input type="college" onChange={(e)=>{setCollege(e.target.value)}} placeholder='College Name' /> 
-            </div>
-            <div className='input2'>
-              <div className='radio-button'>
-                <input type="radio" name="userType" onClick={
+                <input type='name' onChange={(e) => setName(e.target.value)} placeholder='Name' />
+              </div>
+              <div className='input1'>
+                <input type='email' onChange={(e) => setEmail(e.target.value)} placeholder='Email ID' />
+              </div>
+              <div className='input1'>
+                <input type='password' onChange={(e) => setPassword(e.target.value)} placeholder='Password' />
+              </div>
+              <div className='input2'>
+               <div className='radio-button'>
+                 <input type="radio" name="userType" onClick={
                   ()=>{
                     setUser("Student");
                   }
@@ -143,17 +172,60 @@ const postDetails=(image)=>{
               </div>
             </div>
             <div className="img" >
-              <input type="file" onChange={
+               <input type="file" onChange={
               (e)=>{
                 postDetails(e.target.files[0])
               }} />
               <img src={image}/>
             </div>
             <div className='button1'>
-              <input type="submit" value="Sign Up" onClick={handleSignUp} />
+              <input type='submit' value='Next' onClick={nextStep} />
+            </div>
             </div>
           </div>
-        </div>
+        )}
+        {step === 2 && (
+          <div className='second2'>
+            <div className='header2'>
+              <div className='position3'>Education</div>
+            </div>
+            <div className='inputs1'>
+            <div className='input1'>
+                <input type='cname' onChange={(e) => setCollege(e.target.value)} placeholder='College Name' />
+              </div>
+            <div className='input1'>
+                <input type='discipline' onChange={(e) => setDiscipline(e.target.value)} placeholder='Discipline' />
+              </div>
+              <div className='input1'>
+                <input type='branch' onChange={(e) => setBranch(e.target.value)} placeholder='Branch' />
+              </div>
+              <div className='input1'>
+                <input type='graduationyear' onChange={(e) => setGraduationyear(e.target.value)} placeholder='Graduation Year' />
+              </div>
+              <div className='button1'>
+              <input type='submit' value='Next' onClick={nextStep} />
+            </div>
+            </div>
+          </div>
+        )}
+        {step === 3 && (
+          <div className='second3'>
+            <div className='header2'>
+              <div className='position3'>Professional</div>
+            </div>
+            <div className='inputs1'>
+              <div className='input1'>
+                <input type='workingas' onChange={(e) => setWorkingas(e.target.value)} placeholder='Working as' />
+              </div>
+              <div className='input1'>
+                <input type='company' onChange={(e) => setCompany(e.target.value)} placeholder='Company' />
+              </div>
+              <div className='button1'>
+              <input type="submit" value="Sign Up" onClick={handleSignUp} />
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   )
