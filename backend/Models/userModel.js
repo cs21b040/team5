@@ -24,7 +24,29 @@ const userSchema =mongoose.Schema({
     pic:{
         type:String,
         default:"https://icon-library.com/images/anonymous-icon/anonymous-icon-0.jpg"
-    }
+    },
+    discipline:{
+        type:String,
+        default:""
+    },
+    branch:{
+        type:String,
+        required:true,
+        default:""
+    },
+    graduationyear:{
+        type:String,
+        default:""
+    },
+    workingas:{
+        type:String,
+        default:""
+    },
+    company:{
+        type:String,
+        required:true,
+        default:""
+    },
 
 },
 {
