@@ -1,6 +1,7 @@
 const express = require('express');
 require('dotenv').config();
 const chats= require('./Data/data.js');
+const subjects=require('./Data/Subjects.js');
 const userRoutes=require('./Routes/userRoutes');
 const mongoDB=require('./config/db');
 const app = express();
@@ -25,3 +26,7 @@ app.get("/api/chat/:id",(req,res)=>{
     const singleChat=chats.find((c)=>c._id ===req.params.id);
     res.send(singleChat);
 })
+
+app.get("/subjects",(req,res)=>{
+    res.send(subjects);
+});
