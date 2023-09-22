@@ -7,10 +7,14 @@
 .sidebarSubject:hover{
     background-color: rgb(228, 224, 224);
 }
-.sidebarSubject_info > h2{
-    font-size: 16px;
+.sidebarSubject_info > h5{
+    font-size: 1rem;
     margin-bottom: 8px;
 }
 .sidebarSubject_info{
-    margin-left:20px;
+    margin-left:30px;
+}
+.sidebarSubject_info > p{
+    font-size: 10px;
+    color: gray;
 }
