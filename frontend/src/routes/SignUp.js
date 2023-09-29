@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import axios from 'axios'
 import { useNavigate} from 'react-router-dom'
 import '../Components/Styles/signup.css'
@@ -22,6 +22,12 @@ function SignUp() {
   const nextStep = () => {
     setStep(step + 1);
   };
+  useEffect(() => {
+    const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+    setUser(userInfo);
+    
+    if (!userInfo) navigate("/login");
+  }, [navigate]);
   const handleSignUp = async ()=> {
     const collegeName=college;
     const userType=user;
@@ -79,7 +85,9 @@ function SignUp() {
           company,
         },
         config
-        );
+        ).catch((error)=>{
+          console.log(error);
+        });
         console.log("ih");
         console.log(data);
       localStorage.setItem('userInfo', JSON.stringify(data));

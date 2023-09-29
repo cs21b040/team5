@@ -25,4 +25,4 @@ const chatModel =mongoose.Schema(
     }
 );
 const Chat=mongoose.model("chat",chatModel);
-module.export =Chat;
+module.exports =Chat;

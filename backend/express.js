@@ -3,6 +3,7 @@ require('dotenv').config();
 const chats= require('./Data/data.js');
 const subjects=require('./Data/Subjects.js');
 const userRoutes=require('./Routes/userRoutes');
+const chatRoutes=require('./Routes/chatRoutes');
 const mongoDB=require('./config/db');
 const app = express();
 const cors=require('cors');
@@ -18,6 +19,7 @@ app.get('/',(req,res)=>{
     res.send("API success");
 });
 app.use('/api/user',userRoutes);
+app.use('/api/chat',chatRoutes);
 app.get("/api/chat",(req,res)=>{
     res.send(chats);
 })

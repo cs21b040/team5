@@ -17,4 +17,4 @@ const messageModel =mongoose.Schema({
     timestamps:true,
 });
 const Message=mongoose.model("Message",messageModel);
-module.export=Message;
+module.exports=Message;

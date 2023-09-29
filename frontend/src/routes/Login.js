@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import axios from 'axios'
 import { useNavigate} from 'react-router-dom'
 import '../Components/Styles/login.css'
@@ -8,23 +8,29 @@ function Login() {
   const [password, setPassword] = useState('')
   const navigate=useNavigate();
   async function login(e){
+    if(!email || !password){
+      alert('Please fill all the fields')
+      return
+    }
     e.preventDefault()
     const loginData = {
       email,
       password
     }
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
     try{
-      await axios.post('http://localhost:5000/login', loginData)
-      .then((res)=>{
-        if(res.data.message==="YES"){
-          //TODO: .message
-          console.log("Login Successful");
-          navigate('/');
-        }
-        else{
-          console.log("Email Doesn't Exist");
-        }
-      })
+      const { data }=await axios.post(
+        'http://localhost:5000/api/user/login',loginData,config)
+        .catch((error)=>{
+          console.log(error);
+        });
+        console.log(data);
+        localStorage.setItem('userInfo',JSON.stringify(data));
+        navigate('/');
     }
     catch(e){
       console.log(e)
