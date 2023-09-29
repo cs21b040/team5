@@ -1,7 +1,8 @@
 import React,{useEffect} from 'react'
 import Header from './../Components/Header.js';
 import SideBar from  './../Components/sideBar.js';
-import chatPage from './../Components/chatPage.js';
+import ChatPage from './../Components/chatPage.js';
+import Subjects from './../Components/Subjects.js';
 import axios from 'axios';
 function Home() {
 
@@ -10,7 +11,7 @@ function Home() {
       <Header/>
       <div className="divide">
       <div><SideBar/></div>
-      <div><chatPage/></div>
+      <div><ChatPage/></div>
       </div>
     </div>
   )
