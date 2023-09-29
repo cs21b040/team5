@@ -8,6 +8,7 @@ import { useState } from 'react';
 function Research() {
 
   function add_click(count) {
+    
     addCard(count + 1);
     return count + 1;
   }

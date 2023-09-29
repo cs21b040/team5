@@ -17,7 +17,7 @@ function Header() {
           <Nav className="ms-auto">
             <Nav.Link href="/">Home</Nav.Link>
             <Navbar>
-            <button variant="primary" onClick={handleShow} style={{backgroundColor: '#212529', margin: '0', border: '0', color:'#ffffff8c'}}>Academics</button>
+            <button variant="primary" onClick={handleShow} style={{backgroundColor: '#212529', margin: '0', border: '0', color:'#ffffff8c', paddingLeft:'0'}}>Academics</button>
 
                 <Offcanvas show={show} onHide={handleClose}>
                   <Offcanvas.Header closeButton>

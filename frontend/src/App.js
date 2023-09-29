@@ -7,7 +7,9 @@ import Research from './routes/Research';
 import SignUp from './routes/SignUp';
 import Login from './routes/Login';           
 import Profile from './routes/Profile';
+import ProjectDetails from './routes/projectDetails';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
 function App() {
   return (
     <BrowserRouter>
@@ -19,6 +21,7 @@ function App() {
           <Route path="/alumni" element={<Alumni />} /> 
           <Route path="/research" element={<Research />} />
           <Route path="/profile" element={<Profile/>} />
+          <Route path="/research/projectdetails" element={<ProjectDetails/>} />
         </Routes>
      </BrowserRouter>
   );
