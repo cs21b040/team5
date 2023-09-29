@@ -1,13 +1,18 @@
-import React from 'react'
+import React from 'react';
 import './Styles/subjects.css';
-function Subjects({subject}) {
+
+function Subjects({ subject, onClick }) {
+  const handleClick = () => {
+    onClick(subject);
+  };
+
   return (
-    <div className='sidebarSubject'>
-        <div className='sidebarSubject_info'>
-            <h5>{subject}</h5>
-        </div>
+    <div className='sidebarSubject' onClick={handleClick}>
+      <div className='sidebarSubject_info'>
+        <h5>{subject}</h5>
+      </div>
     </div>
-  )
+  );
 }
 
-export default Subjects
+export default Subjects;

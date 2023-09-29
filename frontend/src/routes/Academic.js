@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react';
 import Header from './../Components/Header.js';
 import SideBar from './../Components/sideBar1.js';
 import SubDiscuss from './../Components/SubDiscuss.js';
@@ -7,13 +7,18 @@ import { useParams } from 'react-router-dom';
 
 function Academic() {
   const { branch } = useParams();
+  const [selectedSubject, setSelectedSubject] = useState(null);
+
+  const handleSubjectSelect = (subjectName) => {
+    setSelectedSubject(subjectName);
+  };
   return (
     <div>
       <Header/>
       <div className="app">
         <div className="app_body">
-          <SideBar branch={branch}/>
-          <SubDiscuss/>
+          <SideBar branch={branch} onSelect={handleSubjectSelect} />
+          <SubDiscuss selectedSubject={selectedSubject} />
         </div>
       </div>
       

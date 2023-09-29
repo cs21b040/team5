@@ -5,15 +5,18 @@ import axios from 'axios';
 import {useEffect} from 'react';
 import { useState } from 'react';
 
-function Sidebar({branch}) {
+function Sidebar({ branch, onSelect }) {
   const [subs, setSubs] = useState([]);
   const GetSubjects = async () => {
     const response = await axios.get('http://localhost:5000/subjects');
-    setSubs(response.data); // Update subs using setSubs
+    setSubs(response.data);
   };
   useEffect(()=>{
     GetSubjects();
   },[])
+  const handleSubjectClick = (subjectName) => {
+    onSelect(subjectName); 
+  };
   return (
     <div className='sidebar'>
         <div className="sidebar__header">
@@ -21,7 +24,7 @@ function Sidebar({branch}) {
         </div>
         <div className="sidebar_subjects">
           {subs.map((sub)=>(
-            <Subjects subject={sub.name}/>
+            <Subjects subject={sub.name} onClick={() => handleSubjectClick(sub.name)}/>
           ))}
         </div>
     </div>
