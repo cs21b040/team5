@@ -3,12 +3,12 @@ import Header from '../Components/Header';
 import Project from '../Components/Research-card';
 import CardGroup from 'react-bootstrap/CardGroup';
 import { useState } from 'react';
-
+import Add_project from '../Components/Add-project';
 
 function Research() {
 
   function add_click(count) {
-    
+    document.getElementById("lightbox").style.display = "block";
     addCard(count + 1);
     return count + 1;
   }
@@ -46,6 +46,9 @@ function Research() {
       <h3>Research</h3>
       <div className='container'>
         <CardGroup>
+          <div id='lightbox'>
+            <Add_project />
+          </div>
           {addCard(cardCount)}
         </CardGroup>
       </div>
