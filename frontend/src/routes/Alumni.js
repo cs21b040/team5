@@ -1,40 +1,51 @@
-import React, { useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
+import React from 'react';
 import CardGroup from 'react-bootstrap/CardGroup';
 import Header from '../Components/Header';
-import alumnipic from '../Components/assets/alumnipic.jpg';
+import { useState, useEffect } from 'react';
+import { ChatState } from '../context/chatProvider';
 import '../Components/Styles/alumni.css'
-
+import AlumniCard from '../Components/addAlumni';
+import axios from 'axios';
 function Alumni() {
-  const [cardCount, setCardCount] = useState(0);
-
-  function add_click(count) {
-    setCardCount(count + 1);
+  const {
+    user
+  }=ChatState();
+  
+  function CardsDisplay() {
+    const [alumnis, setalumnis] = useState([]);
+  
+    useEffect(() => {
+      const fetchData = async () => {
+        if(!user) return;
+        try {
+          const response = await axios.get('http://localhost:5000/api/alumni/', {
+            headers: {
+              Authorization: `Bearer ${user.token}`,
+            },
+          });
+          const alumniData = response.data;
+          setalumnis(alumniData);
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        }
+      };
+  
+      fetchData();
+    }, []); 
+  
+    return (
+      <div>
+        {alumnis.map((Card) => (
+          <AlumniCard
+            // key={Card.id} 
+            name={Card.name}
+            company={Card.company}
+            collageName={Card.collageName}
+          />
+        ))}
+      </div>
+    );
   }
-
-  const addCard = (cardNum) => {
-    const cards = [];
-    for (let i = 0; i < cardNum; i++) {
-      cards.push(
-        <div className="alumniCard" key={i}>
-          <Card style={{ width: '20rem' }}>
-            <Card.Img variant="top" src={alumnipic}/>
-            <Card.Body>
-              <Card.Title>Alumni Name</Card.Title>
-              <Card.Text>
-                Company Name <br/>
-                Institute Name <br/>
-                Small description about him
-              </Card.Text>
-              <Button variant="primary">Go somewhere</Button>
-            </Card.Body>
-          </Card>
-        </div>
-      );
-    }
-    return cards;
-  };
 
   return (
     <div>
@@ -47,12 +58,10 @@ function Alumni() {
       <h3>Alumni</h3>
       <div className='alumni'>
         <CardGroup>
-          {addCard(cardCount)}
+          <CardsDisplay />
         </CardGroup>
       </div>
-      <div>
-        <button className='btn btn-success addProjectButton' onClick={() => add_click(cardCount)}>addCard</button>
-      </div>
+      
     </div>
   );
 }

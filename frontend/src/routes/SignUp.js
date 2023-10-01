@@ -22,12 +22,12 @@ function SignUp() {
   const nextStep = () => {
     setStep(step + 1);
   };
-  useEffect(() => {
-    const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-    setUser(userInfo);
+  // useEffect(() => {
+  //   const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+  //   setUser(userInfo);
     
-    if (!userInfo) navigate("/login");
-  }, [navigate]);
+  //   if (!userInfo) navigate("/login");
+  // }, [navigate]);
   const handleSignUp = async ()=> {
     const collegeName=college;
     const userType=user;
