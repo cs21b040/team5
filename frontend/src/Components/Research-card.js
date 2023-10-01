@@ -16,9 +16,11 @@ function Project(props) {
         <Card.Img variant="top" src={logo}/>
         <Card.Body>
           <Card.Title>{props.title}</Card.Title>
+          {props.key}
           <Card.Text>
             {props.professor} <br/>
             {props.desc} <br/>
+            {props.institute} <br/>
             {props.date}
           </Card.Text>
           <Button variant="info" onClick={info_click}>Get Info</Button>

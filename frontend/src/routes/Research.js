@@ -1,44 +1,57 @@
 import React from 'react';
-import Header from '../Components/Header'; 
+import Header from '../Components/Header';
 import Project from '../Components/Research-card';
 import CardGroup from 'react-bootstrap/CardGroup';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Add_project from '../Components/Add-project';
+import { ChatState } from '../context/chatProvider';
+import axios from 'axios';
 
 function Research() {
+  const {
+    user,
+  } = ChatState();
 
-  function add_click(count) {
+  function add_click() {
     document.getElementById("lightbox").style.display = "block";
-    addCard(count + 1);
-    return count + 1;
   }
 
-  const cardDetails = [
-    {
-      title: "Project Title",
-      professor: "Professor Name",
-      desc: "Short Description about the project",
-      date: "dd-mm-yyyy"
-    },
-  ];
-
-  const [cardCount, setCardCount] = useState(0);
-
-  const addCard = (cardNum) => {
-    const cards = [];
-    for (let i = 0; i < cardNum; i++) {
-      cards.push(
-        <Project
-          key={i}
-          title={cardDetails[0].title}
-          professor={cardDetails[0].professor}
-          desc={cardDetails[0].desc}
-          date={cardDetails[0].date}
-        />
-      );
-    }
-    return cards;
-  };
+  function DisplayCards() {
+    const [projects, setProjects] = useState([]);
+  
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const response = await axios.get('http://localhost:5000/api/research/', {
+            headers: {
+              Authorization: `Bearer ${user.token}`,
+            },
+          });
+          const projectsData = response.data;
+          setProjects(projectsData);
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        }
+      };
+  
+      fetchData();
+    }, []); // Empty dependency array ensures useEffect runs once on component mount
+  
+    return (
+      <div>
+        {projects.map((project) => (
+          <Project
+            key={project.id} // Don't forget to add a unique key when mapping over elements
+            title={project.title}
+            professor={project.professor}
+            desc={project.description}
+            date='2021-01-01'
+            institute={project.institute}
+          />
+        ))}
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -49,11 +62,11 @@ function Research() {
           <div id='lightbox'>
             <Add_project />
           </div>
-          {addCard(cardCount)}
+          <DisplayCards />
         </CardGroup>
       </div>
       <div>
-        <button className='btn btn-success addProjectButton' onClick={() => setCardCount(add_click(cardCount))}>Add Project</button>
+        <button className='btn btn-success addProjectButton' onClick={add_click}>Add Project</button>
       </div>
     </div>
   );

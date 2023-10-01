@@ -7,6 +7,6 @@ const subjects=[
     {name:"Compiler Design",code:"CS-402"},
     {name:"DataBase Management",code:"CS-403"},
     {name:"Data Structures and Algorithms",code:"CS-404"},
-    {name:"Discrete Mthematics",code:"CS-405"}
+    {name:"Discrete Mathematics",code:"CS-405"}
 ]
 module.exports=subjects;

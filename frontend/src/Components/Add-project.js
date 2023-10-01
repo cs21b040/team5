@@ -1,11 +1,46 @@
 import React from 'react';
 import Form from 'react-bootstrap/Form';
-
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { ChatState } from '../context/chatProvider';
 function Add_project() {
+    const navigate = useNavigate();
+    const {
+        user,
+    } = ChatState();
+    async function onSubmit() {
+        const titleValue = document.getElementById('form.1').value.toString();
+        const professorValue = document.getElementById('form.2').value.toString();
+        const instituteValue = document.getElementById('form.3').value.toString();
+        const descriptionValue = document.getElementById('form.4').value.toString();
+        const abstractValue = document.getElementById('form.5').value.toString();
 
-    function onSubmit() {
-        
+        const projectDetails = {
+            title: titleValue,
+            professor: professorValue,
+            institute: instituteValue,
+            description: descriptionValue,
+            abstract: abstractValue,
+        };
+
+        try {
+            const response = await axios.post('http://localhost:5000/api/research/', projectDetails, {
+                headers: {
+                    Authorization: `Bearer ${user.token}`,
+                },
+            });
+
+            if (response.status === 200) {
+                document.getElementById('lightbox').style.display = "none";
+                navigate('/Research');
+            } else {
+                console.log("Unexpected response status:", response.status);
+            }
+        } catch (err) {
+            console.error("Error submitting the project:", err);
+        }
     }
+
 
     return (
         <div>
@@ -35,7 +70,7 @@ function Add_project() {
                 </Form.Group>
 
             </Form>
-            <button className='btn btn-primary'>Submit</button>
+            <button className='btn btn-primary' onClick={onSubmit}>Submit</button>
         </div>
     );
 }

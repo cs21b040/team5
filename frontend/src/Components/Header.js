@@ -21,8 +21,7 @@ function Header() {
              <NavDropdown.Item href="/Darkmode">Dark mode</NavDropdown.Item>
              <NavDropdown.Divider />
              <NavDropdown.Item href="/Logout">Logout</NavDropdown.Item>
-              
-              </NavDropdown>
+            </NavDropdown>
               
           </Nav>
         </Navbar.Collapse>
