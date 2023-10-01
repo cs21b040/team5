@@ -8,28 +8,40 @@
 #lightbox {
     position: fixed;
     display: none;
-    width: 75%;
-    height: 80%;
+    width: 75vw; /* Use relative units for the width */
+    height: 80vh; 
     opacity: 1.0;
     z-index: 100;
     background-color: white;
-    padding: auto;
-    margin: auto;
     border: 1px solid black;
     border-radius: 10px;
     border-color: black;
 }
 
-#close {
+.closeButton {
     position: absolute;
-    top: 50px;
-    right: 60px;
+    top: 3%;
+    right: 2%;
 }
 
 .content {
     position: relative;
     margin: auto;
     padding: 20px;
-    width: 80%;
+    width: 95%;
     height: 100%;
 }
+
+.CardGroup {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+    #lightbox {
+      width: 90vw;
+      height: 90vh;
+      top: 5vh;
+      left: 5vw;
+    }
+  }

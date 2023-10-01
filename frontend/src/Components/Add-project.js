@@ -43,7 +43,7 @@ function Add_project() {
 
 
     return (
-        <div>
+        <div className='content'>
             <Form>
                 <Form.Group className="mb-3" controlId="form.1">
                     <Form.Label>Title of the project</Form.Label>
