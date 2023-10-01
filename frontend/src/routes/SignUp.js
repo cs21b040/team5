@@ -186,6 +186,8 @@ const postDetails=(image)=>{
               }} />
               <img src={image}/>
             </div>
+            <div className='switch1'>Have an account? <a href="./SignUp">Login</a>
+            </div>
             <div className='button1'>
               <input type='submit' value='Next' onClick={nextStep} />
             </div>

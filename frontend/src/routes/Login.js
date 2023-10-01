@@ -37,6 +37,9 @@ function Login() {
       alert('Invalid Credentials')
     }
   }
+  // function goToSignupPage() {
+  //   navigate('/SignUp')
+  // }
   return (
     <div className='box'>
       <div className='containerLogin'>
@@ -56,6 +59,8 @@ function Login() {
             </div>
             <div className='input'>
               <input type="password" onChange={(e)=>{setPassword(e.target.value)}} placeholder='Password'/>
+            </div>
+            <div className='switch'>Don't have an account? <a href="./SignUp">Sign Up</a>
             </div>
             <div className='button'>
               <input type="submit" value="Login" onClick={login}/>

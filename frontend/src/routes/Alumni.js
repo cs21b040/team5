@@ -4,6 +4,7 @@ import Card from 'react-bootstrap/Card';
 import CardGroup from 'react-bootstrap/CardGroup';
 import Header from '../Components/Header';
 import alumnipic from '../Components/assets/alumnipic.jpg';
+import '../Components/Styles/alumni.css'
 
 function Alumni() {
   const [cardCount, setCardCount] = useState(0);
@@ -38,6 +39,11 @@ function Alumni() {
   return (
     <div>
       <Header />
+      <div className="templateContainer">
+        <div className="searchInput_Container">
+          <input className="searchInput" type="text" placeholder="Search" />
+        </div>
+      </div>
       <h3>Alumni</h3>
       <div className='alumni'>
         <CardGroup>
