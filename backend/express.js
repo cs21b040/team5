@@ -4,6 +4,7 @@ const chats= require('./Data/data.js');
 const subjects=require('./Data/Subjects.js');
 const userRoutes=require('./Routes/userRoutes');
 const chatRoutes=require('./Routes/chatRoutes');
+const messageRoutes=require('./Routes/messageRoutes');
 const projectRoutes=require('./Routes/projectRoutes');
 const alumniRoutes=require('./Routes/alumniRoutes');
 const mongoDB=require('./config/db');
@@ -22,6 +23,7 @@ app.get('/',(req,res)=>{
 });
 app.use('/api/user',userRoutes);
 app.use('/api/chat',chatRoutes);
+app.use('/api/messages',messageRoutes);
 app.use('/api/research', projectRoutes);
 app.use('/api/alumni', alumniRoutes)
 app.get("/api/chat",(req,res)=>{
