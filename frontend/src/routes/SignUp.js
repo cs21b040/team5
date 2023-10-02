@@ -9,7 +9,7 @@ function SignUp() {
   const [password, setPassword] = useState('');
   const [college, setCollege] = useState('');
   const [user,setUser] =useState(' ');
-  const [image,setImage]=useState();
+  
   const [loading ,setLoading]=useState(false);
   const [discipline, setDiscipline] = useState('');
   const [branch, setBranch] = useState('');
@@ -18,6 +18,14 @@ function SignUp() {
   const [company, setCompany] = useState('');
   const navigate=useNavigate();
   const [step, setStep] = useState(1);
+
+  const defaultImageURL = '/Profile.png';
+
+  const [image,setImage]=useState();
+  const [imagePreview, setImagePreview] = useState("/Profile.png");
+  const [selectedImage, setSelectedImage] = useState(null);
+
+
 
   const nextStep = () => {
     setStep(step + 1);
@@ -180,11 +188,26 @@ const postDetails=(image)=>{
               </div>
             </div>
             <div className="img" >
-               <input type="file" onChange={
-              (e)=>{
-                postDetails(e.target.files[0])
+               <input type="file" 
+                              name="avatar"
+                              accept="image/*"
+                              onChange={
+                             (e)=>{
+               
+                               const file = e.target.files[0];
+                                 setSelectedImage(file);
+                                 postDetails(file);
+               
+              //  onChange={
+              // (e)=>{
+              //   postDetails(e.target.files[0])
               }} />
-              <img src={image}/>
+              {selectedImage ? (
+    <img src={URL.createObjectURL(selectedImage)} alt="Selected" />
+  ) : (
+    <img src={defaultImageURL} alt="Default" />
+  )}
+
             </div>
             <div className='switch1'>Have an account? <a href="./SignUp">Login</a>
             </div>

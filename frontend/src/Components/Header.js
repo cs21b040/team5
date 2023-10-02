@@ -16,7 +16,7 @@ function Header() {
             <Nav.Link href="/Research">Research</Nav.Link>
             <Nav.Link href="/Alumni" className='me-3'>Alumni</Nav.Link>
 
-            <NavDropdown title="User" id="basic-nav-dropdown">
+            <NavDropdown title="user"  align={{ lg: 'end' }} id="dropdown-menu-align-responsive-1" variant='secondary'>         
              <NavDropdown.Item href="/Profile">Profile</NavDropdown.Item>
              <NavDropdown.Item href="/Darkmode">Dark mode</NavDropdown.Item>
              <NavDropdown.Divider />
