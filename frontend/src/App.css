@@ -30,3 +30,16 @@
     width: 80%;
     height: 100%;
 }
+.CardGroup {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+    #lightbox {
+      width: 90vw;
+      height: 90vh;
+      top: 5vh;
+      left: 5vw;
+    }
+  }

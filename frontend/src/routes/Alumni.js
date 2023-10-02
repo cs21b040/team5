@@ -10,7 +10,6 @@ function Alumni() {
   const {
     user
   }=ChatState();
-  
   function CardsDisplay() {
     const [alumnis, setalumnis] = useState([]);
   
@@ -18,7 +17,7 @@ function Alumni() {
       const fetchData = async () => {
         if(!user) return;
         try {
-          const response = await axios.get('http://localhost:5000/api/alumni/', {
+          const response = await axios.get('http://localhost:5000/api/user/', {
             headers: {
               Authorization: `Bearer ${user.token}`,
             },
@@ -34,15 +33,18 @@ function Alumni() {
     }, []); 
   
     return (
-      <div>
-        {alumnis.map((Card) => (
-          <AlumniCard
-            // key={Card.id} 
+      <div className='CardGroup'>
+        {alumnis.map((Card,temp) => {
+           return (
+             <AlumniCard key={temp}
             name={Card.name}
             company={Card.company}
             collageName={Card.collageName}
-          />
-        ))}
+            />
+
+           )
+            
+  })}
       </div>
     );
   }

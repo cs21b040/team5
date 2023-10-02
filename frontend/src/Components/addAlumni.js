@@ -12,7 +12,6 @@ function AlumniCard(props) {
       <Card.Img variant="top" src={alumnipic}/>
       <Card.Body>
         <Card.Title>{props.name}</Card.Title>
-        {/* {props.key} */}
         <Card.Text>
           {props.company} <br/>
           {props.collageName} 
