@@ -77,6 +77,7 @@ function SignUp() {
           'Content-Type': 'application/json',
         },
       };
+      const pic=image;
       const { data } = await axios.post(
         'http://localhost:5000/api/user/',
         {
@@ -85,7 +86,7 @@ function SignUp() {
           collegeName,
           userType,
           password,
-          image,
+          pic,
           discipline,
           branch,
           graduationyear,
@@ -96,6 +97,7 @@ function SignUp() {
         ).catch((error)=>{
           console.log(error);
         });
+        console.log(image);
         console.log("ih");
         console.log(data);
       localStorage.setItem('userInfo', JSON.stringify(data));

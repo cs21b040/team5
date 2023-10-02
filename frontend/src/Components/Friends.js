@@ -4,6 +4,8 @@ import {FaSearch} from 'react-icons/fa';
 import SideDrawer from './SideDrawer';
 import Card from 'react-bootstrap/Card';
 import {ChatState} from '../context/chatProvider';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import axios from 'axios';
 function Friends () {
   const {
@@ -53,7 +55,7 @@ function Friends () {
         }}
       />
       {chats.map((chat,index)=>{
-            console.log(chat);
+          const friend=chat.users.find((user)=>user._id!==currentUser._id);
           return (<Card
             key={index}
             className="chatListCard"
@@ -63,8 +65,20 @@ function Friends () {
             }}
           >
             <Card.Body>
-              <Card.Title>{chat.chatName}</Card.Title>
-              <Card.Text>{chat.lastMessage}</Card.Text>
+              <Row>
+                <Col style={{margin:'0'}}>
+                  <Card.Img src={friend.pic} style={{
+                      height: '50px',
+                      width: '50px',
+                      borderRadius: '50%',
+                      objectFit: 'cover',
+                  }}/>
+                </Col>
+                <Col>
+                  <Card.Title>{friend.name}</Card.Title>
+                  <Card.Text>{chat.latestMessage.content}</Card.Text>
+                </Col>
+              </Row>
             </Card.Body>
           </Card>)
         })}
