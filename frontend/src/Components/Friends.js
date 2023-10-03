@@ -56,17 +56,21 @@ function Friends () {
       />
       {chats.map((chat,index)=>{
           const friend=chat.users.find((user)=>user._id!==currentUser._id);
-          return (<Card
+          if(!chat.latestMessage){
+            return null;
+          }
+            return (<Card 
             key={index}
             className="chatListCard"
             onClick={() => {
-              setSelectedChat(chat)
+              console.log(chat);
+              setSelectedChat(chat);
               console.log(selectedChat)
             }}
           >
             <Card.Body>
               <Row>
-                <Col style={{margin:'0'}}>
+                <Col style={{margin:'0'}} xs={2}>
                   <Card.Img src={friend.pic} style={{
                       height: '50px',
                       width: '50px',
