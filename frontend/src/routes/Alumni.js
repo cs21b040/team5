@@ -10,8 +10,10 @@ function Alumni() {
   const {
     user
   }=ChatState();
+  const [searchText, setSearchText] = useState('');
   function CardsDisplay() {
     const [alumnis, setalumnis] = useState([]);
+    
   
     useEffect(() => {
       const fetchData = async () => {
@@ -22,8 +24,8 @@ function Alumni() {
               Authorization: `Bearer ${user.token}`,
             },
           });
-          const alumniData = response.data;
-          setalumnis(alumniData);
+          const userData = response.data;
+          setalumnis(userData);
         } catch (error) {
           console.error('Error fetching data:', error);
         }
@@ -31,10 +33,12 @@ function Alumni() {
   
       fetchData();
     }, []); 
-  
+    const filteredAlumnis = alumnis.filter((alumni) =>
+    alumni.name.toLowerCase().includes(searchText.toLowerCase())
+  );
     return (
       <div className='CardGroup'>
-        {alumnis.map((Card,temp) => {
+        {filteredAlumnis.map((Card,temp) => {
            return (
              <AlumniCard key={temp}
             name={Card.name}
@@ -48,13 +52,22 @@ function Alumni() {
       </div>
     );
   }
+  const handleSearchInputChange = (event) => {
+    setSearchText(event.target.value);
+  };
 
   return (
     <div>
       <Header />
       <div className="templateContainer">
         <div className="searchInput_Container">
-          <input className="searchInput" type="text" placeholder="Search" />
+          <input
+            className="searchInput"
+            type="text"
+            placeholder="Search"
+            value={searchText}
+            onChange={handleSearchInputChange}
+          />
         </div>
       </div>
       <h3>Alumni</h3>
