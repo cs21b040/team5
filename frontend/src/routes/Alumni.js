@@ -24,7 +24,7 @@ function Alumni() {
               Authorization: `Bearer ${user.token}`,
             },
           });
-          const userData = response.data;
+          const userData = response.data.filter((user) => user.userType === "Alumni");
           setalumnis(userData);
         } catch (error) {
           console.error('Error fetching data:', error);
@@ -43,7 +43,7 @@ function Alumni() {
              <AlumniCard key={temp}
             name={Card.name}
             company={Card.company}
-            collageName={Card.collageName}
+            collegeName={Card.collegeName}
             />
 
            )
