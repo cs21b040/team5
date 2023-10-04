@@ -14,7 +14,7 @@ function AlumniCard(props) {
         <Card.Title>{props.name}</Card.Title>
         <Card.Text>
           {props.company} <br/>
-          {props.collageName} 
+          {props.collegeName} 
         </Card.Text>
         <Button variant="primary">Go somewhere</Button>
       </Card.Body>
