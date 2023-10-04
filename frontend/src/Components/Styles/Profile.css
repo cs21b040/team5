@@ -5,12 +5,15 @@ body {
   }
   
   .container {
-    max-width: 1200px;
+    /* max-width: 1200px; */
     margin: 0 auto;
+    height: 100vh;
     padding: 20px;
+    display: flex;
+    /* flex-direction: column; */
   }
   
-  /* Header Styles */
+  
   header {
     background-color: #3498db;
     color: #fff;
@@ -18,33 +21,56 @@ body {
     padding: 10px 0;
   }
   
-  /* Page Styles */
+
   h1 {
     text-align: center;
-    margin-top: 20px;
+    margin-top: 10px;
   }
   
   .profile-info {
-    max-width: 600px;
+    width: 70%;
+    /* max-width: 600px; */
     margin: 0 auto;
     padding: 20px;
-    border: 1px solid #ccc;
+    /* border: 1px solid #ccc; */
     border-radius: 5px;
-    background-color: #fff;
+    /* background-color: #fff; */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
   }
+
   .state-box {
-    border: 1px solid #ccc;
+    /* border: 1px solid #ccc; */
     padding: 10px;
     margin: 10px 0;
     border-radius: 5px;
-    background-color: #f9f9f9;
+    /* background-color: #f9f9f9; */
   }
   
-  /* Responsive Styles */
+  .profile-picture {
+  
+    width: 30%;
+    flex: 1; 
+    padding: 10px;
+    text-align:left;
+  }
+
+.profile-picture img {
+    max-width: 100%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 0%; 
+    
+}
+
+.profile-details {
+    flex: 2; 
+    padding: 10px;
+}
+
   @media (max-width: 768px) {
     .container {
-      padding: 10px;
+      flex-direction: column;
     }
   
     .profile-info {
