@@ -14,6 +14,8 @@ function SignUp() {
   const [discipline, setDiscipline] = useState('');
   const [branch, setBranch] = useState('');
   const [graduationyear, setGraduationyear] = useState('');
+  const [highestDegreeOfQualification, setHighestDegreeOfQualification] = useState('');
+
   const [workingas, setWorkingas] = useState('');
   const [company, setCompany] = useState('');
   const navigate=useNavigate();
@@ -50,6 +52,8 @@ function SignUp() {
     console.log(graduationyear);
     console.log(workingas);
     console.log(company);
+    console.log(highestDegreeOfQualification);
+
     if (!name||!email||!password||!college||!user) {
       alert("Please Fill All The Details");
       return;
@@ -67,6 +71,8 @@ function SignUp() {
       graduationyear,
       workingas,
       company,
+      highestDegreeOfQualification,
+
     };
     console.log(SignUpData);
   
@@ -92,6 +98,8 @@ function SignUp() {
           graduationyear,
           workingas,
           company,
+          highestDegreeOfQualification,
+
         },
         config
         ).catch((error)=>{
@@ -236,6 +244,9 @@ const postDetails=(image)=>{
               </div>
               <div className='input1'>
                 <input type='graduationyear' onChange={(e) => setGraduationyear(e.target.value)} placeholder='Graduation Year' />
+              </div>
+              <div className='input1'>
+                <input type='highestdegreeofqualification' onChange={(e) => setHighestDegreeOfQualification(e.target.value)} placeholder='Highest degree of qualification' />
               </div>
               <div className='button1'>
               <input type='submit' value='Next' onClick={nextStep} />

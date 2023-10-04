@@ -1,7 +1,9 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState ,useEffect} from 'react';
 import Header from '../Components/Header.js';
 import '../Components/Styles/Profile.css';
+import { ChatState } from '../context/chatProvider';
+import axios from 'axios';
 
 function Profile() {
   
@@ -13,7 +15,23 @@ function Profile() {
   const [Workedin, setWorkedin] = useState('');
   const [Workingin, setWorkingin] = useState('');
  
+  const [branch, setBranch] = useState('');
 
+  const {user,} = ChatState();
+  const [profile, setProfile] = useState([]);
+  useEffect(
+    ()=>{
+      if(!user) return;
+      setName(user.name);
+      setEmail(user.email)
+      setGraduatedYear(user.graduationyear)
+      setBranch(user.branch)
+      setDiscipline(user.discipline)
+      setHighestDegreeOfQualification(user.highestDegreeOfQualification);
+      setWorkedin(user.company);
+      setWorkingin(user.workingas);
+    },[user]
+  )
   return (
     <div>
       <Header />
@@ -33,12 +51,15 @@ function Profile() {
           <div className="state-box">
             <p>Graduated Year: {graduatedYear}</p>
           </div>
-          
           <div className="state-box">
-            <p>Discipline: {discipline}</p>
+            <p>Branch: {branch}</p>
           </div>
 
-
+          {/* <div className="state-box">
+            <p>Discipline: {discipline}</p>
+          </div>
+         */}
+  
          < div className="state-box">
             <p>Highest Degree of Qualification: {highestDegreeOfQualification}</p>
           </div>

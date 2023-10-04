@@ -2,7 +2,7 @@ const asyncHandler = require('express-async-handler');
 const User = require('../Models/userModel');
 const generateToken = require('../config/generateToken');
 const registerUser = asyncHandler(async (req,res)=>{
-    const {name,email,collegeName,userType,password,pic,displine,branch,graduationyear,workingas,company} = req.body;
+    const {name,email,collegeName,userType,password,pic,displine,branch,graduationyear,workingas,company,highestDegreeOfQualification} = req.body;
     if(!name || !email || !password){
         res.status(400);
         throw new Error("Please fill all the fields");
@@ -13,7 +13,7 @@ const registerUser = asyncHandler(async (req,res)=>{
         throw new Error("Please fill all the details");
     }
     const user = await User.create({
-        name,email,collegeName,userType,password,pic,displine,branch,graduationyear,workingas,company
+        name,email,collegeName,userType,password,pic,displine,branch,graduationyear,workingas,company,highestDegreeOfQualification
     });
     if(user){
         res.status(201).json({
@@ -29,6 +29,7 @@ const registerUser = asyncHandler(async (req,res)=>{
             graduationyear:user.graduationyear,
             workingas:user.workingas,
             company:user.company,
+            highestDegreeOfQualification:user.highestDegreeOfQualification,
             token:generateToken(user._id)
         });
     }else{
@@ -48,6 +49,12 @@ const authUser = asyncHandler(async (req,res)=>{
         userType:user.userType,
         password:user.password,
         pic:user.pic,
+        graduationyear:user.graduationyear,
+        discipline:user.discipline,
+        branch:user.branch,
+        workingas:user.workingas,
+        company:user.company,
+        highestDegreeOfQualification:user.highestDegreeOfQualification,
         token:generateToken(user._id)
         });
     }else{
