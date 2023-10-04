@@ -42,6 +42,7 @@ function Alumni() {
            return (
              <AlumniCard key={temp}
             name={Card.name}
+            pic={Card.pic}
             company={Card.company}
             collegeName={Card.collegeName}
             />

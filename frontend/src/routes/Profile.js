@@ -14,9 +14,8 @@ function Profile() {
   const [highestDegreeOfQualification, setHighestDegreeOfQualification] = useState('');
   const [Workedin, setWorkedin] = useState('');
   const [Workingin, setWorkingin] = useState('');
- 
+  const[pic,setPic]=useState('');
   const [branch, setBranch] = useState('');
-
   const {user,} = ChatState();
   const [profile, setProfile] = useState([]);
   useEffect(
@@ -30,15 +29,22 @@ function Profile() {
       setHighestDegreeOfQualification(user.highestDegreeOfQualification);
       setWorkedin(user.company);
       setWorkingin(user.workingas);
+      setPic(user.pic);
     },[user]
   )
   return (
     <div>
       <Header />
       <div className="container">
-        <h1>Profile Page</h1>
-        <div className="profile-info">
+          
+          <div class="profile-picture">
+             <img src={pic}  />
+            </div>
 
+        
+       <div className="profile-info">
+        <h1>Profile Page</h1>
+       
           {/* Box for Name */}
           <div className="state-box">
             <p>Name: {name}</p>
