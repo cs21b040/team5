@@ -58,7 +58,7 @@ function Alumni() {
   };
 
   return (
-    <div>
+    <div className='full'>
       <Header />
       <div className="templateContainer">
         <div className="searchInput_Container">
@@ -71,7 +71,6 @@ function Alumni() {
           />
         </div>
       </div>
-      <h3>Alumni</h3>
       <div className='alumni'>
         <CardGroup>
           <CardsDisplay />

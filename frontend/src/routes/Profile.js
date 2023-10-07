@@ -37,7 +37,7 @@ function Profile() {
       <Header />
       <div className="container">
           
-          <div class="profile-picture">
+          <div className="profile-picture">
              <img src={pic}  />
             </div>
 
