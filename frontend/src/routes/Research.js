@@ -40,20 +40,35 @@ function Research() {
     return (
       <div className='CardGroup'>
         {projects.map((project, key) => {
-          console.log(project);
           return (
-            <Project
+          <Project 
             key={key}
-            title={project.title}
-            professor={project.professor}
-            desc={project.description}
-            institute={project.institute}
-            date={project.updatedAt.substring(0, 10)}
+            projectInfo={project}
           />
           )
         })}
       </div>
     );
+  }
+
+  function GetUserInfo() {
+    const userInfo = localStorage.getItem('userInfo');
+    const addProjectButton = document.querySelector('.addProjectButton');
+    if (userInfo) {
+      if(JSON.parse(userInfo).userType!=='Professor'){
+        if (addProjectButton) {
+          addProjectButton.style.display = 'none';
+        }
+      }
+      else {
+        if (addProjectButton) {
+          addProjectButton.style.display = 'block';
+        }
+      }
+    }
+    else {
+      console.log('User Not Found');
+    }
   }
 
   return (
@@ -66,8 +81,9 @@ function Research() {
             <DisplayCards />
           </div>
           <div id='lightbox'>
-            <CloseButton className='closeButton' onClick={() => document.getElementById("lightbox").style.display = "none"} />
-            <Add_project />
+            <CloseButton className='close' onClick={() => document.getElementById("lightbox").style.display = "none"} />
+            <GetUserInfo />
+            <Add_project/>
           </div>
         </CardGroup>
       </div>

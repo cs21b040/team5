@@ -1,13 +1,43 @@
-import React from 'react'
+import React from 'react';
+import { useLocation } from 'react-router-dom';
 
 function ProjectDetails() {
+  const location = useLocation();
+  const project = location.state.project;
+
   return (
+    
     <div>
-      <div className="content">
-          <h1>Details of the project</h1>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti laborum architecto eos, saepe eligendi modi rerum facilis quibusdam, doloribus doloremque suscipit perferendis consequuntur quaerat debitis possimus numquam temporibus porro enim. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Mollitia, iste rerum commodi hic placeat quod assumenda suscipit, quisquam cumque labore eaque tenetur ad? Mollitia consectetur totam cum! Distinctio, voluptates maiores! Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis delectus minus veniam voluptates doloremque? Accusantium porro ratione error similique vitae. Maxime vero eaque velit esse praesentium tenetur rerum magni voluptatum?</p>
+      {console.log(project)}
+      <div className="mx-2 my-2">
+        <h1>Details of the project</h1>
+        <div>
+          <h4>Title:</h4>
+          <p>{project.title}</p>
         </div>
+        <div>
+          <h4>Professor:</h4>
+          <p>{project.professor}</p>
+        </div>
+        <div>
+          <h4>Description:</h4>
+          <p style={{whiteSpace:'break-spaces'}}>{project.description}</p>
+        </div>
+        <div>
+          <h4>Institute:</h4>
+          <p>{project.institute}</p>
+        </div>
+        <div>
+          <h4>Date:</h4>
+          <p>{project.updatedAt.substring(0,10)}</p>
+        </div>
+        <div>
+          <h4>Abstract:</h4>          
+          <p style={{whiteSpace:'break-spaces'}}>{project.abstract}</p>
+        </div>
+      </div>
     </div>
-  )
+  );
 }
-export default ProjectDetails
+
+export default ProjectDetails;
