@@ -1,5 +1,6 @@
 .addProjectButton {
     position: fixed;
+    display: block;
     bottom: 50px;
     right: 60px;
     display: block;
@@ -17,7 +18,7 @@
     margin: auto;
 }
 
-#close {
+.close {
     position: absolute;
     top: 50px;
     right: 60px;

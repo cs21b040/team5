@@ -62,11 +62,11 @@ function Add_project() {
 
                 <Form.Group className="mb-3" controlId="form.4">
                     <Form.Label>Short Description of the Project</Form.Label>
-                    <Form.Control placeholder="Description" />
+                    <Form.Control as="textarea" rows={3} placeholder="Description" />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="form.5">
                     <Form.Label>Abstract</Form.Label>
-                    <Form.Control placeholder="Abstract" />
+                    <Form.Control as="textarea" rows={10} placeholder="Abstract" />
                 </Form.Group>
 
             </Form>
