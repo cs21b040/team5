@@ -10,6 +10,7 @@ import Profile from './routes/Profile';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ChatContext from './context/chatProvider';
 import PersonalChat from './routes/personalChat';
+import ProjectDetails from './routes/projectDetails';
 function App() {
   // DO LATER :::Wrap the ChatContext component in a Router component
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/research" element={<Research />} />
           <Route path="/profile" element={<Profile/>} />
           <Route path="/personalchat" element={<PersonalChat/>} />
+          <Route path="/research/projectDetails" element={<ProjectDetails />} />
         </Routes>
       </ChatContext>
     </Router>
