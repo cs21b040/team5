@@ -40,15 +40,18 @@ function Research() {
     return (
       <div className='CardGroup'>
         {projects.map((project, key) => {
-          console.log(project);
           return (
-            <Project
+          //   <Project
+          //   key={key}
+          //   title={project.title}
+          //   professor={project.professor}
+          //   desc={project.description}
+          //   institute={project.institute}
+          //   date={project.updatedAt.substring(0, 10)}
+          // />
+          <Project 
             key={key}
-            title={project.title}
-            professor={project.professor}
-            desc={project.description}
-            institute={project.institute}
-            date={project.updatedAt.substring(0, 10)}
+            projectInfo={project}
           />
           )
         })}
