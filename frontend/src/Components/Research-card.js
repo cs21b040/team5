@@ -10,6 +10,13 @@ function Project(props) {
     navigate('/research/projectdetails', { state: { project: props.projectInfo } });
   };
 
+  const clickDelete = async () => {
+    const userInfo = localStorage.getItem('userInfo');
+    const user = JSON.parse(userInfo);
+    
+
+  }
+
   return (
     <div className="mx-2 my-2">
       <Card style={{ width: '20rem'}}>
@@ -23,6 +30,7 @@ function Project(props) {
             {props.projectInfo.description}
           </Card.Text>
           <Button variant="info" onClick={info_click}>Get Info</Button>
+          <Button variant="outline-danger" className="mx-2" onClick={clickDelete}>Delete Project</Button>
         </Card.Body>
       </Card>
     </div>
