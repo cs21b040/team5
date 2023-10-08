@@ -2,7 +2,7 @@ import React from 'react'
 import Header from './../Components/Header.js';
 import Friends from  './../Components/Friends.js';
 import ChatPage from './../Components/chatPage.js';
-import './personalChat.css';
+import '../Components/Styles/personalChat.css';
 function personalChat() {
   return (
     <div>

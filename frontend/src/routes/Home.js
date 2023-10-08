@@ -4,14 +4,14 @@ import SideBar from  './../Components/sideBar.js';
 import GroupChatPage from './../Components/groupChatPage.js';
 import Subjects from './../Components/Subjects.js';
 import axios from 'axios';
-import './home.css';
+import '../Components/Styles/home.css';
 function Home() {
   return (
     <div>
       <Header/>
       <div className="divide">
-        <div className="sideBar"><SideBar/></div>
-        <div><GroupChatPage/></div>
+        <div className="left1"><SideBar/></div>
+        <div className='right1'><GroupChatPage/></div>
       </div>
     </div>
   )

@@ -1,6 +1,6 @@
 .sideBar{
-    height: 100vh;
-    width:20vw;
+    width:100%;
+    height: 100%;
     background-color: #2F4050;
 }
 .sideBarList{

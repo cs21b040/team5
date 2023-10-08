@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Header from './../Components/Header.js';
 import SideBar from './../Components/sideBar1.js';
 import SubDiscuss from './../Components/SubDiscuss.js';
-import './Academic.css';
+import '../Components/Styles/Academic.css';
 import { useParams } from 'react-router-dom';
 
 function Academic() {

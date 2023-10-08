@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './Styles/chatPage.css';
+import './Styles/groupChatPage.css';
 import { Card, InputGroup, FormControl, Button } from 'react-bootstrap'; // Import relevant Bootstrap components
 import { useNavigate } from 'react-router-dom';
 import { ChatState } from '../context/chatProvider';
@@ -91,7 +91,7 @@ function GroupChatPage() {
             <div className="chat-header">
               <div className="chat-header-user">
                 <Card>
-                    <Card.Body>
+                    <Card.Body className='headerText'>
                     <Card.Text>{selectedGroup?.chatName}</Card.Text>
                     </Card.Body>
                 </Card>

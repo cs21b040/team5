@@ -1,0 +1,15 @@
+.divide{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+.left1{
+    float: left;
+    width: 30%;
+    overflow-y: scroll ;
+}
+.right1{
+    float: right;
+    width: 70%;
+    overflow-y: scroll ;
+}
