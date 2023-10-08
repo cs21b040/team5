@@ -75,4 +75,16 @@ io.on('connection',(socket)=>{
         //     socket.leave(chat._id);
         // });
     })
+    socket.on('new group msg',(newMessageRecieved,users)=>{
+        var chat =newMessageRecieved.chat;
+        if(!chat.users){
+            return console.log("users not defined");
+        }
+        console.log("new group msg");
+        console.log(users);
+        users.forEach(user=>{
+            if(user._id == newMessageRecieved.sender._id) return;
+            socket.in(user._id).emit("grp message recieved",newMessageRecieved);
+        })
+    })
 })

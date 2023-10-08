@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Styles/groupChatPage.css';
 import { Card, InputGroup, FormControl, Button } from 'react-bootstrap'; // Import relevant Bootstrap components
-import { useNavigate } from 'react-router-dom';
 import { ChatState } from '../context/chatProvider';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
@@ -14,6 +13,8 @@ function GroupChatPage() {
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState('');
     const [socketConnected, setSocketConnected] = useState(false);
+    const [typing,setTyping]=useState(false);
+    const [isTyping,setIsTyping]=useState(false);
     const {
         user,
         selectedGroup,
@@ -26,6 +27,12 @@ function GroupChatPage() {
           socket.on("connected",()=>{
           console.log("FrontEnd : Socket connected");
           setSocketConnected(true);
+          socket.on("typing",()=>{
+            setIsTyping(true);
+          });
+          socket.on("stop typing",()=>{
+            setIsTyping(false);
+          });
         });}
       },[user]);
       useEffect(() => {
@@ -36,15 +43,19 @@ function GroupChatPage() {
       }, [selectedGroup]);
       useEffect(() => {
         if(!socket) return;
-        socket.on("message recieved",(newMessageRecieved)=>{
+        socket.on("grp message recieved",(newMessageRecieved)=>{
           if(!selectedGroupCompare || newMessageRecieved.chat._id!==selectedGroupCompare._id) {
             //TODO :: give notification
           }
           setMessages([...messages,newMessageRecieved]);
         })
       })
+      const temp = async () => {
+        
+        // Do something with the sockets object
+      }
     const sendMessage = async () => {
-        // socket.emit("stop typing",selectedGroup._id);
+        socket.emit("stop typing",selectedGroup._id);
         console.log(selectedGroup._id);
         try {
           const config = {
@@ -59,7 +70,7 @@ function GroupChatPage() {
             content: newMessage,
           }, config);
           setNewMessage('');
-          // socket.emit("new msg",data);
+          socket.emit("new group msg",data);
           setMessages([...messages, data]);
         } catch (err) {
           console.error(err);
@@ -77,7 +88,7 @@ function GroupChatPage() {
           };
           const { data } = await axios.get(`http://localhost:5000/api/messages/${selectedGroup._id}`, config);
           setMessages(data);
-          // socket.emit("join room",selectedGroup._id);
+          socket.emit("join room",selectedGroup._id);
         } catch (error) {
           console.error(error);
         }
@@ -120,19 +131,34 @@ function GroupChatPage() {
             </div>
           </div>
           <div className="message-input">
-              <InputGroup>
-                <FormControl
-                  type="text"
-                  placeholder="Type your message here..."
-                  value={newMessage}
-                  onChange={(event) => {
-                    setNewMessage(event.target.value);
-                  }}
-                  onKeyDown={(event) => event.key === 'Enter' && sendMessage()}
-                />
-                <Button variant="primary" onClick={sendMessage}>Send</Button>
-              </InputGroup>
+          <InputGroup>
+            <FormControl
+              type="text"
+              placeholder="Type your message here..."
+              value={newMessage}
+              onChange={(event) => {
+                setNewMessage(event.target.value);
+                if(!socket) return;
+                if(!typing){
+                  socket.emit("typing",selectedGroup._id);
+                }
+                let lastTypingTime=Date.now();
+                var timerLength=3000;
+                setTimeout(()=>{
+                  var timeNow=Date.now();
+                  var timeDiff=timeNow-lastTypingTime;
+                  if(timeDiff>=timerLength && typing){
+                    socket.emit("stop typing",selectedGroup._id);
+                    setTyping(false);
+                  }
+                });
+              }}
+              onKeyDown={(event) => event.key === 'Enter' && sendMessage()}
+            />
+            <Button variant="primary" onClick={sendMessage}>Send</Button>
+          </InputGroup>
             </div>
+            <input type="submit" onClick={temp} />
         </div>
       );
 }

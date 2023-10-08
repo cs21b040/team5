@@ -8,15 +8,24 @@ const ChatProvider = ({ children }) => {
   const [chats, setChats] = useState([]);
   const [selectedGroup, setSelectedGroup] = useState();
   const navigate=useNavigate();
-  
+  const [wantLogin,setWantLogin]=useState(true);
   useEffect(() => {
       const userInfo = JSON.parse(localStorage.getItem("userInfo"));
       setUser(userInfo);
-      // if (!userInfo) navigate("/login");
-    }, [navigate]);
+      if (!userInfo) {
+        if(wantLogin){
+          navigate("/login");
+        }
+        else{
+          navigate("/signup");
+        }
+      }
+    }, [wantLogin]);
     return (
     <ChatContext.Provider
       value={{
+        wantLogin,
+        setWantLogin,
         selectedChat,
         setSelectedChat,
         selectedGroup,
