@@ -42,12 +42,12 @@ function Friends() {
   }, [user]);
 
   return (
-    <div style={{ marginTop: '1rem', padding: '20px', backgroundColor: '#AED2FF' }}>
+    <div style={{ marginTop: '1rem', padding: '20px', backgroundColor: '#FFE0E0' }}>
       <div style={{ display: 'flex', alignItems: 'center' }}>
   <h1 style={{ margin: '0', color: '#333', marginRight: '250px' }}>Friends</h1>
   <FaSearch
     className="search-icon"
-    size='lg'
+    size='3rem'
     color='black'
     style={{
       border: 'none',
@@ -69,11 +69,9 @@ function Friends() {
           <Card
             key={index}
             className="chatListCard"
-            style={{ marginTop: '15px', color: '#333' }}
+            style={{ marginTop: '15px', color: '#333',backgroundColor: selectedChat === chat ? '#FFCCCC' : 'white'   }}
             onClick={() => {
-              console.log(chat);
               setSelectedChat(chat);
-              console.log(selectedChat);
             }}
           >
             <Card.Body>
