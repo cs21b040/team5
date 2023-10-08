@@ -5,24 +5,27 @@
 }
 .left{
     width: 30%;
-    background-color: #FFE0E0;
+    background-color: #E8FFCE;
     float: left;
     /* margin-left: 5vw;
+    b6d2ad-green
     margin-top: 5vh;
     margin-bottom: 5vh;
     border-radius: 10px; */
-    /* border: 1px solid #280b54;  */
+    border: 1px solid #d1d5f6; 
 
 }
 .right {
     width: 70%;
     /* margin-left: 5vw; */
-    background-color: #FFFAFA;
+    /* background-color: #F6F4EB; */
+    background-color: #F8FDCF;
     float: right;
     /* margin-right: 5vw;
+    cbdac6-green
     margin-top: 5vh;
     margin-bottom: 5vh;
     border-radius: 10px; */
-    /* border: 1px solid #280b54;  */
+    /* border: 1px solid #E0E0E0;  */
 
 }
