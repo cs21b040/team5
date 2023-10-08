@@ -7,6 +7,7 @@ const chatRoutes=require('./Routes/chatRoutes');
 const messageRoutes=require('./Routes/messageRoutes');
 const projectRoutes=require('./Routes/projectRoutes');
 const alumniRoutes=require('./Routes/alumniRoutes');
+const AcademicRoutes=require('./Routes/AcademicRoutes')
 const mongoDB=require('./config/db');
 const app = express();
 const cors=require('cors');
@@ -21,6 +22,7 @@ const server = app.listen(port,()=>{
 app.get('/',(req,res)=>{
     res.send("API success");
 });
+app.use('/api/academics',AcademicRoutes);
 app.use('/api/user',userRoutes);
 app.use('/api/chat',chatRoutes);
 app.use('/api/messages',messageRoutes);

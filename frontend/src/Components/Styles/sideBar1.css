@@ -21,3 +21,23 @@
     overflow: scroll;
     background-color: #f2f3e9;
 }
+.add_subject{
+    background-color: #f2f3e9;
+}
+
+.add_subject__wrapper {
+    margin-top: auto;
+    display: flex;
+    justify-content: flex-start;
+    padding: 10px;
+    background-color: #f0f0f0;
+  }
+.add_subject__form {
+    flex:1;
+    align-items: center;
+  }
+  
+  .add_subject__form button {
+    width: 20%; 
+  }
+  
