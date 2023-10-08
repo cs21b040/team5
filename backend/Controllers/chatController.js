@@ -85,7 +85,8 @@ const getGroups = asyncHandler(async(req,res)=>{
 const createGroup = asyncHandler(async(req,res)=>{
     console.log(req.body.name);
     if(!req.body.name){
-        res.status(400).send("Invalid details");
+        res.status(400);
+        throw new Error('Invalid details');
     }
     try {
         const groupChat=await Chat.create({

@@ -13,6 +13,7 @@ function SideBar() {
   const [Interest,setInterest]=useState(false);
   const [data,setData]=useState([]);
   const [groupChatName,setGroupChatName]=useState("hello");
+  const [newGroup,setNewGroup]=useState();
   const getData =async ()=>{
     const config = {
       headers: {
@@ -28,6 +29,17 @@ function SideBar() {
     }
   }
   const addGroup=async ()=>{
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${user.token}`,
+      },
+    };
+    try {
+      const {data}=await axios.post('http://localhost:5000/api/chat/group',{name:newGroup},config);
+    } catch (error) {
+      console.log(error.message);
+    }
   }
   const removeGroup=async ()=>{
   }
@@ -59,15 +71,20 @@ function SideBar() {
         <li className={Interest ? "request" : "passive"}>
           <div className="request">
             <div id="inp">
-            <input type="text" className='Interest'/>
+            <input type="text" className='Interest'onChange={
+              (e)=>{
+                setNewGroup(e.target.value);
+              }
+            }
+            />
             </div>
             <div id="plus">
-            <FaPlus size={15} color='white'/>
+            <FaPlus size={15} color='white'onClick={()=>{
+              addGroup();
+            }}
+            style={{cursor:"pointer"}}/>
             </div>
-            <div id="cross" onClick={()=>{
-              setInterest(!Interest);
-              console.log(Interest);
-            }}>
+            <div id="cross">
             <FaTimes size={15} color='white'/>
             </div>
           </div>
