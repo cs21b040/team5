@@ -15,6 +15,7 @@ main {
   border-radius: 10px;
   overflow: hidden;
   height: 80%;
+  margin-top: 60px;
 }
 
 .message-list {
@@ -26,15 +27,16 @@ main {
   scrollbar-width: thin;
   scrollbar-color: #ddd transparent;
   height: 80%;
+  /* top: 100px; */
 }
 
 .message {
   padding: 10px;
 }
-
+/* 
 .card {
   margin: 5px;
-}
+} */
 .messageCard{
   display: flex;
   flex-direction: column;
@@ -51,12 +53,12 @@ main {
 .message-input {
   position: fixed;
   flex-grow: 1;
-  padding: 1px;
+  /* padding: 1px; */
   border: none;   
   border-radius: 20px;
   outline: none;
-  bottom: 5%;
-  width:59vw
+  bottom: 0;
+  width:69%;
 }
 
 .send-button {
@@ -72,4 +74,24 @@ main {
 
 .send-button:hover {
   background-color: #0d6e61;
+}
+.chat-header{
+  position: fixed;
+  flex-grow: 1;
+  /* padding: 1px; */
+  /* border: none;    */
+  /* border-radius: 20px; */
+  outline: none;
+  background-color: #b6d2ad;
+  width: 69%;
+  top: 60px;
+} 
+.headerText{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10vw;
+  padding: 0px;
+  font-size: 20px;
+  font-weight: bold;
 }

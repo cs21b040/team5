@@ -42,7 +42,7 @@ function Friends() {
   }, [user]);
 
   return (
-    <div style={{ marginTop: '1rem', padding: '20px', backgroundColor: '#AED2FF' }}>
+    <div style={{ marginTop: '1rem', padding: '20px', backgroundColor: '#E8FFCE' }}>
       <div style={{ display: 'flex', alignItems: 'center' }}>
   <h1 style={{ margin: '0', color: '#333', marginRight: '250px' }}>Friends</h1>
   <FaSearch

@@ -91,9 +91,7 @@ function ChatPage() {
   return (
     <div className="main">
       <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} draggable theme="light" />
-      <div className="chat-container">
-        <div className="message-list">
-        <div className="chat-header">
+      <div className="chat-header">
           <div className="chat-header-user">
             <Card>
               <Row>
@@ -105,7 +103,7 @@ function ChatPage() {
                     marginTop:'5px'}} />
                 </Col>
                 <Col>
-                  <Card.Body>
+                  <Card.Body className='headerText'>
                     <Card.Text>{selectedChat?.users[0].name}</Card.Text>
                   </Card.Body>
                 </Col>
@@ -113,6 +111,8 @@ function ChatPage() {
             </Card>
           </div>
         </div>
+      <div className="chat-container">
+        <div className="message-list">
           {messages.map((message, index) => (
             <div key={index} className={`message ${message.sender === user.userId ? 'sent' : 'received'}`}>
               <Card style={{marginBottom:"1rem"}}>
