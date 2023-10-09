@@ -3,7 +3,12 @@ import { useState,useEffect } from 'react'
 import axios from 'axios'
 import { useNavigate} from 'react-router-dom'
 import '../Components/Styles/signup.css'
+import { ChatState } from '../context/chatProvider';
 function SignUp() {
+  const {
+    wantLogin,
+    setWantLogin,
+  }=ChatState();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -219,7 +224,8 @@ const postDetails=(image)=>{
   )}
 
             </div>
-            <div className='switch1'>Have an account? <a href="./SignUp">Login</a>
+            <div className='switch1' onClick={()=>{setWantLogin(!wantLogin)}}>Have an account? 
+              <span onClick={()=>{setWantLogin(!wantLogin);navigate('./login')}} style={{color:'blue',cursor:"pointer",textDecoration:"underline"}}>Log In</span>
             </div>
             <div className='button1'>
               <input type='submit' value='Next' onClick={nextStep} />

@@ -3,7 +3,12 @@ import { useState,useEffect } from 'react'
 import axios from 'axios'
 import { useNavigate} from 'react-router-dom'
 import '../Components/Styles/login.css'
+import { ChatState } from '../context/chatProvider';
 function Login() {
+  const {
+    wantLogin,
+    setWantLogin,
+  }=ChatState();
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const navigate=useNavigate();
@@ -60,7 +65,8 @@ function Login() {
             <div className='input'>
               <input type="password" onChange={(e)=>{setPassword(e.target.value)}} placeholder='Password'/>
             </div>
-            <div className='switch'>Don't have an account? <a href="./SignUp">Sign Up</a>
+            <div className='switch' >Don't have an account? 
+              <span onClick={()=>{setWantLogin(!wantLogin);navigate('./signup')}} style={{color:'blue',cursor:"pointer",textDecoration:"underline"}}>  Sign Up</span>
             </div>
             <div className='button'>
               <input type="submit" value="Login" onClick={login}/>

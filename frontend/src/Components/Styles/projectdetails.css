@@ -1,0 +1,39 @@
+.projectdetails {
+    border: 1px solid #ccc;
+    padding: 5px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    font-weight: bold;
+  }
+  h4 {
+    font-size: 18px;
+    margin-top: 20px;
+    margin-left: 20px;
+    font-weight: bold;
+  }
+  p {
+    font-size: 16px;
+    line-height: 1.5;
+    margin-left: 20px;
+
+  }
+  p[style*="white-space:break-spaces"] {
+    white-space: break-spaces;
+  }
+  @media screen and (max-width: 768px) {
+    h1 {
+      font-size: 20px;
+    }
+    h4 {
+      font-size: 16px;
+      margin-top: 10px;
+    }
+    p {
+      font-size: 14px;
+    }
+  }
+  

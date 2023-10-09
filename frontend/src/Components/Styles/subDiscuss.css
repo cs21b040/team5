@@ -31,3 +31,26 @@
     background-color: rgb(204, 222, 194);
     color: gray;
 }
+
+.post_question__wrapper {
+    margin-top: auto;
+    display: flex;
+    justify-content: flex-start;
+    padding: 10px;
+    background-color: #f0f0f0;
+  }
+  
+  .post_question__form {
+    flex: 1; 
+    align-items: center;
+  }
+  
+  .post_question__form input {
+    flex: 1; 
+    margin-right: 10px;
+  }
+  
+  .post_question__form button {
+    width: 15%; 
+  }
+  

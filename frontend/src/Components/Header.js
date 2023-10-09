@@ -3,6 +3,10 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import BranchSelect from './BranchSelect';
 function Header() {
+  const Logout=()=>{
+    localStorage.removeItem('userInfo');
+    window.location.href='/';
+  }
   return (
     <Navbar expand="lg"  bg="dark" data-bs-theme="dark">
         <Navbar.Brand href="/" className='mx-3'>IIT Hub</Navbar.Brand>
@@ -20,7 +24,7 @@ function Header() {
              <NavDropdown.Item href="/Profile">Profile</NavDropdown.Item>
              <NavDropdown.Item href="/Darkmode">Dark mode</NavDropdown.Item>
              <NavDropdown.Divider />
-             <NavDropdown.Item href="/Logout">Logout</NavDropdown.Item>
+             <NavDropdown.Item onClick={Logout}>Logout</NavDropdown.Item>
             </NavDropdown>
               
           </Nav>

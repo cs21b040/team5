@@ -7,6 +7,7 @@ const chatRoutes=require('./Routes/chatRoutes');
 const messageRoutes=require('./Routes/messageRoutes');
 const projectRoutes=require('./Routes/projectRoutes');
 const alumniRoutes=require('./Routes/alumniRoutes');
+const AcademicRoutes=require('./Routes/AcademicRoutes')
 const mongoDB=require('./config/db');
 const app = express();
 const cors=require('cors');
@@ -21,6 +22,7 @@ const server = app.listen(port,()=>{
 app.get('/',(req,res)=>{
     res.send("API success");
 });
+app.use('/api/academics',AcademicRoutes);
 app.use('/api/user',userRoutes);
 app.use('/api/chat',chatRoutes);
 app.use('/api/messages',messageRoutes);
@@ -72,5 +74,17 @@ io.on('connection',(socket)=>{
         //     console.log("user left");
         //     socket.leave(chat._id);
         // });
+    })
+    socket.on('new group msg',(newMessageRecieved,users)=>{
+        var chat =newMessageRecieved.chat;
+        if(!chat.users){
+            return console.log("users not defined");
+        }
+        console.log("new group msg");
+        console.log(users);
+        users.forEach(user=>{
+            if(user._id == newMessageRecieved.sender._id) return;
+            socket.in(user._id).emit("grp message recieved",newMessageRecieved);
+        })
     })
 })
