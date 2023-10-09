@@ -82,7 +82,7 @@ function ChatPage() {
       };
       const { data } = await axios.get(`http://localhost:5000/api/messages/${selectedChat._id}`, config);
       setMessages(data);
-      socket.emit("join room",selectedChat._id);
+      socket.emit("join room",selectedChat._id,user._id);
     } catch (error) {
       console.error(error);
     }
@@ -91,7 +91,7 @@ function ChatPage() {
   return (
     <div className="main">
       <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} draggable theme="light" />
-      <div className="chat-header">
+      <div className={!selectedChat ? 'passive' : 'chat-header'}>
           <div className="chat-header-user">
             <Card>
               <Row>
@@ -139,8 +139,8 @@ function ChatPage() {
           <div className="typing">
             {isTyping && <p>Typing...</p>}
           </div>
-          <InputGroup>
-            <FormControl
+          <InputGroup className={!selectedChat ? 'passive' : ''}>
+            <FormControl 
               type="text"
               placeholder="Type your message here..."
               value={newMessage}
@@ -151,7 +151,7 @@ function ChatPage() {
                   socket.emit("typing",selectedChat._id);
                 }
                 let lastTypingTime=Date.now();
-                var timerLength=3000;
+                var timerLength=300;
                 setTimeout(()=>{
                   var timeNow=Date.now();
                   var timeDiff=timeNow-lastTypingTime;

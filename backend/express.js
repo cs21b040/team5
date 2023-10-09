@@ -8,6 +8,12 @@ const messageRoutes=require('./Routes/messageRoutes');
 const projectRoutes=require('./Routes/projectRoutes');
 const alumniRoutes=require('./Routes/alumniRoutes');
 const AcademicRoutes=require('./Routes/AcademicRoutes')
+const {
+    userJoined,
+    getCurrentUser,
+    userLeft,
+    getRoomUsers
+}=require('./currentUsers');
 const mongoDB=require('./config/db');
 const app = express();
 const cors=require('cors');
@@ -51,8 +57,9 @@ io.on('connection',(socket)=>{
         socket.join(userData._id);
         socket.emit('connected');
     });
-    socket.on('join room',(room)=>{
+    socket.on('join room',(room,userId)=>{
         socket.join(room);
+        userJoined(userId,room);
         console.log("Joined room" + room);
     });
     socket.on('typing',(room)=>{
@@ -75,16 +82,12 @@ io.on('connection',(socket)=>{
         //     socket.leave(chat._id);
         // });
     })
-    socket.on('new group msg',(newMessageRecieved,users)=>{
+    socket.on('new group msg',(newMessageRecieved)=>{
         var chat =newMessageRecieved.chat;
-        if(!chat.users){
-            return console.log("users not defined");
-        }
-        console.log("new group msg");
-        console.log(users);
+        users=getRoomUsers(chat._id);
         users.forEach(user=>{
-            if(user._id == newMessageRecieved.sender._id) return;
-            socket.in(user._id).emit("grp message recieved",newMessageRecieved);
+            if(user.id == newMessageRecieved.sender._id) return;
+            socket.in(user.id).emit("grp message recieved",newMessageRecieved);
         })
     })
 })

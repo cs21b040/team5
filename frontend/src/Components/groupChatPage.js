@@ -47,6 +47,7 @@ function GroupChatPage() {
           if(!selectedGroupCompare || newMessageRecieved.chat._id!==selectedGroupCompare._id) {
             //TODO :: give notification
           }
+          console.log("grp message recieved");
           setMessages([...messages,newMessageRecieved]);
         })
       })
@@ -56,7 +57,6 @@ function GroupChatPage() {
       }
     const sendMessage = async () => {
         socket.emit("stop typing",selectedGroup._id);
-        console.log(selectedGroup._id);
         try {
           const config = {
             headers: {
@@ -88,7 +88,7 @@ function GroupChatPage() {
           };
           const { data } = await axios.get(`http://localhost:5000/api/messages/${selectedGroup._id}`, config);
           setMessages(data);
-          socket.emit("join room",selectedGroup._id);
+          socket.emit("join room",selectedGroup._id,user._id);
         } catch (error) {
           console.error(error);
         }
