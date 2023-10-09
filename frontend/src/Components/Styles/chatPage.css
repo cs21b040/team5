@@ -58,6 +58,7 @@ main {
   outline: none;
   bottom: 0;
   width:69%;
+  margin-bottom: 10px;
 }
 
 .send-button {
@@ -81,10 +82,13 @@ main {
   /* border: none;    */
   /* border-radius: 20px; */
   outline: none;
-  background-color: #b6d2ad;
-  width: 69%;
+  background-color: #9dc2ed;
+  width: 70%;
   top: 60px;
 } 
+.headerCard{
+  background-color: #9dc2ed;
+}
 .headerText{
   display: flex;
   align-items: center;
@@ -93,7 +97,13 @@ main {
   padding: 0px;
   font-size: 20px;
   font-weight: bold;
+  height: 100%;
 }
 .passive{
   display: none;
+}
+@media (max-width: 600px) {
+  .message-input{
+    width: 100%;
+  }
 }

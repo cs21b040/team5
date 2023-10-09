@@ -11,7 +11,6 @@ main {
   display: flex;
   flex-direction: column-reverse;
   flex-grow: 1;
-  border: 1px solid #e1e1e1;
   border-radius: 10px;
   overflow: hidden;
   height: 80%;
@@ -75,7 +74,7 @@ main {
 .send-button:hover {
   background-color: #0d6e61;
 }
-.chat-header{
+.chat-header1{
   position: fixed;
   flex-grow: 1;
   /* padding: 1px; */
@@ -83,16 +82,38 @@ main {
   /* border-radius: 20px; */
   outline: none;
   z-index: 1;
-  background-color: #b6d2ad;
+  /* background-color: #2F4050; */
+  /* height: 5%; */
   width: 69%;
   top: 60px;
 } 
-.headerText{
+.chat-header-user1{
+  height: 100%;
+  width: 100%;
+  /* background-color: #2F4050; */
+
+}
+.headerCard1{
+  height: 100%;
+  width: 100%;
+  /* background-color: #2F4050; */
+}
+.headerText1{
   display: flex;
   align-items: center;
   justify-content: center;
   margin-right: 10vw;
   padding: 0px;
+  height: 100%;
+  width: 100%;
   font-size: 20px;
   font-weight: bold;
+  color: white;
+  /* background-color: #2F4050; */
+
+}
+@media (max-width: 600px) {
+  .message-input{
+    width: 100%;
+  }
 }
