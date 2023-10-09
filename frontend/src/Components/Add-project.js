@@ -61,7 +61,7 @@ function Add_project() {
 
                 <Form.Group className="mb-3" controlId="form.2">
                     <Form.Label>Name of the professor</Form.Label>
-                    <Form.Control placeholder="Professor's Name" />
+                    <Form.Control placeholder="Professor's Name" />        
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="form.3">
