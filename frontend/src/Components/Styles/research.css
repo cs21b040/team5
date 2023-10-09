@@ -17,8 +17,8 @@
 #lightbox {
     position: fixed;
     display: none;
-    width: 75%;
-    height: 80%;
+    width: 98%;
+    height: 98%;
     opacity: 1.0;
     z-index: 100;
     background-color: white;
@@ -42,6 +42,9 @@
 
 .CardGroup {
     display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: left;
 }
 
 @media (max-width: 768px) {
