@@ -7,9 +7,18 @@
     float: left;
     width: 30%;
     overflow-y: scroll ;
+    background-color: #2F4050;
 }
 .right1{
     float: right;
     width: 70%;
     overflow-y: scroll ;
 }
+@media (max-width: 600px) {
+    .left1{
+        display: none;
+    }
+    .right1{
+        width: 100%;
+    }
+  }

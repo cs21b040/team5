@@ -42,7 +42,7 @@ function Friends() {
   }, [user]);
 
   return (
-    <div style={{ marginTop: '1rem', padding: '20px', backgroundColor: '#E8FFCE' }}>
+    <div style={{ marginTop: '1rem', padding: '20px', backgroundColor: '#9dc2ed' }}>
       <div style={{ display: 'flex', alignItems: 'center' }}>
   <h1 style={{ margin: '0', color: '#333', marginRight: '250px' }}>Friends</h1>
   <FaSearch
@@ -69,7 +69,7 @@ function Friends() {
           <Card
             key={index}
             className="chatListCard"
-            style={{ marginTop: '15px', color: '#333',backgroundColor: selectedChat === chat ? '#FFCCCC' : 'white'   }}
+            style={{ marginTop: '15px', color: '#333',backgroundColor: selectedChat === chat ? '#c4e1fa' : 'white'   }}
             onClick={() => {
               setSelectedChat(chat);
             }}
