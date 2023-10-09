@@ -9,8 +9,6 @@ const Answer=mongoose.model("Answer",AnswerSchema);
 
 
 const QuestionSchema={
-    type:mongoose.Schema.Types.ObjectId,
-    PostedBy:{type:mongoose.Schema.Types.ObjectId,ref:"User"},
     question:String,
     answers:[AnswerSchema],
 }

@@ -18,7 +18,7 @@ function Academic() {
       <div className="app">
         <div className="app_body">
           <SideBar branch={branch} onSelect={handleSubjectSelect} />
-          <SubDiscuss selectedSubject={selectedSubject} />
+          <SubDiscuss branch={branch} selectedSubject={selectedSubject} />
         </div>
       </div>
       
