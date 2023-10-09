@@ -33,7 +33,6 @@ function Project(props) {
   }
 
   function displayDeleteButton() {
-    console.log(props.projectInfo)
     try {
       const userInfo = localStorage.getItem('userInfo');
       if (userInfo) {
@@ -69,7 +68,7 @@ function Project(props) {
             {props.projectInfo.description}
           </Card.Text>
           <Button variant="info" onClick={info_click}>Get Info</Button>
-          <Button variant="outline-danger" className="deleteButton mx-2" style={{display: 'none'}} onClick={onDeleteClick}>Delete Project</Button>
+          <Button variant="outline-danger" className="deleteButton" style={{display: 'none'}} onClick={onDeleteClick}>Delete Project</Button>
         </Card.Body>
       </Card>
     </div>

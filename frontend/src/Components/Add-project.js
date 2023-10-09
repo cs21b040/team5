@@ -41,6 +41,13 @@ function Add_project() {
         } catch (err) {
             console.error("Error submitting the project:", err);
         }
+
+        document.getElementById('form.1').value = '';
+        document.getElementById('form.2').value = '';
+        document.getElementById('form.3').value = '';
+        document.getElementById('form.4').value = '';
+        document.getElementById('form.5').value = '';
+        
     }
 
 
