@@ -3,6 +3,8 @@ import Form from 'react-bootstrap/Form';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { ChatState } from '../context/chatProvider';
+import './Styles/research.css'
+
 function Add_project() {
     const navigate = useNavigate();
     const {

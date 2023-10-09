@@ -1,5 +1,6 @@
 import React from 'react'
 import { CloseButton } from 'react-bootstrap';
+import './Styles/research.css'
 
 function Project_info() {
     return (

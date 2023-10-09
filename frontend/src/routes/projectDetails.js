@@ -1,4 +1,5 @@
 import React from 'react';
+import './../Components/Styles/research.css';
 import { useLocation } from 'react-router-dom';
 
 function ProjectDetails() {

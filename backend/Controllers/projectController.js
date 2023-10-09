@@ -1,7 +1,7 @@
 const asyncHandler = require('express-async-handler');
 const Project = require('../Models/projectModel');
 const User = require('../Models/userModel');
-
+const projectDetails=require( '../Models/projectModel');
 const addProject = asyncHandler(async(req,res)=>{
     const {title,professor,institute,description,abstract}=req.body;
     const projectData={
@@ -21,34 +21,40 @@ const addProject = asyncHandler(async(req,res)=>{
     }
 });
 
-const deleteProject = asyncHandler(async(req,res)=>{
-    const {projectId, userId}=req.body;
-    const removeProject= await Project.findByIdAndUpdate(projectId,{
-        $pull:{user:userId}
-    },{new:true});
-    res.status(200).send(removeProject);
-    if(!removeProject){
-        res.status(400);
-        throw new Error('Project not found');
-    }
-    else res.status(200).send(removeProject);
-});
-
-// const getProjects = asyncHandler(async(req,res)=>{
+// const deleteProject = asyncHandler(async(req,res)=>{
+//     const {projectId,userId}=req.body;
 //     try {
-//         Project.find({
-//             user:{$elemMatch:{$eq:req.user._id}}
-//         }).populate("user","-password")
-//         .sort({updatedAt:-1})
-//         .then(async (results)=>{
-//             res.status(200).send(results);
-//         })
-//     } catch (error) {
+//         await projectDetails.findByIdAndDelete(projectId)
+//         .then((result)=>{
+//             if(result===null){
+//                 res.status(404).send("Project not found");
+//             }
+//             res.status(200).send("Project deleted");
+//             console.log(result);
+//         });
+//     }
+//     catch (error) {
+//         res.status(400);
 //         console.log(error.message);
 //     }
 // });
-
-//get all the projects present in the database
+const deleteProject = asyncHandler(async (req, res) => {
+    const { projectId, userId } = req.body;
+    try {
+      const result = await projectDetails.findByIdAndDelete(projectId);
+  
+      if (result === null) {
+        res.status(404).send("Project not found");
+      } else {
+        res.status(200).send("Project deleted");
+        console.log(result);
+      }
+    } catch (error) {
+      res.status(400).send(error.message);
+      console.log(error.message);
+    }
+  });
+  
 const getProjects = asyncHandler(async(req,res)=>{
     const projects=await Project.find({}).populate('user');
     res.status(200).send(projects);

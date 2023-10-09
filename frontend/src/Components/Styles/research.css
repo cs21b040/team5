@@ -1,3 +1,51 @@
-.delete {
+.deleteButton {
     display: block;
 }
+
+.addProjectButton {
+    position: fixed;
+    display: block;
+    bottom: 50px;
+    right: 60px;
+    display: block;
+}
+
+#lightbox {
+    position: fixed;
+    display: none;
+    width: 75%;
+    height: 80%;
+    opacity: 1.0;
+    z-index: 100;
+    background-color: white;
+    padding: auto;
+    margin: auto;
+}
+
+.close {
+    position: absolute;
+    top: 1rem;
+    right: 2rem;
+}
+
+.content {
+    position: relative;
+    margin: auto;
+    padding: 20px;
+    width: 80%;
+    height: 100%;
+}
+
+.CardGroup {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+    #lightbox {
+      width: 90vw;
+      height: 90vh;
+      top: 5vh;
+      left: 5vw;
+    }
+  }

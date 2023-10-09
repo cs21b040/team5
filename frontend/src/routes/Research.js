@@ -7,6 +7,7 @@ import { useState, useEffect } from 'react';
 import Add_project from '../Components/Add-project';
 import { ChatState } from '../context/chatProvider';
 import axios from 'axios';
+import './../Components/Styles/research.css';
 
 
 function Research() {
