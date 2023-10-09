@@ -37,7 +37,7 @@ function Project(props) {
       const userInfo = localStorage.getItem('userInfo');
       if (userInfo) {
         const prof= JSON.parse(userInfo).userId;
-        if(props.projectInfo.userId==prof) {
+        if(props.projectInfo.userId===prof) {
           const deleteButton= document.querySelectorAll('.deleteButton');
           if(deleteButton){
             deleteButton.forEach((button) => {
@@ -57,7 +57,7 @@ function Project(props) {
 
   return (
     <div className="mx-2 my-2">
-      <Card style={{ width: '20rem'}}>
+      <Card style={{ width: '20rem', height:'558px'}}>
         <Card.Img variant="top" src={logo}/>
         <Card.Body>
           <Card.Title>{props.projectInfo.title}</Card.Title>

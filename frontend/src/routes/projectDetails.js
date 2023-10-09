@@ -1,7 +1,7 @@
 import React from 'react';
 import './../Components/Styles/research.css';
 import { useLocation } from 'react-router-dom';
-import '../Components/Styles/projectdetails.css'
+import '../Components/Styles/projectdetails.css';
 
 function ProjectDetails() {
   const location = useLocation();
@@ -20,6 +20,10 @@ function ProjectDetails() {
         <div className='projectdetails'>
           <h4>Professor:</h4>
           <p>{project.professor}</p>
+        </div>
+        <div className='projectdetails'>
+          <h4>Professor's Email</h4>
+          <p>{project.user.email}</p>
         </div>
         <div className='projectdetails'>
           <h4>Description:</h4>

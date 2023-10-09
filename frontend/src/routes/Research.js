@@ -75,7 +75,7 @@ function Research() {
   return (
     <div >
       <Header />
-      <div className>
+      <div>
         <CardGroup className='CardGroup'>
           <div>
             <DisplayCards />

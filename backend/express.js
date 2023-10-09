@@ -7,7 +7,7 @@ const chatRoutes=require('./Routes/chatRoutes');
 const messageRoutes=require('./Routes/messageRoutes');
 const projectRoutes=require('./Routes/projectRoutes');
 const alumniRoutes=require('./Routes/alumniRoutes');
-const AcademicRoutes=require('./Routes/AcademicRoutes')
+const AcademicRoutes=require('./Routes/AcademicRoutes');
 const {
     userJoined,
     getCurrentUser,
