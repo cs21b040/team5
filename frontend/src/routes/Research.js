@@ -75,8 +75,7 @@ function Research() {
   return (
     <div >
       <Header />
-      <h3>Research</h3>
-      <div className='container'>
+      <div>
         <CardGroup>
           <div>
             <DisplayCards />

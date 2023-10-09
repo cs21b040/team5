@@ -16,6 +16,22 @@ function Project(props) {
     navigate('/research/projectdetails', { state: { project: props.projectInfo } });
   };
 
+  async function onDeleteClick() {
+    const config={
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${user.token}`,
+      }
+    }
+    try {
+      const res = await axios.delete('/api/research', { data: { projectId: props.projectInfo._id }, ...config });
+      console.log(res);
+      window.location.reload();
+    } catch (err) {
+      console.error('Error deleting project:', err);
+    }
+  }
+
   function displayDeleteButton() {
     console.log(props.projectInfo)
     try {
@@ -26,28 +42,7 @@ function Project(props) {
           const deleteButton= document.querySelectorAll('.deleteButton');
           if(deleteButton){
             deleteButton.forEach((button) => {
-              button.style.display = 'block';
-              button.addEventListener('click', async () => {
-                const config={
-                  headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${user.token}`,
-                  }
-                }
-                try {
-                  console.log(props.projectInfo._id)
-                  await axios.delete(
-                    'http://localhost:5000/api/research/',{
-                      projectId: props.projectInfo._id,
-                      userId: user._id
-                      },config);
-                  if (data) {
-                    navigate('/Research');
-                  }
-                } catch (error) {
-                  console.log(error.message);
-                }
-              });
+              button.style.display= 'block';
             });
           }
         }
@@ -74,7 +69,7 @@ function Project(props) {
             {props.projectInfo.description}
           </Card.Text>
           <Button variant="info" onClick={info_click}>Get Info</Button>
-          <Button variant="outline-danger" className="deleteButton mx-2" style={{display: 'none'}}>Delete Project</Button>
+          <Button variant="outline-danger" className="deleteButton mx-2" style={{display: 'none'}} onClick={onDeleteClick}>Delete Project</Button>
         </Card.Body>
       </Card>
     </div>

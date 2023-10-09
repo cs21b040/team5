@@ -21,23 +21,6 @@ const addProject = asyncHandler(async(req,res)=>{
     }
 });
 
-// const deleteProject = asyncHandler(async(req,res)=>{
-//     const {projectId,userId}=req.body;
-//     try {
-//         await projectDetails.findByIdAndDelete(projectId)
-//         .then((result)=>{
-//             if(result===null){
-//                 res.status(404).send("Project not found");
-//             }
-//             res.status(200).send("Project deleted");
-//             console.log(result);
-//         });
-//     }
-//     catch (error) {
-//         res.status(400);
-//         console.log(error.message);
-//     }
-// });
 const deleteProject = asyncHandler(async (req, res) => {
     const { projectId, userId } = req.body;
     try {
