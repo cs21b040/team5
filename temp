@@ -68,7 +68,7 @@ function SideBar() {
         </li>
         <li>
           <div className='row-split'>
-            <div id='add' style={{cursor:"pointer"}} onClick={()=>{
+            <div id='add' onClick={()=>{
               setInterest(!Interest);
               console.log(Interest);
             }}>
