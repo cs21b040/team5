@@ -68,5 +68,58 @@ const addSubject = asyncHandler(async (req, res) => {
     }
 });
 
-module.exports = {getBranches,addBranch,getSubjects, addSubject};
+const addQuestion = asyncHandler(async (req, res) => {
+    const { branchName, subjectName, question } = req.body;
+
+    try {
+        const branch = await Branch.findOne({name:branchName});
+        
+        if (!branch) {
+            // return res.status(404).json({ message: "Branch not found" });
+            console.log("Branch not found");
+        }
+        const subject = branch.subjects.find((sub) => sub.name === subjectName);
+        if (!subject) {
+            // return res.status(404).json({ message: "Subject not found" });
+            console.log("Subject not found");
+        }
+        const newQuestion = {
+            question: question,
+            answers:[]
+        };
+        subject.questions.push(newQuestion);
+        await branch.save();
+        res.status(200).json(branch); 
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+});
+
+const getQuestions = asyncHandler(async (req, res) => {
+    const { branchName,subjectName} = req.query;
+    try {
+        const branch = await Branch.findOne({ name: branchName });
+        if (!branch) {
+          return res.status(404).json({ message: "Branch not found" });
+        }
+        if(subjectName===undefined)
+        {
+            res.status(200).json([]);
+        }
+        else{
+            const subject = branch.subjects.find((sub) => sub.name === subjectName);
+            if (!subject) {
+              return res.status(404).json({ message: "Subject not found" });
+            }
+            const questions = subject.questions;
+            res.status(200).json(questions);
+        }
+      } catch (error) {
+        console.error(error.message);
+        res.status(500).json({ message: "Internal Server Error" });
+      }
+    
+});
+module.exports = {getBranches,addBranch, getSubjects, addSubject, addQuestion, getQuestions};
 
