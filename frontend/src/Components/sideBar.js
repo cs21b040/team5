@@ -4,7 +4,9 @@ import {FaPlus,FaTimes} from 'react-icons/fa'
 import {BiLeftArrowAlt} from 'react-icons/bi'
 import axios from 'axios'
 import {ChatState} from '../context/chatProvider'
+import {useNavigate} from 'react-router-dom'
 function SideBar() {
+  const navigate=useNavigate();
   const {
     user,
     selectedGroup,
@@ -63,9 +65,15 @@ function SideBar() {
             }}>
               Request interest
             </div>
-            <div id='icon'>
-              <BiLeftArrowAlt size={25}/>
-            </div>
+          </div>
+        </li>
+        <li>
+          <div className="row" onClick={
+            ()=>{
+              navigate("/personalchat");
+            }
+          }>
+            Your Chats
           </div>
         </li>
         <li className={Interest ? "request" : "passive"}>
@@ -76,6 +84,11 @@ function SideBar() {
                 setNewGroup(e.target.value);
               }
             }
+            onKeyDown={(e)=>{
+              if(e.key==="Enter"){
+                addGroup();
+              }
+            }}
             />
             </div>
             <div id="plus">
@@ -83,9 +96,6 @@ function SideBar() {
               addGroup();
             }}
             style={{cursor:"pointer"}}/>
-            </div>
-            <div id="cross">
-            <FaTimes size={15} color='white'/>
             </div>
           </div>
         </li>

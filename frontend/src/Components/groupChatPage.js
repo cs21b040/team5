@@ -51,10 +51,6 @@ function GroupChatPage() {
           setMessages([...messages,newMessageRecieved]);
         })
       })
-      const temp = async () => {
-        
-        // Do something with the sockets object
-      }
     const sendMessage = async () => {
         socket.emit("stop typing",selectedGroup._id);
         try {
@@ -99,10 +95,10 @@ function GroupChatPage() {
           <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} draggable theme="light" />
           <div className="chat-container">
             <div className="message-list">
-            <div className="chat-header1">
-              <div className="chat-header-user1">
-                <Card className='headerCard1'>
-                    <Card.Body className='headerText1'>
+            <div className="chat-header">
+              <div className="chat-header-user">
+                <Card>
+                    <Card.Body className='headerText'>
                     <Card.Text>{selectedGroup?.chatName}</Card.Text>
                     </Card.Body>
                 </Card>
@@ -116,12 +112,15 @@ function GroupChatPage() {
                       <Card.Img src={message.sender.pic} style={{
                         height:"3rem",
                          width:"auto",
-                         marginLeft:'5px',
-                        marginTop:'5px'}} />
+                         alignItems:"center"
+                         }} />
                       </Col>
                       <Col>
                         <Card.Body>
-                        <Card.Text>{message.content}</Card.Text>
+                          <Card.Title style={{fontWeight: 'bold'}}>{message.sender.name}</Card.Title>
+                        <Card.Text>
+                          {message.content}
+                        </Card.Text>
                       </Card.Body>
                       </Col>
                     </Row>
@@ -143,7 +142,7 @@ function GroupChatPage() {
                   socket.emit("typing",selectedGroup._id);
                 }
                 let lastTypingTime=Date.now();
-                var timerLength=3000;
+                var timerLength=30;
                 setTimeout(()=>{
                   var timeNow=Date.now();
                   var timeDiff=timeNow-lastTypingTime;
@@ -158,7 +157,6 @@ function GroupChatPage() {
             <Button variant="primary" onClick={sendMessage}>Send</Button>
           </InputGroup>
             </div>
-            <input type="submit" onClick={temp} />
         </div>
       );
 }
