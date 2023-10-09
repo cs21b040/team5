@@ -44,7 +44,6 @@ const userSchema =mongoose.Schema({
     },
     company:{
         type:String,
-        required:true,
         default:""
     },
     highestDegreeOfQualification:{

@@ -22,7 +22,6 @@ function Header() {
 
             <NavDropdown title="user"  align={{ lg: 'end' }} id="dropdown-menu-align-responsive-1" variant='secondary'>         
              <NavDropdown.Item href="/Profile">Profile</NavDropdown.Item>
-             <NavDropdown.Item href="/Darkmode">Dark mode</NavDropdown.Item>
              <NavDropdown.Divider />
              <NavDropdown.Item onClick={Logout}>Logout</NavDropdown.Item>
             </NavDropdown>
