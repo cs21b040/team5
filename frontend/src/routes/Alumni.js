@@ -34,8 +34,10 @@ function Alumni() {
       fetchData();
     }, []); 
     const filteredAlumnis = alumnis.filter((alumni) =>
-    alumni.name.toLowerCase().includes(searchText.toLowerCase())
-  );
+      alumni.name.toLowerCase().includes(searchText.toLowerCase()) ||
+      alumni.company.toLowerCase().includes(searchText.toLowerCase()) ||
+      alumni.collegeName.toLowerCase().includes(searchText.toLowerCase())
+    );
     return (
       <div className='CardGroup'>
         {filteredAlumnis.map((Card,temp) => {
