@@ -42,13 +42,13 @@ function Friends() {
   }, [user]);
 
   return (
-    <div style={{ marginTop: '1rem', padding: '20px', backgroundColor: '#9dc2ed' }}>
+    <div style={{ marginTop: '1rem', padding: '20px', backgroundColor: '#333' }}>
       <div style={{ display: 'flex', alignItems: 'center' }}>
-  <h1 style={{ margin: '0', color: '#333', marginRight: '5rem' }}>Friends</h1>
+  <h1 style={{ margin: '0', color: '#fff', marginRight: '5rem' }}>Friends</h1>
   <FaSearch
     className="search-icon"
     size='3rem'
-    color='black'
+    color='white'
     style={{
       border: 'none',
       padding: '5px 10px',
@@ -69,7 +69,7 @@ function Friends() {
           <Card
             key={index}
             className="chatListCard"
-            style={{ marginTop: '15px', color: '#333',backgroundColor: selectedChat === chat ? '#c4e1fa' : 'white'   }}
+            style={{ marginTop: '15px', color: '#333',backgroundColor: selectedChat === chat ? '#777' : 'white'   }}
             onClick={() => {
               setSelectedChat(chat);
             }}
@@ -88,8 +88,8 @@ function Friends() {
                   />
                 </Col>
                 <Col>
-                  <Card.Title style={{ fontWeight: 'bold', color: '#333' }}>{friend.name}</Card.Title>
-                  <Card.Text style={{ color: '#777' }}>{chat.latestMessage.content}</Card.Text>
+                  <Card.Title style={{ fontWeight: 'bold', color: '#222' }}>{friend.name}</Card.Title>
+                  <Card.Text style={{ color: '#333' }}>{chat.latestMessage.content}</Card.Text>
                 </Col>
               </Row>
             </Card.Body>

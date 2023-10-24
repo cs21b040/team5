@@ -4,7 +4,7 @@ main {
   height: 100%;
   width: 100%;
   padding: 10px;
-  background-color: #f2f2f2;
+  background-color: #555;
 }
 
 .chat-container {
@@ -46,7 +46,7 @@ main {
   align-items: center;
   padding: 10px;
   background-color: #fff;
-  border-top: 1px solid #e1e1e1;
+  /* border-top: 1px solid #e1e1e1; */
 }
 
 .message-input {
@@ -74,6 +74,11 @@ main {
 .send-button:hover {
   background-color: #0d6e61;
 }
+.sendbutton1{
+  background-color: #FC93AE;
+  color: #fff;
+  border-color: #FC93AE;
+}
 .chat-header1{
   position: fixed;
   flex-grow: 1;
@@ -82,21 +87,24 @@ main {
   /* border-radius: 20px; */
   outline: none;
   z-index: 1;
-  /* background-color: #2F4050; */
+  background-color: #222;
+  color: #fff;
   /* height: 5%; */
-  width: 69%;
-  top: 60px;
+  width: 70%;
+  top: 58px;
 } 
 .chat-header-user1{
   height: 100%;
   width: 100%;
-  /* background-color: #2F4050; */
+  background-color: #222;
+  color: #fff;
 
 }
 .headerCard1{
   height: 100%;
   width: 100%;
-  /* background-color: #2F4050; */
+  background-color: #222;
+  color: #fff;
 }
 .headerText1{
   display: flex;
@@ -108,9 +116,11 @@ main {
   width: 100%;
   font-size: 20px;
   font-weight: bold;
-  color: white;
-  /* background-color: #2F4050; */
-
+  color: #fff;
+  background-color: #222;
+}
+.text1{
+  color: #fff;
 }
 @media (max-width: 600px) {
   .message-input{

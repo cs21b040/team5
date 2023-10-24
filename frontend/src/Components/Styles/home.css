@@ -7,12 +7,13 @@
     float: left;
     width: 30%;
     overflow-y: scroll ;
-    background-color: #2F4050;
+    background-color: #222;
 }
 .right1{
     float: right;
     width: 70%;
     overflow-y: scroll ;
+    background-color: #555;
 }
 @media (max-width: 600px) {
     .left1{

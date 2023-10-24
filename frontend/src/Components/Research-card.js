@@ -54,21 +54,49 @@ function Project(props) {
   useEffect(() => {
     displayDeleteButton();
   }, []);
+  const cardStyle = {
+    width: '20rem',
+    height: '558px',
+    backgroundColor: '#333', 
+    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)', 
+    color: '#fff', 
+  };
+  const cardTitleStyle = {
+    color: '#fff', 
+  };
+  const cardTextStyle = {
+    height: '150px',
+    overflow: 'hidden',
+    color: '#aaa', 
+
+  };
+
+  const infoButtonStyle = {
+    backgroundColor: '#FC93AE', 
+    borderColor: '#FC93AE', 
+    color: '#fff',
+  };
+
+  const deleteButtonStyle = {
+    display: 'none',
+    backgroundColor: '#FC93AE',
+    borderColor: '#FC93AE',  
+  };
 
   return (
     <div className="mx-2 my-2">
-      <Card style={{ width: '20rem', height:'558px'}}>
+      <Card style={cardStyle}>
         <Card.Img variant="top" src={logo}/>
         <Card.Body>
-          <Card.Title>{props.projectInfo.title}</Card.Title>
-          <Card.Text style={{ height: '150px', overflow: 'hidden' }}>
+          <Card.Title style={cardTitleStyle}>{props.projectInfo.title}</Card.Title>
+          <Card.Text style={cardTextStyle}>
             {props.projectInfo.professor} <br/>
             {props.projectInfo.institute} <br/>
             {props.projectInfo.updatedAt.substring(0,10)} <br/>
             {props.projectInfo.description}
           </Card.Text>
-          <Button variant="info" onClick={info_click}>Get Info</Button>
-          <Button variant="outline-danger" className="deleteButton" style={{display: 'none'}} onClick={onDeleteClick}>Delete Project</Button>
+          <Button variant="info" style={infoButtonStyle} onClick={info_click}>Get Info</Button>
+          <Button variant="primary" className="deleteButton" style={deleteButtonStyle} onClick={onDeleteClick}>Delete Project</Button>
         </Card.Body>
       </Card>
     </div>

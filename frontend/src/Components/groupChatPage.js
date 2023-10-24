@@ -95,11 +95,11 @@ function GroupChatPage() {
           <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} draggable theme="light" />
           <div className="chat-container">
             <div className="message-list">
-            <div className="chat-header">
-              <div className="chat-header-user">
-                <Card>
-                    <Card.Body className='headerText'>
-                    <Card.Text>{selectedGroup?.chatName}</Card.Text>
+            <div className="chat-header1">
+              <div className="chat-header-user1">
+                <Card className='headerCard1'>
+                    <Card.Body className='headerText1'>
+                    <Card.Text className='text1'>{selectedGroup?.chatName}</Card.Text>
                     </Card.Body>
                 </Card>
               </div>
@@ -154,7 +154,7 @@ function GroupChatPage() {
               }}
               onKeyDown={(event) => event.key === 'Enter' && sendMessage()}
             />
-            <Button variant="primary" onClick={sendMessage}>Send</Button>
+            <Button variant="primary" className="sendbutton1" onClick={sendMessage}>Send</Button>
           </InputGroup>
             </div>
         </div>

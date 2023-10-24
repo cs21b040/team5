@@ -163,7 +163,7 @@ function ChatPage() {
               }}
               onKeyDown={(event) => event.key === 'Enter' && sendMessage()}
             />
-            <Button variant="primary" onClick={sendMessage}>Send</Button>
+            <Button variant="primary" className="sendbutton" onClick={sendMessage}>Send</Button>
           </InputGroup>
         </div>
     </div>

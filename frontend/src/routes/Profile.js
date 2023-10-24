@@ -33,9 +33,9 @@ function Profile() {
     },[user]
   )
   return (
-    <div>
+    <div className="total">
       <Header />
-      <div className="container">
+      <div className="containerProfile">
           
           <div className="profile-picture">
              <img src={pic}  />

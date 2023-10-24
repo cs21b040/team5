@@ -66,15 +66,13 @@ main {
   margin-left: 10px;
   border: none;
   border-radius: 20px;
-  background-color: #128c7e;
   color: #fff;
   cursor: pointer;
   outline: none;
 }
-
+/* 
 .send-button:hover {
-  background-color: #0d6e61;
-}
+} */
 .chat-header{
   position: fixed;
   flex-grow: 1;
@@ -82,12 +80,13 @@ main {
   /* border: none;    */
   /* border-radius: 20px; */
   outline: none;
-  background-color: #9dc2ed;
+  background-color: #333;
   width: 70%;
-  top: 60px;
+  top: 58px;
 } 
 .headerCard{
-  background-color: #9dc2ed;
+  background-color: #333;
+  color: #fff;
 }
 .headerText{
   display: flex;
@@ -101,6 +100,11 @@ main {
 }
 .passive{
   display: none;
+}
+.sendbutton{
+  background-color: #FC93AE;
+  color: #fff;
+  border-color: #FC93AE;
 }
 @media (max-width: 600px) {
   .message-input{
