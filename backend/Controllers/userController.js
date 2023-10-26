@@ -74,4 +74,42 @@ const users = asyncHandler(async (req,res)=>{
     const userlist = await User.find(user).find({_id:{$ne:req.user._id}});
     res.send(userlist);
 })
-module.exports = {registerUser,authUser,users};
+const updateProfile = asyncHandler(async (req,res)=>{ 
+    const {userObj,name,graduatedYear,branch,discipline,highestDegreeOfQualification,Workedin,Workingin,pic}=req.body;
+    const update=await User.findByIdAndUpdate(
+        userObj._id,
+        {name:name},
+        
+        {graduatedYear:graduatedYear},
+        
+        {branch:branch},
+
+        {discipline:discipline},
+        
+        {highestDegreeOfQualification:highestDegreeOfQualification},
+        
+        {Workedin:Workedin},
+
+        {Workingin:Workingin},
+
+        {pic:pic}
+
+    ).populate("")
+
+
+})
+const renameGroups = asyncHandler(async(req,res)=>{
+    const {chatId,chatName}=req.body;
+    const Update=await Chat.findByIdAndUpdate(
+        chatId,
+        {chatName:chatName},
+        {new:true}
+    ).populate("users","-password")
+    .populate("latestMessage");
+    if(!Update){
+        res.status(400);
+        throw new Error('Invalid chat id');
+    }
+    res.status(200).json(Update);
+});
+module.exports = {registerUser,authUser,users,updateProfile};

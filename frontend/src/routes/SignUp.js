@@ -111,7 +111,7 @@ function SignUp() {
           console.log(error);
         });
         console.log(image);
-        console.log("ih");
+        // console.log("ih");
         console.log(data);
       localStorage.setItem('userInfo', JSON.stringify(data));
       setLoading(false);
