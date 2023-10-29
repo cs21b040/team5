@@ -121,5 +121,80 @@ const getQuestions = asyncHandler(async (req, res) => {
       }
     
 });
-module.exports = {getBranches,addBranch, getSubjects, addSubject, addQuestion, getQuestions};
+// const getAnswers = asyncHandler(async (req, res) => {
+//     const { branchName,subjectName,questionId} = req.query;
+//     try {
+//         const branch = await Branch.findOne({ name: branchName });
+//         if (!branch) {
+//           return res.status(404).json({ message: "Branch not found" });
+//         }
+//         const subject = branch.subjects.find((sub) => sub.name === subjectName);
+//         if (!subject) {
+//           return res.status(404).json({ message: "Subject not found" });
+//         }
+//         const question = subject.questions.find((ques) => ques.id === questionId);
+//         if (!question) {
+//           return res.status(404).json({ message: "Question not found" });
+//         }
+//         const answers = question.answers;
+//         res.status(200).json(answers);
+//       } catch (error) {
+//         console.error(error.message);
+//         res.status(500).json({ message: "Internal Server Error" });
+//       }
+// });
+
+const postAnswers = asyncHandler(async (req, res) => {
+    try {
+        const { branchName,subjectName,questionId,answer} = req.body;
+    
+        const branch = await Branch.findOne({ name: branchName });
+        if (!branch) {
+          return res.status(404).json({ message: 'Branch not found' });
+        }
+        const subject = branch.subjects.find((sub) => sub.name === subjectName);
+        if (!subject) {
+          return res.status(404).json({ message: 'Subject not found' });
+        }
+        const question = subject.questions.find((ques) => ques.id === questionId);
+        if (!question) {
+          return res.status(404).json({ message: 'Question not found' });
+        }
+
+        const newAnswer = { answer:answer };
+        question.answers.push({ newAnswer});
+    
+        await branch.save();
+    
+        res.status(200).json({ message: 'Answer posted successfully' });
+      } catch (error) {
+        console.error('Error occurred while posting answer', error);
+        res.status(500).json({ message: 'Failed to post answer' });
+      }
+});
+
+const getQuestionAndAnswers = asyncHandler(async (req, res) => {
+    const { branchName,subjectName,questionId} = req.query;
+    try {
+        const branch = await Branch.findOne({ name: branchName });
+        if (!branch) {
+          return res.status(404).json({ message: "Branch not found" });
+        }
+        const subject = branch.subjects.find((sub) => sub.name === subjectName);
+        if (!subject) {
+          return res.status(404).json({ message: "Subject not found" });
+        }
+        const question = subject.questions.find((ques) => ques.id === questionId);
+        if (!question) {
+          return res.status(404).json({ message: "Question not found" });
+        }
+        const answers = question.answers;
+        res.status(200).json({question,answers});
+      } catch (error) {
+        console.error(error.message);
+        res.status(500).json({ message: "Internal Server Error" });
+      }
+});
+
+module.exports = {getBranches,addBranch, getSubjects, addSubject, addQuestion, getQuestions,getQuestionAndAnswers,postAnswers};
 
