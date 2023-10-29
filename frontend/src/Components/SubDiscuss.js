@@ -4,6 +4,7 @@ import Form from 'react-bootstrap/Form';
 import { useState } from 'react';
 import Axios from 'axios';
 import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 function SubDiscuss({branch ,selectedSubject }) {
   const [question, setQuestion] = useState('');
@@ -11,8 +12,7 @@ function SubDiscuss({branch ,selectedSubject }) {
   
   const fetchQuestions = async () => {
     try {
-      console.log('Fetching questions');
-      const response = await Axios.get('/api/academics/subjects/questions', {
+      const response = await Axios.get('http://localhost:5000/api/academics/subjects/questions', {
         params: {
           branchName: branch,
           subjectName: selectedSubject,
@@ -23,12 +23,12 @@ function SubDiscuss({branch ,selectedSubject }) {
       console.error('Error occurred while fetching questions', error);
     }
   }
-  useEffect(() => {fetchQuestions();}, [selectedSubject]);
+  useEffect(() => {fetchQuestions();},[selectedSubject]);
 
 
   const handlePostQuestion = async () => {
     try {
-        const response = await Axios.post('/api/academics/subjects/questions', {
+        const response = await Axios.post('http://localhost:5000/api/academics/subjects/questions', {
         branchName: branch,
         subjectName: selectedSubject,
         question: question,
@@ -57,14 +57,12 @@ function SubDiscuss({branch ,selectedSubject }) {
         <div className='discuss_body'>
             {questions.map((question,key) => (
                 <div className='discuss_question' key={key}>
-                    <h5>{question.question}</h5>
-                    <div className='discuss_answers'>
-                        {question.answers.map((A,key) => (
-                            <div className='discuss_answer' key={key}>
-                                <p>{A.answer}</p>
-                            </div>
-                        ))}
-                    </div>
+                    <Link
+                      to={{
+                          pathname: `/answers/${question._id}`,
+                          search: `?branch=${branch}&selectedSubject=${selectedSubject}`,}}>
+                      <h5>{question.question}</h5>
+                    </Link>
                 </div>
             ))}
         </div>

@@ -69,7 +69,6 @@
     width: 15%; 
   }
   
-  /* Subdiscuss.css */
 
 .discuss_question {
   background-color: #f5f5f5;
@@ -79,6 +78,9 @@
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1); 
   width: 100%; 
   box-sizing: border-box; 
+}
+.discuss_question h5:hover {
+  cursor: pointer;
 }
 
 .discuss_question h5 {

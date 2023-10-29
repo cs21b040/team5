@@ -11,8 +11,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import ChatContext from './context/chatProvider';
 import PersonalChat from './routes/personalChat';
 import ProjectDetails from './routes/projectDetails';
+import QuestionAnswers from './routes/QuestionAnswers';
 function App() {
-  // DO LATER :::Wrap the ChatContext component in a Router component
+
   return (
     <Router>
       <ChatContext>
@@ -26,6 +27,7 @@ function App() {
           <Route path="/profile" element={<Profile/>} />
           <Route path="/personalchat" element={<PersonalChat/>} />
           <Route path="/research/projectDetails" element={<ProjectDetails />} />
+          <Route path="/answers/:questionId" element={<QuestionAnswers />} />
         </Routes>
       </ChatContext>
     </Router>
