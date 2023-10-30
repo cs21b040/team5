@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import logo from './assets/iittp.png';
@@ -17,6 +17,13 @@ function Project(props) {
   };
 
   async function onDeleteClick() {
+    const key= props.key;
+    console.log(key);
+    const confirmation= window.confirm('The project would be deleted permanently..!');
+    if(!confirmation) {
+      return;
+    }
+
     const config={
       headers: {
         'Content-Type': 'application/json',
@@ -33,27 +40,12 @@ function Project(props) {
   }
 
   function displayDeleteButton() {
-    try {
-      const userInfo = localStorage.getItem('userInfo');
-      if (userInfo) {
-        const prof= JSON.parse(userInfo).userId;
-        if(props.projectInfo.userId===prof) {
-          const deleteButton= document.querySelectorAll('.deleteButton');
-          if(deleteButton){
-            deleteButton.forEach((button) => {
-              button.style.display= 'block';
-            });
-          }
-        }
-      }
-    } catch (err) {
-      console.error('Error displaying delete button:', err);
-    }
+    const userInfo = localStorage.getItem('userInfo');
+    const uid= JSON.parse(userInfo)._id;
+    const key= props.projectInfo.key;
   }
 
-  useEffect(() => {
-    displayDeleteButton();
-  }, []);
+  
   const cardStyle = {
     width: '20rem',
     height: '558px',
@@ -78,7 +70,7 @@ function Project(props) {
   };
 
   const deleteButtonStyle = {
-    display: 'none',
+    display: 'block',
     backgroundColor: '#FC93AE',
     borderColor: '#FC93AE',  
   };
@@ -95,9 +87,11 @@ function Project(props) {
             {props.projectInfo.updatedAt.substring(0,10)} <br/>
             {props.projectInfo.description}
           </Card.Text>
-          <Button variant="info" style={infoButtonStyle} onClick={info_click}>Get Info</Button>
-          <Button variant="primary" className="deleteButton" style={deleteButtonStyle} onClick={onDeleteClick}>Delete Project</Button>
         </Card.Body>
+        <div className='cardButtons my-3'>
+          <Button variant="info" onClick={info_click} className='mx-2' style={infoButtonStyle}>Get Info</Button>
+          <Button variant="primary" className="deleteButton" style={deleteButtonStyle} onClick={onDeleteClick}>Delete Project</Button>
+        </div>
       </Card>
     </div>
   );

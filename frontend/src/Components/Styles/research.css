@@ -1,9 +1,5 @@
 .deleteButton {
     display: block;
-    margin-top: 8px;
-    margin-left: 0px;
-    margin-right: 0px;
-    margin-bottom: 0px;
 }
 .research{
     background-color: #555;
@@ -14,7 +10,7 @@
 
 .addProjectButton {
     position: fixed;
-    display: block;
+    display: none;
     bottom: 50px;
     right: 60px;
     display: block;
@@ -47,6 +43,13 @@
 }
 
 .CardGroup {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: left;
+}
+
+.cardButtons {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
