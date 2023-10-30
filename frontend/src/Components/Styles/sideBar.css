@@ -22,11 +22,11 @@
 
 }
 .sideBarList .row:hover{
-    background-color: #1A2228;
+    background-color: #555;
     cursor: pointer;
 }
 .sideBarList #active{
-    background-color: #1A2228;
+    background-color: #555;
 }
 .row-split #icon{
     /* background-color: black; */

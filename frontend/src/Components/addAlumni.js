@@ -1,6 +1,7 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import { Link } from 'react-router-dom';
 
 function AlumniCard(props) {
   const cardStyle = {
@@ -37,9 +38,11 @@ function AlumniCard(props) {
             <span>{props.company}</span> <br />
             <span>{props.collegeName}</span>
           </Card.Text>
+          <Link to="/personalchat">
           <Button variant="primary" style={buttonStyle}>
             Chat
           </Button>
+          </Link>
         </Card.Body>
       </Card>
     </div>
