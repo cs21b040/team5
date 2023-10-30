@@ -1,5 +1,5 @@
 const asyncHandler = require('express-async-handler');
-const {Branch,Subject} = require('../Models/BranchModel');
+const {Branch,Subject,Question} = require('../Models/BranchModel');
 
 const getBranches = asyncHandler(async (req, res) => {
         try {   const foundlists = await Branch.find({});
@@ -28,7 +28,7 @@ const getSubjects = asyncHandler(async (req, res) => {
 
 const addBranch = asyncHandler(async (req, res) => {
         const {branch} = req.body;
-        console.log(branch);
+        // console.log(branch);
         const set=[];
         const NewBranch={
                 name:branch,
@@ -75,21 +75,20 @@ const addQuestion = asyncHandler(async (req, res) => {
         const branch = await Branch.findOne({name:branchName});
         
         if (!branch) {
-            // return res.status(404).json({ message: "Branch not found" });
             console.log("Branch not found");
         }
         const subject = branch.subjects.find((sub) => sub.name === subjectName);
         if (!subject) {
-            // return res.status(404).json({ message: "Subject not found" });
             console.log("Subject not found");
         }
         const newQuestion = {
             question: question,
             answers:[]
         };
+        // await newQuestion.save();
         subject.questions.push(newQuestion);
         await branch.save();
-        res.status(200).json(branch); 
+        res.status(200).json(subject.questions); 
     } catch (error) {
         console.error(error.message);
         res.status(500).json({ message: "Internal Server Error" });
@@ -163,9 +162,9 @@ const postAnswers = asyncHandler(async (req, res) => {
 
         const newAnswer = { answer:answer };
         question.answers.push({ newAnswer});
-    
-        await branch.save();
-    
+        branch.save();
+        await question.save();
+        
         res.status(200).json({ message: 'Answer posted successfully' });
       } catch (error) {
         console.error('Error occurred while posting answer', error);
