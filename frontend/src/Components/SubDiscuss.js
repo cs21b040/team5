@@ -18,6 +18,7 @@ function SubDiscuss({branch ,selectedSubject }) {
           subjectName: selectedSubject,
         },
       }); 
+      // console.log(response.data);
       setQuestions(response.data);
     } catch (error) {
       console.error('Error occurred while fetching questions', error);
@@ -37,7 +38,15 @@ function SubDiscuss({branch ,selectedSubject }) {
       if (response.status === 200) {
         console.log('Question posted successfully');
         const newQuestion = { question: question, answers: [] };
-        setQuestions([...questions, newQuestion]);
+        // console.log(response.data);
+      //   if (response.data && response.data._id) {
+      //     console.log(response.data._id);
+      //     console.log("kjnofwuaebfajwbfoawbnckjsdncoasebcjosadcosbd");
+      //     console.log(response.data);
+      //     newQuestion._id = response.data._id;
+      // }
+        // setQuestions([...questions, newQuestion]);
+        setQuestions(response.data);
         document.getElementById('br').value= '';
         setQuestion('');
 
@@ -57,10 +66,12 @@ function SubDiscuss({branch ,selectedSubject }) {
         <div className='discuss_body'>
             {questions.map((question,key) => (
                 <div className='discuss_question' key={key}>
+                  {/* <h6>{question._id}</h6> */}
                     <Link
                       to={{
-                          pathname: `/answers/${question._id}`,
-                          search: `?branch=${branch}&selectedSubject=${selectedSubject}`,}}>
+                          pathname: `/answers/${question._id}`, 
+                          search: `?branch=${branch}&selectedSubject=${selectedSubject}`,}}
+                          className='custom-link'>
                       <h5>{question.question}</h5>
                     </Link>
                 </div>

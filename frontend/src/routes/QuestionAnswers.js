@@ -24,6 +24,7 @@ function QuestionAnswers(){
         });
         const { question, answers } = response.data;
         setQuestion(question.question);
+        console.log(answers);
         setAnswers(answers);
       } catch (error) {
         console.error('Error occurred while fetching answers', error);
@@ -62,7 +63,9 @@ function QuestionAnswers(){
             <h3>{question}</h3>
       </div>
       <div className='discuss_body'> 
+          <h5>{answers.length}</h5>
           {answers.map((answer, key) => (
+            <h6>{answer._id}</h6>,
             <div className="discuss_answer" key={key}>
               <p>{answer.answer}</p>
             </div>
