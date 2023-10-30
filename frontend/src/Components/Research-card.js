@@ -1,4 +1,5 @@
 import React from 'react';
+import {useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import logo from './assets/iittp.png';
@@ -17,8 +18,6 @@ function Project(props) {
   };
 
   async function onDeleteClick() {
-    const key= props.key;
-    console.log(key);
     const confirmation= window.confirm('The project would be deleted permanently..!');
     if(!confirmation) {
       return;
@@ -41,9 +40,22 @@ function Project(props) {
 
   function displayDeleteButton() {
     const userInfo = localStorage.getItem('userInfo');
-    const uid= JSON.parse(userInfo)._id;
-    const key= props.projectInfo.key;
+    const key= props.projectKey;
+    const deleteButton= document.getElementsByClassName('deleteButton')[key];
+    if(userInfo){
+      const uid= JSON.parse(userInfo)._id;
+      if(uid===props.projectInfo.user._id){
+        deleteButton.style.display= 'block';
+      }
+      else {
+        deleteButton.style.display= 'none';
+      }
+    }
+
   }
+  useEffect(() => {
+    displayDeleteButton();
+  }, []);
 
   
   const cardStyle = {
@@ -70,7 +82,7 @@ function Project(props) {
   };
 
   const deleteButtonStyle = {
-    display: 'block',
+    display: 'none',
     backgroundColor: '#FC93AE',
     borderColor: '#FC93AE',  
   };

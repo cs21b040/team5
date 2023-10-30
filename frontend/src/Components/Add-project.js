@@ -1,5 +1,6 @@
 import React from 'react';
 import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { ChatState } from '../context/chatProvider';
@@ -52,7 +53,7 @@ function Add_project() {
 
 
     return (
-        <div className='content' style={{ height: '90%', overflowY: 'scroll' }}>
+        <div className='content mx-2 my-2' style={{ height: '80%', overflowY: 'scroll' }}>
             <Form>
                 <Form.Group className="mb-3" controlId="form.1">
                     <Form.Label>Title of the project</Form.Label>
@@ -77,9 +78,12 @@ function Add_project() {
                     <Form.Label>Abstract</Form.Label>
                     <Form.Control as="textarea" rows={10} placeholder="Abstract" />
                 </Form.Group>
-
+                <Form.Group controlId="formFileMultiple" className="mb-3" style={{padding:'5px'}}>
+                    <Form.Label>Upload the files relevant to the Project</Form.Label>
+                    <Form.Control type="file" multiple />
+                </Form.Group>
             </Form>
-            <button className='btn btn-primary' onClick={onSubmit}>Submit</button>
+            <Button variant='primary' onClick={onSubmit}>Submit</Button>
         </div>
     );
 }
