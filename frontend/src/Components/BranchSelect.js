@@ -63,7 +63,7 @@ function BranchSelect() {
   }
   return (
     <div>
-      <button variant="primary" onClick={handleShow} style={{backgroundColor: '#212529', margin: '0', border: '0', color:'#ffffff8c'}}>Academics</button>
+      <button variant="primary"  onClick={handleShow} style={{backgroundColor: 'transparent', margin: '0', border: '0',color:'white'}}>Academics</button>
       <Offcanvas show={show} onHide={handleClose}>
         <Offcanvas.Header closeButton>
           <Offcanvas.Title>ACADEMICS</Offcanvas.Title>

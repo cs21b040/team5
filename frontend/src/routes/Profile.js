@@ -123,6 +123,7 @@ import Header from '../Components/Header.js';
 import '../Components/Styles/Profile.css';
 import { ChatState } from '../context/chatProvider';
 import axios from 'axios';
+import Form from 'react-bootstrap/Form';
 
 function Profile() {
   const [name, setName] = useState('');
@@ -221,7 +222,14 @@ function Profile() {
               <div className="state-box">
                 <p>Working in: {Workingin}</p>
               </div>
-              <button onClick={handleEditClick}>Edit</button>
+              <Form className='opentomessages'>
+                <Form.Check
+                  label="Open to messages"
+                  type="switch"
+                  id="custom-switch"
+                />
+              </Form>
+              <button className="editbutton" onClick={handleEditClick}>Edit</button>
             </div>
           ) : (
             <div>
