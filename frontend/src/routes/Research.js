@@ -14,6 +14,11 @@ function Research() {
   const {
     user,
   } = ChatState();
+  const [searchText, setSearchText] = useState('');
+  const handleSearchInputChange = (event) => {
+    setSearchText(event.target.value);
+  };
+
   function add_click() {
     document.getElementById("lightbox").style.display = "block";
   }
@@ -38,14 +43,21 @@ function Research() {
       fetchData();
     }, []);
 
+    const filteredProjects = projects.filter((project) =>
+      project.title.toLowerCase().includes(searchText.toLowerCase()) ||
+      project.professor.toLowerCase().includes(searchText.toLowerCase()) ||
+      project.institute.toLowerCase().includes(searchText.toLowerCase())
+    );
+
     return (
       <div className='CardGroup'>
-        {projects.map((project, key) => {
-          console.log(key);
+        {filteredProjects.map((project, key) => {
+          console.log(project);
           return (
           <Project
             key={key}
             projectInfo={project}
+            projectKey= {key}
           />
           )
         })}
@@ -79,6 +91,17 @@ function Research() {
   return (
     <div >
       <Header />
+      <div className="templateContainer">
+        <div className="searchInput_Container">
+          <input
+            className="searchInput"
+            type="text"
+            placeholder="Search"
+            value={searchText}
+            onChange={handleSearchInputChange}
+          />
+        </div>
+      </div>
       <div className='research'>
         <CardGroup className='CardGroup'>
           <div>
