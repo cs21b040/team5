@@ -37,12 +37,13 @@ function Research() {
     useEffect(() => {
       fetchData();
     }, []);
-  
+
     return (
       <div className='CardGroup'>
         {projects.map((project, key) => {
+          console.log(key);
           return (
-          <Project 
+          <Project
             key={key}
             projectInfo={project}
           />
@@ -56,14 +57,14 @@ function Research() {
     const userInfo = localStorage.getItem('userInfo');
     const addProjectButton = document.querySelector('.addProjectButton');
     if (userInfo) {
-      if(JSON.parse(userInfo).userType!=='Professor'){
+      if(JSON.parse(userInfo).userType==='Professor'){
         if (addProjectButton) {
-          addProjectButton.style.display = 'none';
+          addProjectButton.style.display = 'block';
         }
       }
       else {
         if (addProjectButton) {
-          addProjectButton.style.display = 'block';
+          addProjectButton.style.display = 'none';
         }
       }
     }
@@ -71,6 +72,9 @@ function Research() {
       console.log('User Not Found');
     }
   }
+  useEffect(() => {
+    GetUserInfo();
+  }, []);
 
   return (
     <div >
@@ -88,7 +92,7 @@ function Research() {
         </CardGroup>
       </div>
       <div>
-        <button className='btn btn-success addProjectButton' onClick={add_click}>Add Project</button>
+        <button className='btn btn-success addProjectButton' onClick={add_click} style={{display: 'none'}}>Add Project</button>
       </div>
     </div>
   );

@@ -52,7 +52,7 @@ function Add_project() {
 
 
     return (
-        <div className='content'>
+        <div className='content' style={{ height: '90%', overflowY: 'scroll' }}>
             <Form>
                 <Form.Group className="mb-3" controlId="form.1">
                     <Form.Label>Title of the project</Form.Label>
