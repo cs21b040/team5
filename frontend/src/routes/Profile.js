@@ -139,6 +139,8 @@ function Profile() {
   const [profile, setProfile] = useState([]);
   const [isEditing, setIsEditing] = useState(false); 
   const [tempProfile, setTempProfile] = useState({}); 
+  const [userType, setuserType] = useState('');
+
 
   useEffect(() => {
     if (!user) return;
@@ -151,6 +153,7 @@ function Profile() {
     setWorkedin(user.company);
     setWorkingin(user.workingas);
     setPic(user.pic);
+    setuserType(user.userType);
   }, [user]);
 
 
@@ -223,11 +226,13 @@ function Profile() {
                 <p>Working in: {Workingin}</p>
               </div>
               <Form className='opentomessages'>
-                <Form.Check
-                  label="Open to messages"
-                  type="switch"
-                  id="custom-switch"
-                />
+                {userType === 'Alumni' && (
+                  <Form.Check
+                    label="Open to messages"
+                    type="switch"
+                    id="custom-switch"
+                  />
+                )}
               </Form>
               <button className="editbutton" onClick={handleEditClick}>Edit</button>
             </div>

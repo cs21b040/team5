@@ -76,15 +76,15 @@ function Project(props) {
   };
 
   const infoButtonStyle = {
-    backgroundColor: '#FC93AE', 
-    borderColor: '#FC93AE', 
+    backgroundColor: '#0056b3', 
+    borderColor: '#0056b3', 
     color: '#fff',
   };
 
   const deleteButtonStyle = {
     display: 'none',
-    backgroundColor: '#FC93AE',
-    borderColor: '#FC93AE',  
+    backgroundColor: '#0056b3',
+    borderColor: '#0056b3',  
   };
 
   return (

@@ -3,6 +3,7 @@
     align-items: center;
     justify-content: center;
     height: 100vh;
+    background-color: #333; /* Dark background color */
 
 }
 .container1{
@@ -13,14 +14,14 @@
     margin: 0 auto;
     height: 75%;
     border-radius: 50px;
-    border: 1px solid #280b54; 
-}
+    border: 1px solid #333; /* Dark border color */
+    background-color: #222; /* Dark background color */}
 .first1{
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 50px;
-    background-color: #fff;
+    background-color: #222;
     background-image: url(../assets/bg.png);
     background-size: cover;
     width: 50%;
@@ -35,6 +36,7 @@
     gap: 25px;
     width: 100%;
     height: 100%;
+    color: #fff; /* Text color */
   }
 .position1 {
     display: flex;
@@ -62,7 +64,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-color: #fff;
+    background-color: #222;
     width: 50%;
     border-radius: 50px;
     height: 100%;
@@ -73,7 +75,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color: #fff;
+  background-color: #222;
   width: 50%;
   border-radius: 50px;
   height: 100%;
@@ -84,7 +86,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color: #fff;
+  background-color: #222;
   width: 50%;
   border-radius: 50px;
   height: 100%;
@@ -96,6 +98,7 @@
     align-items: center;
     height: 15%;
     width: 100%;
+    color: #fff; /* Text color */
   }
 .position3 {
     display: flex;
@@ -104,7 +107,7 @@
     width: 80%;
     font-size: 45px;
     font-weight: 700;
-    color: #280b54;
+    color: #fff;
   }
 .inputs1 {
     display: flex;
@@ -118,7 +121,7 @@
     margin: 0 auto;
     width: 80%;
     height: 15%;
-    background: #eaeaea;
+    background: #333;
     border-radius: 6px;
 }
 .input1 input {
@@ -129,7 +132,7 @@
     outline: none;
 
     font-size: 19px;
-    color: #797979;
+    color: #fff;
   }
 .input2{
     display: flex;
@@ -137,13 +140,13 @@
     margin: auto;
     width: 80%;
     height: 15%;
-    background: #eaeaea;
+    background: #444;
     border-radius: 6px;
     flex-direction: row;
 }
 .input2 .radio-button{
     flex:33.33%;
-
+    color: #fff;
 }
 .switch1{
   display: flex;
@@ -152,6 +155,7 @@
   width: 90%;
   height: 20px;
   font-size: 20px;
+  color: #fff; /* Text color */
 }
 .img{
   display: flex;
@@ -195,7 +199,7 @@
     justify-content: center;
     width: 30%;
     height: 100%;
-    background: #280b54;
+    background: #0056b3;
     color: #fff;
     border-radius: 50px;
     font-size: 19px;

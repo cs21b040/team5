@@ -102,9 +102,9 @@ main {
   display: none;
 }
 .sendbutton{
-  background-color: #FC93AE;
+  background-color: #0056b3;
   color: #fff;
-  border-color: #FC93AE;
+  border-color: #0056b3;
 }
 @media (max-width: 600px) {
   .message-input{
