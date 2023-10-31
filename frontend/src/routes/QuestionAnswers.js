@@ -59,7 +59,7 @@ function QuestionAnswers(){
 
   return (
     <div className='discuss'>
-      <div className="discuss__header">
+      <div className="discuss__header_question">
             <h3>{question}</h3>
       </div>
       <div className='discuss_body'> 

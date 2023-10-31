@@ -161,9 +161,8 @@ const postAnswers = asyncHandler(async (req, res) => {
         }
 
         const newAnswer = { answer:answer };
-        question.answers.push({ newAnswer});
-        branch.save();
-        await question.save();
+        question.answers.push(newAnswer);
+        await branch.save();
         
         res.status(200).json({ message: 'Answer posted successfully' });
       } catch (error) {

@@ -20,6 +20,8 @@
     flex:1;
     overflow: scroll;
     background-color: #f2f3e9;
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent; 
 }
 .add_subject{
     background-color: #f2f3e9;
