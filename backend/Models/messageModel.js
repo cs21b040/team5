@@ -11,7 +11,10 @@ const messageModel =mongoose.Schema({
     chat:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"Chat"
-    }
+    },
+    file:{
+        type:Buffer,
+    },
 },
 {
     timestamps:true,

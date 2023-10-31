@@ -1,4 +1,5 @@
 const express = require('express');
+const fileUpload=require('express-fileupload');
 require('dotenv').config();
 const chats= require('./Data/data.js');
 const subjects=require('./Data/Subjects.js');
@@ -27,13 +28,13 @@ const server = app.listen(port,()=>{
 app.get('/',(req,res)=>{
     res.send("API success");
 });
+app.use(fileUpload());
 app.use('/api/academics',AcademicRoutes);
 app.use('/api/user',userRoutes);
 app.use('/api/chat',chatRoutes);
 app.use('/api/messages',messageRoutes);
 app.use('/api/research', projectRoutes);
 app.get("/api/chat/:id",(req,res)=>{
-    // console.log(req.params.id);
     const singleChat=chats.find((c)=>c._id ===req.params.id);
     res.send(singleChat);
 })
