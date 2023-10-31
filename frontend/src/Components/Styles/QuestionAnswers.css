@@ -4,20 +4,20 @@
     flex: 0.75;
 }
 
-.discuss__header{
+.discuss__header_question{
     padding:10px;
     display: flex;
     border-bottom: 1px solid lightgray;
 }
 
-.discuss__header > h3{
+.discuss__header_question > h3{
     font-size: 20px;
     font-weight: 400;
     color: gray;
     margin: auto;
 }
 
-.discuss_body {
+.discuss_body{
     display: flex;
     flex-direction: column;
     padding: 2px 0;
