@@ -57,8 +57,8 @@ function SideBar() {
   return (
     <div className='sideBar'>
       <ul className='sideBarList'>
-        <li>
-          <div className="row" onClick={
+        <li className='yourchat'>
+          <div className="row1" onClick={
             ()=>{
               navigate("/personalchat");
             }
@@ -77,7 +77,7 @@ function SideBar() {
           </div>
         </li>
         <li className={Interest ? "request" : "passive"}>
-          <div className="request">
+          <div className="request1">
             <div id="inp">
             <input type="text" className='Interest'onChange={
               (e)=>{

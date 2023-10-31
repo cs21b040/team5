@@ -24,8 +24,8 @@ function AlumniCard(props) {
   };
 
   const buttonStyle = {
-    backgroundColor: '#FC93AE',
-    borderColor: '#FC93AE',
+    backgroundColor: '#0056b3',
+    borderColor: '#0056b3',
   };
 
   return (
