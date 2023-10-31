@@ -1,4 +1,4 @@
-main {
+.groupchatpage {
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -7,7 +7,7 @@ main {
   background-color: #555;
 }
 
-.chat-container {
+.groupchatpage .chat-container {
   display: flex;
   flex-direction: column-reverse;
   flex-grow: 1;
@@ -17,7 +17,7 @@ main {
   margin-top: 60px;
 }
 
-.message-list {
+.groupchatpage .message-list {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -29,19 +29,19 @@ main {
   /* top: 100px; */
 }
 
-.message {
+.groupchatpage .message {
   padding: 10px;
 }
 /* 
-.card {
+.groupchatpage .card {
   margin: 5px;
 } */
-.messageCard{
+.groupchatpage .messageCard{
   display: flex;
   flex-direction: column;
   width: 50%;
 }
-.input-container {
+.groupchatpage .input-container {
   display: flex;
   align-items: center;
   padding: 10px;
@@ -49,7 +49,7 @@ main {
   /* border-top: 1px solid #e1e1e1; */
 }
 
-.message-input {
+.groupchatpage .message-input {
   position: fixed;
   flex-grow: 1;
   /* padding: 1px; */
@@ -60,7 +60,7 @@ main {
   width:69%;
 }
 
-.send-button {
+.groupchatpage .send-button {
   padding: 10px 20px;
   margin-left: 10px;
   border: none;
@@ -71,15 +71,15 @@ main {
   outline: none;
 }
 
-.send-button:hover {
+.groupchatpage .send-button:hover {
   background-color: #0d6e61;
 }
-.sendbutton1{
+.groupchatpage .sendbutton1{
   background-color: #FC93AE;
   color: #fff;
   border-color: #FC93AE;
 }
-.chat-header1{
+.groupchatpage .chat-header1{
   position: fixed;
   flex-grow: 1;
   /* padding: 1px; */
@@ -93,20 +93,20 @@ main {
   width: 70%;
   top: 58px;
 } 
-.chat-header-user1{
+.groupchatpage .chat-header-user1{
   height: 100%;
   width: 100%;
   background-color: #222;
   color: #fff;
 
 }
-.headerCard1{
+.groupchatpage .headerCard1{
   height: 100%;
   width: 100%;
   background-color: #222;
   color: #fff;
 }
-.headerText1{
+.groupchatpage .headerText1{
   display: flex;
   align-items: center;
   justify-content: center;
@@ -119,11 +119,11 @@ main {
   color: #fff;
   background-color: #222;
 }
-.text1{
+.groupchatpage .text1{
   color: #fff;
 }
 @media (max-width: 600px) {
-  .message-input{
+  .groupchatpage .message-input{
     width: 100%;
   }
 }

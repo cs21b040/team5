@@ -89,7 +89,7 @@ function Friends() {
                 </Col>
                 <Col>
                   <Card.Title style={{ fontWeight: 'bold', color: '#222' }}>{friend.name}</Card.Title>
-                  <Card.Text style={{ color: '#333' }}>{chat.latestMessage.content}</Card.Text>
+                  <Card.Text style={{ color: '#333',textOverflow:'ellipsis',whiteSpace:'nowrap',overflow:'hidden' }}>{chat.latestMessage.content}</Card.Text>
                 </Col>
               </Row>
             </Card.Body>

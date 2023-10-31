@@ -28,14 +28,6 @@ main {
   height: 80%;
   /* top: 100px; */
 }
-
-.message {
-  padding: 10px;
-}
-/* 
-.card {
-  margin: 5px;
-} */
 .messageCard{
   display: flex;
   flex-direction: column;
@@ -102,12 +94,42 @@ main {
   display: none;
 }
 .sendbutton{
-  background-color: #0056b3;
+  background-color: #FC93AE;
   color: #fff;
-  border-color: #0056b3;
+  border-color: #FC93AE;
+}
+.message-card {
+  overflow-wrap: break-word;  
+  word-wrap: break-word; 
+  word-break: break-word;
+
+}
+.add {
+  justify-content: center;
+  margin:0;
 }
 @media (max-width: 600px) {
   .message-input{
     width: 100%;
   }
+}
+#lightbox {
+  display: none;
+  position: fixed;
+  left: 50%;
+top: 50%;
+transform: translate(-50%, -50%);
+
+  width: 50%;
+  height: 50%;
+  background-color: white;
+  z-index: 999;
+  text-align: center;
+}
+
+
+.close {
+  position: absolute;
+  top: 1rem;
+  right: 2rem;
 }
