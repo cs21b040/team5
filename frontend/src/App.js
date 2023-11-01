@@ -7,6 +7,7 @@ import Research from './routes/Research';
 import SignUp from './routes/SignUp';
 import Login from './routes/Login';           
 import Profile from './routes/Profile';
+import Open from './routes/Open';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ChatContext from './context/chatProvider';
 import PersonalChat from './routes/personalChat';
@@ -26,6 +27,7 @@ function App() {
           <Route path="/research" element={<Research />} />
           <Route path="/profile" element={<Profile/>} />
           <Route path="/personalchat" element={<PersonalChat/>} />
+          <Route path="/open" element={<Open/>} />
           <Route path="/research/projectDetails" element={<ProjectDetails />} />
           <Route path="/answers/:questionId" element={<QuestionAnswers />} />
         </Routes>
