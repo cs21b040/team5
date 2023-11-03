@@ -71,6 +71,7 @@ function Friends() {
             className="chatListCard"
             style={{ marginTop: '15px', color: '#333',backgroundColor: selectedChat === chat ? '#777' : 'white'   }}
             onClick={() => {
+              console.log(selectedChat);
               setSelectedChat(chat);
             }}
           >

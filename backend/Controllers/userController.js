@@ -75,28 +75,43 @@ const users = asyncHandler(async (req,res)=>{
     res.send(userlist);
 })
 const updateProfile = asyncHandler(async (req,res)=>{ 
-    const {userObj,name,graduatedYear,branch,discipline,highestDegreeOfQualification,Workedin,Workingin,pic}=req.body;
+    const {userId,name,graduationyear,branch,discipline,
+        highestDegreeOfQualification,company,workingas,pic}=req.body;
+    console.log(req.body);
+    const temp={name:name,
+        graduationyear:graduationyear,
+        branch:branch,
+        discipline:discipline,
+        highestDegreeOfQualification:highestDegreeOfQualification,
+        company:company,
+        workingas:workingas,
+        pic:pic}
     const update=await User.findByIdAndUpdate(
-        userObj._id,
-        {name:name},
-        
-        {graduatedYear:graduatedYear},
-        
-        {branch:branch},
-
-        {discipline:discipline},
-        
-        {highestDegreeOfQualification:highestDegreeOfQualification},
-        
-        {Workedin:Workedin},
-
-        {Workingin:Workingin},
-
-        {pic:pic}
-
-    ).populate("")
-
-
+        userId,
+        temp,
+    );
+    if(!update){
+        res.status(400);
+        throw new Error('Invalid user id');
+    }
+    else{
+        res.status(200).json('Updated');
+    }
+})
+const updateOpenMsg= asyncHandler(async(req,res)=>{
+    const userId=req.body._id;
+    const openMsg=req.body.openMsg;
+    const update=await User.findByIdAndUpdate(
+        userId,
+        {openMsg:openMsg},
+    );
+    if(!update){
+        res.status(400);
+        throw new Error('Invalid user id');
+    }
+    else{
+        res.status(200).json('Updated');
+    }
 })
 const renameGroups = asyncHandler(async(req,res)=>{
     const {chatId,chatName}=req.body;
@@ -112,4 +127,4 @@ const renameGroups = asyncHandler(async(req,res)=>{
     }
     res.status(200).json(Update);
 });
-module.exports = {registerUser,authUser,users,updateProfile};
+module.exports = {registerUser,authUser,users,updateProfile,updateOpenMsg};

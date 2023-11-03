@@ -49,6 +49,10 @@ const userSchema =mongoose.Schema({
     highestDegreeOfQualification:{
         type:String,
         default:""
+    },
+    openMsg:{
+        type:Boolean,
+        default:true
     }
 
 },

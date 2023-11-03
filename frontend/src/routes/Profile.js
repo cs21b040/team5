@@ -20,6 +20,7 @@ function Profile() {
   const [isEditing, setIsEditing] = useState(false); 
   const [tempProfile, setTempProfile] = useState({}); 
   const [userType, setuserType] = useState('');
+  const [openMsg, setOpenMsg] = useState(true);
 
 
   useEffect(() => {
@@ -34,6 +35,7 @@ function Profile() {
     setWorkingin(user.workingas);
     setPic(user.pic);
     setuserType(user.userType);
+    setOpenMsg(user.openMsg);
   }, [user]);
 
 
@@ -62,11 +64,32 @@ function Profile() {
     setWorkedin(tempProfile.Workedin);
     setWorkingin(tempProfile.Workingin);
     setPic(tempProfile.pic);
-    setIsEditing(false); 
-    
-
-  };
-
+    setIsEditing(false);
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      };
+      const { data } = axios.put(
+        'http://localhost:5000/api/user/update',
+        {
+          userId: user._id,
+          name: tempProfile.name,
+          graduationyear: tempProfile.graduatedYear,
+          branch: tempProfile.branch,
+          discipline: tempProfile.discipline,
+          highestDegreeOfQualification: tempProfile.highestDegreeOfQualification,
+          company: tempProfile.Workedin,
+          workingas: tempProfile.Workingin,
+          pic: tempProfile.pic,
+        },
+        config
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  }
   return (
     <div className="total">
       <Header />
@@ -78,8 +101,6 @@ function Profile() {
           <h1>Profile Page</h1>
           {!isEditing ? 
           ( 
-        
-            
             <div>
               <div className="state-box">
                 <p>Name: {name}</p>
@@ -111,6 +132,23 @@ function Profile() {
                     label="Open to messages"
                     type="switch"
                     id="custom-switch"
+                    onClick={async ()=>{
+                      setOpenMsg(!openMsg);
+                      user.openMsg=!openMsg;
+                      const config={
+                        headers:{
+                          Authorization: `Bearer ${user.token}`,
+                        },
+                      }
+                      try {
+                        await axios.put('http://localhost:5000/api/user/openMsg',{
+                          _id:user._id,
+                          openMsg:openMsg,
+                        },config);
+                      } catch (error) {
+                        console.log(error);
+                      }
+                    }}
                   />
                 )}
               </Form>
@@ -118,10 +156,6 @@ function Profile() {
             </div>
           ) : (
             <div>
-
-
-
-
               <div className="state-box">
                 <label>Name:</label>
                 <input
@@ -182,8 +216,6 @@ function Profile() {
                   onChange={(e) => setTempProfile({ ...tempProfile, Workedin: e.target.value })}
                 />
               </div>
-              
-              
               <button onClick={handleSaveClick}>Save</button>
             </div>
           )}

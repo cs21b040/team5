@@ -12,7 +12,7 @@ function Alumni() {
   }=ChatState();
   const [searchText, setSearchText] = useState('');
   function CardsDisplay() {
-    const [alumnis, setalumnis] = useState([]);
+  const [alumnis, setalumnis] = useState([]);
     
   
     useEffect(() => {
@@ -46,7 +46,9 @@ function Alumni() {
             name={Card.name}
             pic={Card.pic}
             company={Card.company}
+            id={Card._id}
             collegeName={Card.collegeName}
+            openMsg={Card.openMsg}
             />
 
            )

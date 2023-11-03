@@ -1,9 +1,33 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import { Link } from 'react-router-dom';
-
+import { Link, Navigate, useNavigate } from 'react-router-dom';
+import {ChatState} from '../context/chatProvider';
+import axios from 'axios';
 function AlumniCard(props) {
+  const accessChat = async (userId) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${user.token}`,
+      },
+    };
+    // console.log(userId);
+    try {
+      const {data} = await axios.post (
+        `http://localhost:5000/api/chat`,
+        {userId},
+        config
+      );
+      console.log (data);
+      if (chats.find (chat => chat._id === data._id))
+        setChats ([data, ...chats]);
+      setSelectedChat (data);
+      console.log(selectedChat);
+    } catch (error) {
+      console.log (error);
+    }
+  };
   const cardStyle = {
     width: '20rem',
     backgroundColor: '#333',
@@ -27,7 +51,14 @@ function AlumniCard(props) {
     backgroundColor: '#0056b3',
     borderColor: '#0056b3',
   };
-
+  const {
+    chats,
+    user,
+    setChats,
+    selectedChat,
+    setSelectedChat
+  } = ChatState();
+  const navigate=useNavigate();
   return (
     <div className="mx-2 my-2">
       <Card style={cardStyle}>
@@ -38,11 +69,10 @@ function AlumniCard(props) {
             <span>{props.company}</span> <br />
             <span>{props.collegeName}</span>
           </Card.Text>
-          <Link to="/personalchat">
-          <Button variant="primary" style={buttonStyle}>
-            Chat
-          </Button>
-          </Link>
+            {props.openMsg&& <Button variant="primary" style={buttonStyle} onClick={()=>{
+              accessChat(props.id);
+              navigate('/personalchat');
+            }}>Chat</Button>}
         </Card.Body>
       </Card>
     </div>
