@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect ,useRef} from 'react';
 import './Styles/chatPage.css';
 import {TypeAnimation} from 'react-type-animation';
 import { Card, InputGroup, FormControl, Button } from 'react-bootstrap'; 
@@ -24,6 +24,7 @@ function ChatPage() {
     selectedChat,
     user,
   } = ChatState();
+  const messagesEndRef=React.useRef(null);
   useEffect(() => {
     socket=io(EndPoint);
     if(user){
@@ -54,7 +55,7 @@ function ChatPage() {
         setMessages([...messages,newMessageRecieved]);
       }
       })
-  })
+  })  
   const [loading, setLoading] = useState(false);
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
@@ -90,7 +91,9 @@ function ChatPage() {
       toast.error('Error in sending message');
     }
   };
-
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages])
   const sendMessage = async () => {
     socket.emit("stop typing",selectedChat._id);
     try {
@@ -196,6 +199,11 @@ function ChatPage() {
           </Modal.Body>
       </Modal>
       }
+      <div style={{
+        marginTop:"1rem",
+      }}>
+
+      </div>
       <div className={!selectedChat ? 'passive' : 'chat-header'}>
           <div className="chat-header-user" >
             <Card className='headerCard'>
@@ -276,6 +284,7 @@ function ChatPage() {
   </p>
 </div>
 </div>)})}
+<div ref={messagesEndRef} ></div>
   </div>
 </div>
 <div id='lightbox2'>
@@ -297,7 +306,7 @@ function ChatPage() {
       <button className='btn btn-primary' onClick={onSubmit}>Submit</button>
     </div>
 </div>
-<div className="hi" style={{paddingBottom:"10rem"}}>
+<div className="hi" style={{paddingBottom:"3rem"}}>
 {/* just to give some space  */}
 </div>
 

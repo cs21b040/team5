@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect ,useRef} from 'react';
 import './Styles/groupChatPage.css';
-import { Card, InputGroup, FormControl, Button } from 'react-bootstrap'; // Import relevant Bootstrap components
+import { Card, InputGroup, FormControl, Button } from 'react-bootstrap'; 
 import { ChatState } from '../context/chatProvider';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
@@ -8,6 +8,10 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import io from 'socket.io-client';
 import Spinner from 'react-bootstrap/Spinner';
+import { CloseButton } from 'react-bootstrap';
+import { FiPlusSquare } from 'react-icons/fi';
+import { BiCloudUpload } from 'react-icons/bi';
+import Dropdown from 'react-bootstrap/Dropdown';
 import { CgSoftwareDownload } from 'react-icons/cg';
 import Modal from 'react-bootstrap/Modal';
 import {TypeAnimation} from 'react-type-animation';
@@ -20,6 +24,10 @@ function GroupChatPage() {
     const [typing,setTyping]=useState(false);
     const [isTyping,setIsTyping]=useState(false);
     const [loading,setLoading]=useState(false);
+    const messagesEndRef=React.useRef(null);
+    const [imgClick,setImgClick]=useState(false);
+    const [userProfile,setUserProfile]=useState(null);
+    const [selectedFile, setSelectedFile] = useState(null);
     const {
         user,
         selectedGroup,
@@ -42,11 +50,6 @@ function GroupChatPage() {
       },[user]);
       useEffect(() => {
         if(!selectedGroup) return;
-        // console.log(selectedGroupCompare?._id);
-        if(selectedGroupCompare){
-          console.log(selectedGroupCompare._id+ " "+user._id);
-          socket.emit('user left',(user._id,selectedGroupCompare._id));
-        }
         fetchMessages();
         selectedGroupCompare=selectedGroup;
       }, [selectedGroup]);
@@ -54,14 +57,13 @@ function GroupChatPage() {
         if(!socket) return;
         socket.on("grp message recieved",(newMessageRecieved)=>{
           if(!selectedGroupCompare || newMessageRecieved.chat._id!==selectedGroupCompare._id) {
-            //TODO :: give notification
           }
-          else setMessages([...messages,newMessageRecieved]);
-          console.log("grp message recieved");
+          else {
+            setMessages([...messages,newMessageRecieved]);
+          }
         })
       })
       const downloadFile = async (buffer)=>{
-        console.log(buffer)
         try {
           const config = {
             headers: {
@@ -70,9 +72,7 @@ function GroupChatPage() {
             },
           };
           const { data } = await axios.get(`http://localhost:5000/api/messages/download/${buffer._id}`, config,);
-          console.log(data.status)
           const fileURL = "/" + data.status;
-          console.log(fileURL);
           let alink = document.createElement("a");
           alink.href = fileURL;
           alink.download = data.status;
@@ -90,7 +90,6 @@ function GroupChatPage() {
               Authorization: `Bearer ${user.token}`,
             },
           };
-          console.log(selectedGroup._id)
           const { data } = await axios.post('http://localhost:5000/api/messages', {
             chatId: selectedGroup._id,
             content: newMessage,
@@ -121,11 +120,69 @@ function GroupChatPage() {
           console.error(error);
         }
       };
-      
+      function upload(){
+        document.getElementById("lightbox2").style.display="block";
+      }
+      async function onSubmit() {
+        if(!selectedFile){
+          alert("Please select a file");
+          console.log("Please select a file");
+          return;
+        }
+        const formData=new FormData();
+        formData.append('file',selectedFile);
+        console.log(selectedGroup._id);
+        formData.append('chatId',selectedGroup._id)
+        console.log(formData);
+        try{
+          const {data}=await axios.post('http://localhost:5000/api/messages/', formData, {
+          headers: {
+            'Authorization': `Bearer ${user.token}`,
+            'Content-Type': 'multipart/form-data'
+          }})
+          setNewMessage('');
+          socket.emit("new msg",data);
+          setMessages([...messages, data]);
+          document.getElementById("lightbox2").style.display = "none";
+        }
+         catch (err) {
+          console.error(err);
+          toast.error('Error in sending message');
+        }
+      };
+      useEffect(() => {
+        if(!messagesEndRef.current) return;
+        messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+      }, [messages]);
     return (
         <div className="groupchatpage">
           <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} draggable theme="light" />
-          <div className="chat-container">
+          {
+            imgClick &&
+            <Modal centered show={imgClick} onHide={()=>{setImgClick(false);}}>
+              <Modal.Body>
+                <CloseButton onClick={()=>{setImgClick(false)}}/>
+                <div className="container">
+                    <div className="row">
+                    <div className="col d-flex justify-content-center">
+                        <img
+                        src={userProfile?.pic} style={{
+                            height:"10.5rem"}} />
+                    </div>
+                    <div className="col justify-content-center">
+                        <p>Name: {userProfile?.name}</p>
+                        <p>Email: {userProfile?.email}</p>
+                        <p>Branch: {userProfile?.branch}</p>
+                        <p>College: {userProfile?.collegeName}</p>
+                        <p>Role: {userProfile?.userType}</p>
+                    </div>
+                    </div>
+                    
+                </div>
+              </Modal.Body>
+          </Modal>
+          }
+          <div className="chat-container"  >
             <div className="message-list">
             <div className="chat-header1">
               <div className="chat-header-user1">
@@ -160,12 +217,19 @@ function GroupChatPage() {
                       borderRadius: '50%',
                       marginRight: '10px',
                       float: message.sender._id === user._id ? 'right' : 'left',
-                    }}/>:<div style={{
+                      clear:'both'
+                    }}
+                    onClick={
+                      ()=>{
+                        setUserProfile(message.sender);
+                        setImgClick(true);
+                      }
+                    }/>:<div style={{
                       width: '40px',
                       height: '40px',
-                      borderRadius: '50%',
                       marginRight: '10px',
-                      float: 'left',
+                      float: message.sender._id === user._id ? 'right' : 'left',
+                      clear:'both'
                       }}></div>
                   }
                   <div className="message-card"
@@ -179,8 +243,8 @@ function GroupChatPage() {
                     boxShadow: '0px 2px 5px 0px rgba(0, 0, 0, 0.1)',
                     display: 'inline-block',
                     maxWidth: '70%',
+                    position: 'relative',
                     float: message.sender._id === user._id ? 'right' : 'left',
-                    clear:'both'
                   }}
                 >
               <p style={{ margin: 0, padding: 0, display: 'inline-block' }}>
@@ -201,38 +265,75 @@ function GroupChatPage() {
             </div>
                 </div>
               ))}
+            <div ref={messagesEndRef}></div>
             </div>
           </div>
-          <div className="message-input">
-          <InputGroup>
-            <FormControl
-              type="text"
-              placeholder="Type your message here..."
-              value={newMessage}
-              onChange={(event) => {
-                setNewMessage(event.target.value);
-                if(!socket) return;
-                if(!typing){
-                  socket.emit("typing",selectedGroup._id);
-                }
-                let lastTypingTime=Date.now();
-                var timerLength=30;
-                setTimeout(()=>{
-                  var timeNow=Date.now();
-                  var timeDiff=timeNow-lastTypingTime;
-                  if(timeDiff>=timerLength && typing){
-                    socket.emit("stop typing",selectedGroup._id);
-                    setTyping(false);
-                  }
-                });
-              }}
-              onKeyDown={(event) => event.key === 'Enter' && sendMessage()}
-            />
-            <Button variant="primary" className="sendbutton1" onClick={sendMessage}>Send</Button>
-          </InputGroup>
-            </div>
+          <div id='lightbox2'>
+  <CloseButton 
+  className='close2'
+  onClick={() => {
+    document.getElementById("lightbox2").style.display = "none";
+  }}
+  />
+  <div className='content'>
+      <BiCloudUpload size={150} color='black'/>
+      <form>
+        <input
+          type="file"
+          onChange={(e) => setSelectedFile(e.target.files[0])}
+        />
+      </form>
+      <button className='btn btn-primary' onClick={onSubmit}>Submit</button>
+    </div>
+</div>
+          <div style={{
+            marginBottom:'3rem'
+          }}>
+            {/* give some space && auto scroll */}
+          </div>
+    <div className="message-input">
+      <div className="typing">
+        {isTyping && <p>Typing...</p>}
+      </div>
+      <InputGroup className={!selectedGroup ? 'passive' : ''}>
+        <FormControl 
+          type="text"
+          placeholder="Type your message here..."
+          value={newMessage}
+          onChange={(event) => {
+            setNewMessage(event.target.value);
+            if(!socket) return;
+            if(!typing){
+              socket.emit("typing",selectedGroup._id);
+            }
+            let lastTypingTime=Date.now();
+            var timerLength=300;
+            setTimeout(()=>{
+              var timeNow=Date.now();
+              var timeDiff=timeNow-lastTypingTime;
+              if(timeDiff>=timerLength && typing){
+                socket.emit("stop typing",selectedGroup._id);
+                setTyping(false);
+              }
+            });
+          }}
+          onKeyDown={(event) => event.key === 'Enter' && sendMessage()}
+        />
+         <Dropdown>
+          <Dropdown.Toggle variant="success" id="dropdown-basic">
+          <FiPlusSquare size={25} color={"white"} />
+          </Dropdown.Toggle>
+          <Dropdown.Menu>
+            <Dropdown.Item onClick={()=>{
+              upload();
+            }}>Insert File</Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
+        <Button variant="primary" className="sendbutton" onClick={sendMessage}>Send</Button>
+      </InputGroup>
+    </div>
         </div>
       );
 }
 
-export default GroupChatPage
+export default GroupChatPage;

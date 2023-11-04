@@ -8,7 +8,7 @@
 }
 
 .groupchatpage .chat-container {
-  display: flex;
+  /* display: flex; */
   flex-direction: column-reverse;
   flex-grow: 1;
   border-radius: 10px;
@@ -21,21 +21,13 @@
   list-style: none;
   padding: 0;
   margin: 0;
-  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
   overflow-y: scroll;
   scrollbar-width: thin;
   scrollbar-color: #ddd transparent;
-  height: 80%;
-  /* top: 100px; */
+  height: 99%;
 }
-
-.groupchatpage .message {
-  padding: 10px;
-}
-/* 
-.groupchatpage .card {
-  margin: 5px;
-} */
 .groupchatpage .messageCard{
   display: flex;
   flex-direction: column;
@@ -46,7 +38,7 @@
   align-items: center;
   padding: 10px;
   background-color: #fff;
-  /* border-top: 1px solid #e1e1e1; */
+  border-top: 1px solid #e1e1e1;
 }
 
 .groupchatpage .message-input {
@@ -118,6 +110,11 @@
   font-weight: bold;
   color: #fff;
   background-color: #222;
+}
+.groupchatpage .message-card {
+  overflow-wrap: break-word;  
+  word-wrap: break-word; 
+  word-break: break-word;
 }
 .groupchatpage .text1{
   color: #fff;
