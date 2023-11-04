@@ -3,7 +3,6 @@ const Chat = require('../Models/chatModel');
 const User = require('../Models/userModel');
 const accessChat = asyncHandler(async(req,res)=>{
     const {userId}=req.body;
-    // console.log((res.user));
     if(!userId){
         res.status(400);
         throw new Error('User id is required');

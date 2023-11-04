@@ -7,5 +7,4 @@ router.route("/").get(protect,getChats);
 router.route("/group").get(protect,getGroups);
 router.route("/group").post(protect,createGroup);
 router.route("/rename").put(protect,renameGroups);
-
 module.exports =router;

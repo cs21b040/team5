@@ -1,18 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import './Styles/chatPage.css';
-import { Card, InputGroup, FormControl, Button } from 'react-bootstrap'; // Import relevant Bootstrap components
+import {TypeAnimation} from 'react-type-animation';
+import { Card, InputGroup, FormControl, Button } from 'react-bootstrap'; 
 import { useNavigate } from 'react-router-dom';
 import CloseButton from 'react-bootstrap/CloseButton';
 import { ChatState } from '../context/chatProvider';
 import {FiPlusSquare} from 'react-icons/fi';
+import Typewriter from 'typewriter-effect/dist/core';
+import {BiCloudUpload} from 'react-icons/bi';
 import{CgSoftwareDownload} from 'react-icons/cg';
+import Spinner from 'react-bootstrap/Spinner';
+import Modal from 'react-bootstrap/Modal';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import Row from 'react-bootstrap/Row';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Col from 'react-bootstrap/Col';
 import io from 'socket.io-client';
-import UploadFile from './uploadFile';
 const EndPoint = "http://localhost:5000";
 var socket,selectedChatCompare;
 function ChatPage() {
@@ -45,15 +49,48 @@ function ChatPage() {
       if(!selectedChatCompare || newMessageRecieved.chat._id!==selectedChatCompare._id) {
         //TODO :: give notification
       }
-      setMessages([...messages,newMessageRecieved]);
-    })
+      else {
+        console.log("message recieved");
+        setMessages([...messages,newMessageRecieved]);
+      }
+      })
   })
+  const [loading, setLoading] = useState(false);
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
   const navigate = useNavigate();
   const [socketConnected, setSocketConnected] = useState(false);
   const [typing,setTyping]=useState(false);
   const [isTyping,setIsTyping]=useState(false);
+  const [selectedFile, setSelectedFile] = React.useState(null);
+  async function onSubmit() {
+    if(!selectedFile){
+      alert("Please select a file");
+      console.log("Please select a file");
+      return;
+    }
+    const formData=new FormData();
+    formData.append('file',selectedFile);
+    console.log(selectedChat._id);
+    formData.append('chatId',selectedChat._id)
+    console.log(formData);
+    try{
+      const {data}=await axios.post('http://localhost:5000/api/messages/', formData, {
+      headers: {
+        'Authorization': `Bearer ${user.token}`,
+        'Content-Type': 'multipart/form-data'
+      }})
+      setNewMessage('');
+      socket.emit("new msg",data);
+      setMessages([...messages, data]);
+      document.getElementById("lightbox2").style.display = "none";
+    }
+     catch (err) {
+      console.error(err);
+      toast.error('Error in sending message');
+    }
+  };
+
   const sendMessage = async () => {
     socket.emit("stop typing",selectedChat._id);
     try {
@@ -80,6 +117,7 @@ function ChatPage() {
     try {
       const config = {
         headers: {
+          'Content-Type': 'application/json',
           Authorization: `Bearer ${user.token}`,
         },
       };
@@ -94,9 +132,10 @@ function ChatPage() {
     } catch (error) {
       console.error(error);
     }
-
   }
   const fetchMessages = async () => {
+    if(!selectedChat) return;
+    setLoading(true);
     if (!selectedChat) return;
     try {
       const config = {
@@ -107,31 +146,77 @@ function ChatPage() {
       const { data } = await axios.get(`http://localhost:5000/api/messages/${selectedChat._id}`, config);
       setMessages(data);
       socket.emit("join room",selectedChat._id,user._id);
+      setLoading(false);
     } catch (error) {
       console.error(error);
     }
   };
   function upload(){
-    document.getElementById("lightbox").style.display="block";
+    document.getElementById("lightbox2").style.display="block";
   }
-
+  const handleClose = () => setLoading(false);
+  const handleShow = () => setLoading(true);
+  const [imgClick, setImgClick] = useState(false);
   return (
-    <div className="main">
+    <div className="chat-page">
       <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} draggable theme="light" />
+      {
+        imgClick && 
+        <Modal centered show={imgClick} onHide={()=>{setImgClick(false);}}>
+          <Modal.Body>
+            <CloseButton onClick={()=>{setImgClick(false)}}/>
+            <div className="container">
+            {selectedChat?.users[0]._id!==user?._id?<div className="row">
+                <div className="col d-flex justify-content-center">
+                    <img
+                     src={selectedChat?.users[0].pic} style={{
+                        height:"10.5rem"}} />
+                </div>
+                <div className="col">
+                    <p>Name: {selectedChat?.users[0].name}</p>
+                    <p>Email: {selectedChat?.users[0].email}</p>
+                    <p>Branch: {selectedChat?.users[0].branch}</p>
+                    <p>Role: {selectedChat?.users[0].userType}</p>
+                </div>
+            </div>:<div className="row">
+                <div className="col d-flex justify-content-center">
+                    <img
+                     src={selectedChat?.users[1].pic} style={{
+                        height:"10.5rem"}} />
+                </div>
+                <div className="col">
+                    <p>Name: {selectedChat?.users[1].name}</p>
+                    <p>Email: {selectedChat?.users[1].email}</p>
+                    <p>Branch: {selectedChat?.users[1].branch}</p>
+                    <p>Role: {selectedChat?.users[1].userType}</p>
+                </div>
+            </div>
+            }
+        </div>
+          </Modal.Body>
+      </Modal>
+      }
       <div className={!selectedChat ? 'passive' : 'chat-header'}>
-          <div className="chat-header-user">
+          <div className="chat-header-user" >
             <Card className='headerCard'>
               <Row>
                 <Col xs={1}>
-                  <Card.Img src={selectedChat?.users[0].pic} style={{
+                  <Card.Img src={
+                    selectedChat?.users[0]._id!==user?._id ? selectedChat?.users[0].pic :
+                                    selectedChat?.users[1].pic
+                                  } style={{
                     height:"3rem",
                      width:"auto",
                      marginLeft:'5px',
-                    marginTop:'5px'}} />
+                    marginTop:'5px'}} 
+                    onClick={()=>{
+                      setImgClick(true);
+                    }}/>
                 </Col>
                 <Col>
                   <Card.Body className='headerText'>
-                    <Card.Text>{selectedChat?.users[0].name}</Card.Text>
+                    <Card.Text>{selectedChat?.users[0].email!==user?.email ? selectedChat?.users[0].name :
+                                    selectedChat?.users[1].name}</Card.Text>
                   </Card.Body>
                 </Col>
               </Row>
@@ -139,31 +224,26 @@ function ChatPage() {
           </div>
         </div>
       <div className="chat-container">
+  {
+    loading && <Modal centered show={loading}>
+      <Modal.Body>
+        <Spinner /> 
+        <TypeAnimation
+          sequence={["Loading ...",]}
+          cursor=""
+          speed={5}
+          style={{ fontSize: "1rem",marginLeft:"1rem" }}
+          />
+      </Modal.Body>
+    </Modal>
+  }
   <div className="message-list" >
-    {messages.map((message, index) => {
+    {!loading && messages.map((message, index) => {
       return (
       <div
         key={index}
         className={`message ${message.sender._id === user._id ? 'sent' : 'received'}`}
       >
-        {/* {index===0 || message.sender._id !== messages[index-1].sender._id ? (
-          <img
-            src={message.sender.pic}
-            style={{
-              width: '40px',
-              height: '40px',
-              borderRadius: '50%',
-              marginRight: '10px',
-              float: 'left',
-            }}
-          />
-        ) : <div style={{
-          width: '40px',
-          height: '40px',
-          borderRadius: '50%',
-          marginRight: '10px',
-          float: 'left',
-          }}></div>} */}
 <div className="message-card"
     style={{
     backgroundColor: message.sender._id === user._id ? '#DCF8C6' : 'white',
@@ -198,9 +278,24 @@ function ChatPage() {
 </div>)})}
   </div>
 </div>
-<div id='lightbox'>
-  <CloseButton className='close' onClick={() => document.getElementById("lightbox").style.display = "none"} />
-  <UploadFile chatId={selectedChat}/>
+<div id='lightbox2'>
+  <CloseButton 
+  className='close2'
+  onClick={() => {
+    document.getElementById("lightbox2").style.display = "none";
+  }}
+  />
+  {/* <UploadFile chatId={selectedChat}/> */}
+  <div className='content'>
+      <BiCloudUpload size={150} color='black'/>
+      <form>
+        <input
+          type="file"
+          onChange={(e) => setSelectedFile(e.target.files[0])}
+        />
+      </form>
+      <button className='btn btn-primary' onClick={onSubmit}>Submit</button>
+    </div>
 </div>
 <div className="hi" style={{paddingBottom:"10rem"}}>
 {/* just to give some space  */}
@@ -251,5 +346,4 @@ function ChatPage() {
   </div>
   );
 }
-
 export default ChatPage;

@@ -113,13 +113,12 @@ main {
     width: 100%;
   }
 }
-#lightbox {
+#lightbox2 {
   display: none;
   position: fixed;
   left: 50%;
-top: 50%;
-transform: translate(-50%, -50%);
-
+  top: 50%;
+  transform: translate(-50%, -50%);
   width: 50%;
   height: 50%;
   background-color: white;
@@ -127,9 +126,7 @@ transform: translate(-50%, -50%);
   text-align: center;
 }
 
-
-.close {
-  position: absolute;
+.close2 {
   top: 1rem;
   right: 2rem;
 }

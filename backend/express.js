@@ -76,11 +76,14 @@ io.on('connection',(socket)=>{
             if(user._id == newMessageRecieved.sender._id) return;
             socket.in(user._id).emit("message recieved",newMessageRecieved);
         })
-        // socket.off("user left",()=>{
-        //     console.log("user left");
-        //     socket.leave(chat._id);
-        // });
-    })
+    });
+    socket.on('user left',(userId,room)=>{
+        // userLeft(userId,roomId);
+        console.log(userId);
+        console.log('user left' + room);
+        // socket.leave(temp);
+        // socket.in(roomId).emit("user left",userId);
+    });
     socket.on('new group msg',(newMessageRecieved)=>{
         var chat =newMessageRecieved.chat;
         users=getRoomUsers(chat._id);
