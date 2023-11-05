@@ -89,6 +89,7 @@ function SignUp() {
         },
       };
       const pic=image;
+      console.log(pic);
       const { data } = await axios.post(
         'http://localhost:5000/api/user/',
         {

@@ -15,7 +15,7 @@ const addProject = asyncHandler(async (req, res) => {
         }
         const fileData = req.files.file.data;
         const binaryData = Buffer.from(fileData, 'base64');
-        const { title, professor, institute, description, abstract } = req.body;
+        const { title, professor, institute, description, abstract ,pic} = req.body;
         const projectData = {
             title,
             professor,
@@ -24,6 +24,7 @@ const addProject = asyncHandler(async (req, res) => {
             abstract,
             user: req.user._id,
             file: new binary(binaryData),
+            pic:pic,
             fileName: req.files.file.name
         };
         try {
@@ -35,14 +36,16 @@ const addProject = asyncHandler(async (req, res) => {
         }
     }
     else {
-        const { title, professor, institute, description, abstract } = req.body;
+        const { title, professor, institute, description, abstract,pic } = req.body;
+        console.log(pic);
         const projectData = {
-            title,
-            professor,
-            institute,
-            description,
-            abstract,
-            user: req.user._id
+            title:title,
+            professor:professor,
+            institute:institute,
+            description:description,
+            abstract:abstract,
+            user: req.user._id,
+            img:pic
         };
         try {
             const newProject = await Project.create(projectData);

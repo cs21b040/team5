@@ -2,22 +2,57 @@ import React from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ChatState } from '../context/chatProvider';
 import './Styles/research.css'
 
 function Add_project() {
     const navigate = useNavigate();
+    const [selectedImage, setSelectedImage] = useState(null);
+    const [image,setImage]=useState();
     const {
         user,
     } = ChatState();
     const [selectedFile, setSelectedFile] = React.useState(null);
+    const postDetails=(image)=>{
+        // setLoading(true);
+        if(image===undefined){
+          alert("Please Select an Valid Image");
+          return;
+        }
+        if(image.type==="image/jpeg" || image.type==="image/png"){
+          const data=new FormData();
+          data.append("file",image);
+          data.append("upload_preset","chating");
+          data.append("cloud_name","dq7oyedtj");
+          fetch("https://api.cloudinary.com/v1_1/dq7oyedtj/image/upload",{
+            method:"post",
+            body:data
+          }).then(res=>res.json())
+          .then(data=>{
+            setImage(data.url.toString());
+            // setLoading(false);
+          })
+          .catch((error)=>{
+            console.log(error);
+            // setLoading(false);
+          })
+        }
+        else{
+          alert("Please Select an Valid jpeg or png Image");
+          return;
+        }
+      
+      }
     async function onSubmit() {
+        // console.log(document.getElementById('formFile2').value.toString());
         const titleValue = document.getElementById('form.1').value.toString();
         const professorValue = document.getElementById('form.2').value.toString();
         const instituteValue = document.getElementById('form.3').value.toString();
         const descriptionValue = document.getElementById('form.4').value.toString();
         const abstractValue = document.getElementById('form.5').value.toString();
+        const picValue=image;
         if(!titleValue || !professorValue || !instituteValue || !descriptionValue || !abstractValue) {
             alert('Please fill all the fields');
         }
@@ -29,6 +64,7 @@ function Add_project() {
         formData.append('institute',instituteValue);
         formData.append('description',descriptionValue);
         formData.append('abstract',abstractValue);
+        formData.append('pic',picValue);
         console.log(formData);
         
         axios.post('http://localhost:5000/api/research/', formData, {
@@ -83,10 +119,16 @@ function Add_project() {
                     <Form.Label>Upload the file relevant to the Project (Optional)</Form.Label>
                     <Form.Control type="file" multiple />
                 </Form.Group>
-                {/* <Form.Group controlId="formFile2" className="mb-3" style={{ padding: '5px' }}>
+                <Form.Group controlId="formFile2" className="mb-3" style={{ padding: '5px' }}>
                     <Form.Label>Display Image of the Project (Optional)</Form.Label>
-                    <Form.Control type="file" accept="image/*" multiple />
-                </Form.Group> */}
+                    <Form.Control type="file" accept="image/*" multiple onChange={
+                        (e)=>{
+                            const file = e.target.files[0];
+                                 setSelectedImage(file);
+                                 postDetails(file);
+                        }
+                    } />
+                </Form.Group>
             </Form>
             <Button variant='primary' onClick={onSubmit}>Submit</Button>
         </div>

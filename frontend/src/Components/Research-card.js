@@ -89,8 +89,9 @@ function Project(props) {
 
   return (
     <div className="mx-2 my-2">
+      {console.log(props.projectInfo)}
       <Card style={cardStyle}>
-        <Card.Img variant="top" src={logo}/>
+        <Card.Img variant="top" src={props.projectInfo.img}/>
         <Card.Body>
           <Card.Title style={cardTitleStyle}>{props.projectInfo.title}</Card.Title>
           <Card.Text style={cardTextStyle}>
