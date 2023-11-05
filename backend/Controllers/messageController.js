@@ -90,13 +90,17 @@ const downloadFile = asyncHandler(async(req,res)=>{
     }
 });
 const deleteMessage = asyncHandler(async(req,res)=>{
+    const id=req.params.msgid;
+    console.log(id)
     try {
-        const {result}=await User.findByIdAndDelete({_id:userId});
+        const result=await Message.findByIdAndDelete(id);
+        console.log(result);
+
         if(result===null){
-            res.status(404).send("User not found");
+            res.status(404).send("Message not found");
         }
         else{
-            res.status(200).send("User deleted");
+            res.status(200).send("Message deleted");
             console.log(result);
         }
     } catch (error) {

@@ -7,6 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import io from 'socket.io-client';
+import { IoMdTrash } from 'react-icons/io';
 import Spinner from 'react-bootstrap/Spinner';
 import { CloseButton } from 'react-bootstrap';
 import { FiPlusSquare } from 'react-icons/fi';
@@ -262,6 +263,21 @@ function GroupChatPage() {
                 {message.updatedAt.slice(11, 16)}
               </sub>
               </p>
+              {message.sender._id===user._id &&<IoMdTrash onClick={async ()=>{
+                try {
+                  const config = {
+                    headers: {
+                      Authorization: `Bearer ${user.token}`,
+                    },
+                  };
+                  const { data } = await axios.delete(`http://localhost:5000/api/messages/delete/${message._id}`, config);
+                  fetchMessages();
+                  console.log(selectedGroup?._id)
+                  socket.emit("grp delete msg",(selectedGroup?._id));
+                } catch (error) {
+                  console.log(error);
+                }
+              }}/>}
             </div>
                 </div>
               ))}

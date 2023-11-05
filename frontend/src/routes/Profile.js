@@ -54,7 +54,7 @@ function Profile() {
     setIsEditing(true);
   };
 
-  const handleSaveClick = () => {
+  const handleSaveClick =async () => {
     setName(tempProfile.name);
     setEmail(tempProfile.email);
     setGraduatedYear(tempProfile.graduatedYear);
@@ -71,7 +71,7 @@ function Profile() {
           Authorization: `Bearer ${user.token}`,
         },
       };
-      const { data } = axios.put(
+      const { data } = await axios.put(
         'http://localhost:5000/api/user/update',
         {
           userId: user._id,
@@ -86,6 +86,8 @@ function Profile() {
         },
         config
       );
+      localStorage.removeItem('userId');
+      localStorage.setItem('userId', JSON.stringify(data));
     } catch (error) {
       console.log(error);
     }

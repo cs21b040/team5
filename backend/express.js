@@ -77,6 +77,17 @@ io.on('connection',(socket)=>{
             socket.in(user._id).emit("message recieved",newMessageRecieved);
         })
     });
+    socket.on('delete msg',(users)=>{
+        users.forEach(user =>{
+            socket.in(user._id).emit("delete msg");
+        })
+    })
+    socket.on('grp delete msg',(id)=>{
+        users=getRoomUsers(id);
+        users.forEach(user=>{
+            socket.in(user.id).emit("grp delete msg");
+        })
+    })
     socket.on('new group msg',(newMessageRecieved)=>{
         var chat =newMessageRecieved.chat;
         users=getRoomUsers(chat._id);
