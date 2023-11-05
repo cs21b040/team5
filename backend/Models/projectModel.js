@@ -34,6 +34,10 @@ const projectModel = mongoose.Schema (
         },
         fileName:{
             type:String
+        },
+        img:{
+            type:String,
+            default:"http://res.cloudinary.com/dq7oyedtj/image/upload/v1699164162/kvj75q0lbch6bwg7xhb2.png"
         }
     },
     {
