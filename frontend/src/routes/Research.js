@@ -52,7 +52,6 @@ function Research() {
     return (
       <div className='CardGroup'>
         {filteredProjects.map((project, key) => {
-          console.log(project);
           return (
           <Project
             key={key}
