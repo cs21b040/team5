@@ -13,6 +13,7 @@ import ChatContext from './context/chatProvider';
 import PersonalChat from './routes/personalChat';
 import ProjectDetails from './routes/projectDetails';
 import QuestionAnswers from './routes/QuestionAnswers';
+import Admin from './routes/Admin';
 function App() {
 
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route path="/open" element={<Open/>} />
           <Route path="/research/projectDetails" element={<ProjectDetails />} />
           <Route path="/answers/:questionId" element={<QuestionAnswers />} />
+          <Route path="/admin" element={<Admin/>} />
         </Routes>
       </ChatContext>
     </Router>

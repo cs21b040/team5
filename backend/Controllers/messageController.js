@@ -75,7 +75,6 @@ const allMessages = asyncHandler(async(req,res)=>{
     }
 });
 const downloadFile = asyncHandler(async(req,res)=>{
-    console.log(req.body)
     try {
         const messageId = req.params.messageId;
         console.log(messageId)
@@ -90,4 +89,19 @@ const downloadFile = asyncHandler(async(req,res)=>{
         throw new Error(error);
     }
 });
-module.exports = {sendMessage,allMessages,downloadFile};
+const deleteMessage = asyncHandler(async(req,res)=>{
+    try {
+        const {result}=await User.findByIdAndDelete({_id:userId});
+        if(result===null){
+            res.status(404).send("User not found");
+        }
+        else{
+            res.status(200).send("User deleted");
+            console.log(result);
+        }
+    } catch (error) {
+        res.status(400);
+        throw new Error(error);
+    }
+})
+module.exports = {sendMessage,allMessages,downloadFile,deleteMessage};

@@ -127,4 +127,21 @@ const renameGroups = asyncHandler(async(req,res)=>{
     }
     res.status(200).json(Update);
 });
-module.exports = {registerUser,authUser,users,updateProfile,updateOpenMsg};
+const deleteUser = asyncHandler(async (req,res)=>{
+    const userId=req.params.id;
+    
+    try {
+        const {result}=await User.findByIdAndDelete({_id:msgid});
+        if(result===null){
+            res.status(404).send("User not found");
+        }
+        else{
+            res.status(200).send("User deleted");
+            console.log(result);
+        }
+    } catch (error) {
+        res.status(400);
+        throw new Error(error);
+    }
+});
+module.exports = {registerUser,authUser,users,updateProfile,updateOpenMsg,deleteUser};

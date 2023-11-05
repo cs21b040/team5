@@ -22,7 +22,7 @@ function Header() {
           <Nav.Link href="/Research" style={{ color: 'white' }}>Research</Nav.Link>
           <Nav.Link href="/Alumni" className='me-3' style={{ color: 'white' }}>Alumni</Nav.Link>
 
-          <NavDropdown title="user" align={{ lg: 'end' }} id="dropdown-menu-align-responsive-1" variant='secondary'>
+          <NavDropdown title={'User'} align={{ lg: 'end' }} id="dropdown-menu-align-responsive-1" variant='secondary' >
             <NavDropdown.Item href="/Profile">Profile</NavDropdown.Item>
             <NavDropdown.Divider />
             <NavDropdown.Item onClick={Logout}>Logout</NavDropdown.Item>

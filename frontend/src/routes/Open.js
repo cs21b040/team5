@@ -225,19 +225,6 @@ function Open() {
               alink.click();        
             }}>Login</motion.div>
           </motion.div>
-
-        
-          <motion.div className="review_container" variants={stagger}>
-            <motion.p className="total_review" variants={star}>64+ Reviews</motion.p>
-            <IconContext.Provider value={{color:"#fff", size:"18px"}}>
-                <motion.span variants={star} whileHover={{scale:1.2, rotate:180,borderRadius:'100%',cursor:'pointer'}}><IoStar/></motion.span>
-                <motion.span variants={star} whileHover={{scale:1.2, rotate:180,borderRadius:'100%',cursor:'pointer'}}><IoStar/></motion.span>
-                <motion.span variants={star} whileHover={{scale:1.2, rotate:180,borderRadius:'100%',cursor:'pointer'}}><IoStar/></motion.span>
-                <motion.span variants={star} whileHover={{scale:1.2, rotate:180,borderRadius:'100%',cursor:'pointer'}}><IoStar/></motion.span>
-                <motion.span variants={star} whileHover={{scale:1.2, rotate:180,borderRadius:'100%',cursor:'pointer'}}><IoStar/></motion.span>
-            </IconContext.Provider>
-            <motion.p className="more_review" variants={star}>More then 50+ people taking services.</motion.p>
-          </motion.div>
         </div>
 
         <motion.div className="right_content_wrapper">          
