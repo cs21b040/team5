@@ -2,7 +2,7 @@ import React from 'react';
 import {useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import logo from './assets/iittp.png';
+import logo from './assets/defaultProject.png';
 import axios from 'axios';
 import { ChatState } from '../context/chatProvider';
 import {useNavigate} from 'react-router-dom';
@@ -18,25 +18,25 @@ function Project(props) {
   };
 
   async function onDeleteClick() {
-    const confirmation= window.confirm('The project would be deleted permanently..!');
-    if(!confirmation) {
-      return;
+    const confirmation = window.confirm('The project would be deleted permanently..!');
+    if (!confirmation) {
+        return;
     }
 
-    const config={
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${user.token}`,
-      }
-    }
+    const config = {
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${user.token}`,
+        },
+    };
     try {
-      const res = await axios.delete('/api/research', { data: { projectId: props.projectInfo._id }, ...config });
-      console.log(res);
-      window.location.reload();
+        const res = await axios.delete(`http://localhost:5000/api/research/${props.projectInfo._id}`, config);
+        console.log(res);
+        window.location.reload();
     } catch (err) {
-      console.error('Error deleting project:', err);
+        console.error('Error deleting project:', err);
     }
-  }
+}
 
   function displayDeleteButton() {
     const userInfo = localStorage.getItem('userInfo');

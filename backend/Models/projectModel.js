@@ -28,22 +28,16 @@ const projectModel = mongoose.Schema (
         user:{
             type:mongoose.Schema.Types.ObjectId,
             ref:"User",
+        },
+        file:{
+            type:Buffer,
+        },
+        fileName:{
+            type:String
         }
     },
     {
         timestamps:true,
     }
 );
-projectModel.methods.removeProject = async function(projectId){
-    const Project= mongoose.model("projectDetails");
-    Project.remove({_id:projectId},(err)=>{
-        if(err){
-            console.log(err);
-        }
-        else{
-            console.log("Project deleted");
-        }
-    }
-    );
-},
 module.exports = mongoose.model("projectDetails",projectModel);
