@@ -4,11 +4,10 @@
   height: 100%;
   width: 100%;
   padding: 10px;
-  background-color: #555;
+  background-color: #efeae2;
 }
 
 .groupchatpage .chat-container {
-  /* display: flex; */
   flex-direction: column-reverse;
   flex-grow: 1;
   border-radius: 10px;
@@ -69,17 +68,14 @@
 .groupchatpage .sendbutton1{
   background-color: #FC93AE;
   color: #fff;
-  border-color: #FC93AE;
+  border-color: #fff;
 }
 .groupchatpage .chat-header1{
-  position: fixed;
-  flex-grow: 1;
   /* padding: 1px; */
   /* border: none;    */
   /* border-radius: 20px; */
   outline: none;
   z-index: 1;
-  background-color: #222;
   color: #fff;
   /* height: 5%; */
   width: 70%;
@@ -88,14 +84,12 @@
 .groupchatpage .chat-header-user1{
   height: 100%;
   width: 100%;
-  background-color: #222;
   color: #fff;
 
 }
 .groupchatpage .headerCard1{
   height: 100%;
   width: 100%;
-  background-color: #222;
   color: #fff;
 }
 .groupchatpage .headerText1{
@@ -108,8 +102,10 @@
   width: 100%;
   font-size: 20px;
   font-weight: bold;
-  color: #fff;
-  background-color: #222;
+  color: #343a40;
+  background-color: #f0f2f5;
+  font-family: 'Roboto', sans-serif;
+
 }
 .groupchatpage .message-card {
   overflow-wrap: break-word;  
@@ -117,7 +113,7 @@
   word-break: break-word;
 }
 .groupchatpage .text1{
-  color: #fff;
+  color: #343a40;
 }
 @media (max-width: 600px) {
   .groupchatpage .message-input{
