@@ -66,7 +66,7 @@ function Login() {
               <input type="password" onChange={(e)=>{setPassword(e.target.value)}} placeholder='Password'/>
             </div>
             <div className='switch' >Don't have an account? 
-              <span onClick={()=>{setWantLogin(!wantLogin);navigate('./signup')}} style={{color:'blue',cursor:"pointer",textDecoration:"underline"}}>  Sign Up</span>
+              <span onClick={()=>{setWantLogin(!wantLogin);navigate('./signup')}}>  Sign Up</span>
             </div>
             <div className='button'>
               <input type="submit" value="Login" onClick={login}/>
