@@ -63,6 +63,9 @@ function GroupChatPage() {
             setMessages([...messages,newMessageRecieved]);
           }
         })
+        socket.on("grp delete msg",()=>{
+          fetchMessages();
+        })
       })
       const downloadFile = async (buffer)=>{
         try {
@@ -311,7 +314,7 @@ function GroupChatPage() {
       <div className="typing">
         {isTyping && <p>Typing...</p>}
       </div>
-      <InputGroup className={!selectedGroup ? 'passive' : ''}>
+      {selectedGroup && <InputGroup className={!selectedGroup ? 'passive' : ''}>
         <FormControl 
           type="text"
           placeholder="Type your message here..."
@@ -346,7 +349,7 @@ function GroupChatPage() {
           </Dropdown.Menu>
         </Dropdown>
         <Button variant="primary" className="sendbutton" onClick={sendMessage}>Send</Button>
-      </InputGroup>
+      </InputGroup>}
     </div>
         </div>
       );

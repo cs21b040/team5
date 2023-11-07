@@ -53,6 +53,10 @@ const userSchema =mongoose.Schema({
     openMsg:{
         type:Boolean,
         default:true
+    },
+    banned:{
+        type:Boolean,
+        default:false
     }
 
 },

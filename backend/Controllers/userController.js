@@ -127,21 +127,23 @@ const renameGroups = asyncHandler(async(req,res)=>{
     }
     res.status(200).json(Update);
 });
-const deleteUser = asyncHandler(async (req,res)=>{
+const banUser = asyncHandler(async (req,res)=>{
     const userId=req.params.id;
-    
     try {
-        const {result}=await User.findByIdAndDelete({_id:msgid});
+        const result=await User.findByIdAndUpdate(
+            userId,
+            {banned:true},
+            {new:true}
+        );
         if(result===null){
             res.status(404).send("User not found");
         }
         else{
-            res.status(200).send("User deleted");
-            console.log(result);
+            res.status(200).send("User banned");
         }
     } catch (error) {
         res.status(400);
         throw new Error(error);
     }
 });
-module.exports = {registerUser,authUser,users,updateProfile,updateOpenMsg,deleteUser};
+module.exports = {registerUser,authUser,users,updateProfile,updateOpenMsg,banUser};

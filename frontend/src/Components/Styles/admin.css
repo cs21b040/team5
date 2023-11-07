@@ -1,9 +1,13 @@
+.adminUser {
+  margin-top:5rem;
+}
 .adminUser .border-box {
     border: 1px solid #ddd;
     padding: 20px;
     margin: 1vw;
     border-radius: 5px;
-    height: 100vh; 
+    overflow: scroll;
+    height: 70vh;
     width: 30vw
 }
 
@@ -12,7 +16,7 @@
     padding: 20px;
     margin: 1vw;
     border-radius: 5px;
-    height: 100vh; 
+    max-height: 10%;
     width: 48vw;
 }
 
@@ -21,7 +25,7 @@
     padding: 20px;
     margin: 1vw;
     border-radius: 5px;
-    height: 100vh; 
+    max-height: 10%;
     width: 48vw;
 }
   
