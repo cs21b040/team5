@@ -1,7 +1,8 @@
 import React,{useState,useEffect} from 'react'
 import './Styles/sideBar.css'
-import {FaPlus,FaTimes} from 'react-icons/fa'
-import {BiLeftArrowAlt} from 'react-icons/bi'
+import {FaPlus} from 'react-icons/fa'
+import {VscRequestChanges} from 'react-icons/vsc'
+import {IoChatbubblesSharp} from 'react-icons/io5'
 import axios from 'axios'
 import {ChatState} from '../context/chatProvider'
 import {useNavigate} from 'react-router-dom'
@@ -63,6 +64,7 @@ function SideBar() {
               navigate("/personalchat");
             }
           }>
+            <IoChatbubblesSharp size={25} color='#343a40' style={{margin: '5px'}}/>
             Your Chats
           </div>
         </li>
@@ -72,10 +74,12 @@ function SideBar() {
               setInterest(!Interest);
               console.log(Interest);
             }}>
+              <VscRequestChanges size={25} color='#343a40' style={{margin: '5px'}}/>
               Request interest
             </div>
           </div>
         </li>
+
         <li className={Interest ? "request" : "passive"}>
           <div className="request1">
             <div id="inp">
@@ -99,10 +103,11 @@ function SideBar() {
             </div>
           </div>
         </li>
+        <hr className='ruler'/>
         {
           data.map((val, key) => {
             return (
-              <li key={key} className='row' onClick={()=>{
+              <li key={key} className='row' style={{backgroundColor:(selectedGroup && selectedGroup._id===val._id) ? '#e0e0e0':'' }} onClick={()=>{
                 setGroupChatName(val.chatName);
                 setSelectedGroup(val);
                 console.log(selectedGroup);

@@ -1,11 +1,9 @@
-import React, { useState, useEffect ,useRef} from 'react';
+import React, { useState, useEffect} from 'react';
 import './Styles/groupChatPage.css';
 import { Card, InputGroup, FormControl, Button } from 'react-bootstrap'; 
 import { ChatState } from '../context/chatProvider';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import io from 'socket.io-client';
 import { IoMdTrash } from 'react-icons/io';
 import Spinner from 'react-bootstrap/Spinner';
@@ -311,9 +309,6 @@ function GroupChatPage() {
             {/* give some space && auto scroll */}
           </div>
     <div className="message-input">
-      <div className="typing">
-        {isTyping && <p>Typing...</p>}
-      </div>
       {selectedGroup && <InputGroup className={!selectedGroup ? 'passive' : ''}>
         <FormControl 
           type="text"

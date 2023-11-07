@@ -2,7 +2,6 @@ import React from 'react';
 import {useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import logo from './assets/defaultProject.png';
 import axios from 'axios';
 import { ChatState } from '../context/chatProvider';
 import {useNavigate} from 'react-router-dom';
@@ -44,7 +43,7 @@ function Project(props) {
     const deleteButton= document.getElementsByClassName('deleteButton')[key];
     if(userInfo){
       const uid= JSON.parse(userInfo)._id;
-      if(uid===props.projectInfo.user._id){
+      if(uid===props.projectInfo.user?._id){
         deleteButton.style.display= 'block';
       }
       else {
@@ -87,11 +86,16 @@ function Project(props) {
     borderColor: '#0056b3',  
   };
 
+  const imageStyle = {
+    width: '100%',
+    height: '200px',
+    objectFit: 'cover',
+  };
+
   return (
     <div className="mx-2 my-2">
-      {console.log(props.projectInfo)}
       <Card style={cardStyle}>
-        <Card.Img variant="top" src={props.projectInfo.img}/>
+        <Card.Img variant="top" src={props.projectInfo.img} style={imageStyle}/>
         <Card.Body>
           <Card.Title style={cardTitleStyle}>{props.projectInfo.title}</Card.Title>
           <Card.Text style={cardTextStyle}>
