@@ -23,9 +23,9 @@ function Header() {
           <Nav.Link href="/Alumni" className='me-3' style={{ color: 'white' }}>Alumni</Nav.Link>
 
           <NavDropdown title={'User'} align={{ lg: 'end' }} id="dropdown-menu-align-responsive-1" variant='secondary' >
-            <NavDropdown.Item href="/Profile">Profile</NavDropdown.Item>
+            <NavDropdown.Item href="/Profile" style={{ color: 'black' }}>Profile</NavDropdown.Item>
             <NavDropdown.Divider />
-            <NavDropdown.Item onClick={Logout}>Logout</NavDropdown.Item>
+            <NavDropdown.Item onClick={Logout} style={{ color: 'black' }}>Logout</NavDropdown.Item>
           </NavDropdown>
 
         </Nav>

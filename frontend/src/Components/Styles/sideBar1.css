@@ -2,44 +2,60 @@
     display: flex;
     flex-direction: column;
     flex: 0.25;
+    background-color: #f5f5f5;
+    border-right: 1px solid #cccccc;
 }
+
 .sidebar__header{
     display: flex;
     justify-content: space-between;
-    padding: 10px;
-    border-right: 1px solid lightgray;
-    background-color: #d8cfcf;
+    padding: 20px; /* Increased padding */
+    border-right: 1px solid #cccccc; /* Lighter border */
+    background-color: #ffffff; /* White background */
 }
+
 .sidebar__header > h5{
-    font-size: 1rem;
-    font-weight: 400;
-    color: gray;
+    font-size: 1.2rem; /* Increased font size */
+    font-weight: 500; /* Increased font weight */
+    color: #333333; /* Darker text */
     margin: auto;
 }
+
 .sidebar_subjects{
     flex:1;
     overflow: scroll;
-    background-color: #f2f3e9;
+    background-color: #ffffff; /* White background */
     scrollbar-width: thin;
-    scrollbar-color: transparent transparent; 
+    scrollbar-color: #cccccc transparent; /* Lighter scrollbar */
 }
+
 .add_subject{
-    background-color: #f2f3e9;
+    background-color: #ffffff; /* White background */
 }
 
 .add_subject__wrapper {
     margin-top: auto;
     display: flex;
     justify-content: flex-start;
-    padding: 10px;
-    background-color: #f0f0f0;
-  }
+    padding: 20px; /* Increased padding */
+    background-color: #f5f5f5; /* Lighter background */
+}
+
 .add_subject__form {
     flex:1;
     align-items: center;
-  }
-  
-  .add_subject__form button {
-    width: 20%; 
-  }
-  
+}
+
+.add_subject__form button {
+    width: 20%;
+    background-color: #4CAF50; /* Green background */
+    color: white; /* White text */
+    padding: 15px 32px; /* Increased padding */
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px; /* Rounded corners */
+}

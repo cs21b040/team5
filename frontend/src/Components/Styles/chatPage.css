@@ -49,7 +49,7 @@ main {
   border-radius: 20px;
   outline: none;
   bottom: 0;
-  width:69%;
+  width: 79%;
   margin-bottom: 10px;
 }
 
@@ -62,23 +62,15 @@ main {
   cursor: pointer;
   outline: none;
 }
-/* 
-.chat-page .send-button:hover {
-} */
+
 .chat-page .chat-header{
-  position: fixed;
-  flex-grow: 1;
-  /* padding: 1px; */
-  /* border: none;    */
-  /* border-radius: 20px; */
   outline: none;
-  background-color: #333;
-  width: 70%;
-  top: 58px;
+  height: 5%;
+  width: 100%;
 } 
 .chat-page .headerCard{
-  background-color: #333;
-  color: #fff;
+  background-color: #fff;
+  color: #343a40  ;
 }
 .chat-page .headerText{
   display: flex;
@@ -94,9 +86,9 @@ main {
   display: none;
 }
 .chat-page .sendbutton{
-  background-color: #FC93AE;
+  background-color: #0D6EFD;
   color: #fff;
-  border-color: #FC93AE;
+  border-color: #0D6EFD;
 }
 .chat-page .message-card {
   overflow-wrap: break-word;  
