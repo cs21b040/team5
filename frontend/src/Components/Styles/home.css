@@ -7,8 +7,6 @@
     width: 15%;
     overflow-y: scroll ;
     background-color: #fff;
-    resize: horizontal; /* Allows the element to be resized horizontally */
-    overflow: auto; /* Required for resize to work */
 }
 .right1{
     flex : 1;

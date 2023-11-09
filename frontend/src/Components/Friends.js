@@ -42,13 +42,13 @@ function Friends() {
   }, [user]);
 
   return (
-    <div style={{ marginTop: '1rem', padding: '20px', backgroundColor: '#333' }}>
+    <div style={{ marginTop: '1rem', padding: '20px', backgroundColor: '#fff' }}>
       <div style={{ display: 'flex', alignItems: 'center' }}>
-  <h1 style={{ margin: '0', color: '#fff', marginRight: '5rem' }}>Friends</h1>
+  <h1 style={{ margin: '0', color: '#343a40', marginRight: '5rem' }}>Friends</h1>
   <FaSearch
     className="search-icon"
     size='3rem'
-    color='white'
+    color='#343a40'
     style={{
       border: 'none',
       padding: '5px 10px',

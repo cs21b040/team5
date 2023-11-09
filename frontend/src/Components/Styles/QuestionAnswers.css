@@ -63,24 +63,30 @@
   margin-bottom: 10px;
 }
 
+.containerAcad {
+  display: flex;
+  flex-direction: column;
+  min-height: 90vh; /* Full viewport height */
+}
+
 .post_answer__wrapper {
-  margin-top:auto;
+  margin-top: auto; /* Pushes it to the bottom */
   display: flex;
   justify-content: flex-start;
   padding: 10px;
   background-color: #f0f0f0;
 }
 
-
 .post_answer__form {
   flex: 1; 
   align-items: center;
 }
+
 .post_answer__form input {
   flex: 1; 
   margin-right: 10px;
 }
-  
+
 .post_answer__form button {
   width: 15%; 
 }
