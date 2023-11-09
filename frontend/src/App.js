@@ -14,8 +14,8 @@ import PersonalChat from './routes/personalChat';
 import ProjectDetails from './routes/projectDetails';
 import QuestionAnswers from './routes/QuestionAnswers';
 import Admin from './routes/Admin';
-function App() {
 
+function App() {
   return (
     <Router>
       <ChatContext>

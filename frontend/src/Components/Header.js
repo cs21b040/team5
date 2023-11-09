@@ -5,7 +5,7 @@ import BranchSelect from './BranchSelect';
 import '../Components/Styles/header.css';
 function Header() {
   const Logout = () => {
-    localStorage.removeItem('userInfo');
+    sessionStorage.removeItem('userInfo');
     window.location.href = '/';
   }
 //expand="lg" bg="dark" data-bs-theme="dark" style={{ backgroundColor: '#0D1520' }}

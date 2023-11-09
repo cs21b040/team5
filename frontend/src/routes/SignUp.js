@@ -115,7 +115,7 @@ function SignUp() {
         ).catch((error)=>{
           console.log(error);
         });
-      localStorage.setItem('userInfo', JSON.stringify(data));
+      sessionStorage.setItem('userInfo', JSON.stringify(data));
       setLoading(false);
       navigate('/');
     } 
@@ -212,6 +212,7 @@ const postDetails=(image)=>{
                 <input type="radio" name="userType" onClick={
                   ()=>{
                     setUser("Professor");
+                    setDisciplineTouched(true);
                     setCompanyTouched(true);
                   }
                 } /> Professor
@@ -318,11 +319,23 @@ const postDetails=(image)=>{
               <div className='position3'>Professional</div>
             </div>
             <div className='inputs1'>
-              <div className='input1'>
-                <input type='workingas' onChange={(e) => setWorkingas(e.target.value)} placeholder='Working as' />
+              <div className='input1' style={{border: !workingasTouched? 'solid 1px red' :'none'}}>
+                <input type='workingas' onChange={(e) => {
+                  setWorkingas(e.target.value)
+                  setWorkingasTouched(true)
+                  if(e.target.value.length===0){
+                    setWorkingasTouched(false);
+                  }
+                }} placeholder='Working as' />
               </div>
-              <div className='input1'>
-                <input type='company' onChange={(e) => setCompany(e.target.value)} placeholder='Company' />
+              <div className='input1' style={{border:!companyTouched ? 'solid 1px red':'none'}}>
+                <input type='company' onChange={(e) => {
+                  setCompany(e.target.value)
+                  setCompanyTouched(true)
+                  if(e.target.value.length===0){
+                    setCompanyTouched(false);
+                  }
+                }} placeholder='Company' />
               </div>
               <div className='button1'>
               <input type="submit" value="Sign Up" onClick={handleSignUp} />

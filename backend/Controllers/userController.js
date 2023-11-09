@@ -54,6 +54,8 @@ const authUser = asyncHandler(async (req,res)=>{
         branch:user.branch,
         workingas:user.workingas,
         company:user.company,
+        banned:user.banned,
+        openMsg:user.openMsg,
         highestDegreeOfQualification:user.highestDegreeOfQualification,
         token:generateToken(user._id)
         });
@@ -101,16 +103,18 @@ const updateProfile = asyncHandler(async (req,res)=>{
 const updateOpenMsg= asyncHandler(async(req,res)=>{
     const userId=req.body._id;
     const openMsg=req.body.openMsg;
+    console.log(openMsg)
     const update=await User.findByIdAndUpdate(
         userId,
         {openMsg:openMsg},
+        {new:true}
     );
     if(!update){
         res.status(400);
         throw new Error('Invalid user id');
     }
     else{
-        res.status(200).json('Updated');
+        res.status(200).json(update);
     }
 })
 const renameGroups = asyncHandler(async(req,res)=>{

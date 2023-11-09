@@ -60,6 +60,7 @@ export default function AdminInterestGroup() {
     try {
       const {data}=await axios.post('http://localhost:5000/api/chat/group',{name:interest},config);
     } catch (error) {
+      console.log(error)
     }
   }
   const renameInterest=async (id)=>{

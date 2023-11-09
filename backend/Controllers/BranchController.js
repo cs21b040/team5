@@ -44,6 +44,25 @@ const addBranch = asyncHandler(async (req, res) => {
             console.log(error.message);
         }
 })
+const searchBranch = asyncHandler(async (req,res) =>{
+  const branch = req.params.name ? {
+    $or:[
+      {name: {$regex:req.params.name,$options:'i'}},
+    ]
+  }
+  :{};
+  const branchlist = await Branch.find(branch);
+  res.send(branchlist);
+})
+const deleteBranch = asyncHandler(async (req, res) => {
+  const id=req.params.id;
+  console.log(id)
+  if(!id) {
+    res.status(400).send({message:'Request missing id parameter'});
+  }
+  await Branch.findByIdAndDelete(id);
+  res.send({message:'Branch Deleted'});
+});
 
 const addSubject = asyncHandler(async (req, res) => {
     const { branchName, subjectName } = req.body;
@@ -194,5 +213,5 @@ const getQuestionAndAnswers = asyncHandler(async (req, res) => {
       }
 });
 
-module.exports = {getBranches,addBranch, getSubjects, addSubject, addQuestion, getQuestions,getQuestionAndAnswers,postAnswers};
+module.exports = {getBranches,addBranch, getSubjects, addSubject, addQuestion, getQuestions,getQuestionAndAnswers,postAnswers,searchBranch,deleteBranch};
 

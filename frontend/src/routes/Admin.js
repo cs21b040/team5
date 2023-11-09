@@ -11,7 +11,7 @@ function Admin () {
     <div>
       <Header />
       <div>
-        <Nav className="justify-content-center" variant="pills" activeKey={activeKey} onSelect={setActiveKey}>
+        <Nav className="justify-content-center" style={{marginTop:'10px'}} variant="pills" activeKey={activeKey} onSelect={setActiveKey}>
           <Nav.Item>
             <Nav.Link eventKey="users">Users</Nav.Link>
           </Nav.Item>

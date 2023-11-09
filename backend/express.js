@@ -8,6 +8,7 @@ const chatRoutes=require('./Routes/chatRoutes');
 const messageRoutes=require('./Routes/messageRoutes');
 const projectRoutes=require('./Routes/projectRoutes');
 const adminRoutes=require('./Routes/AdminRoutes');
+const academicAdminRoutes=require('./Routes/AcademicAdminRoutes');
 const AcademicRoutes=require('./Routes/AcademicRoutes')
 const {
     userJoined,
@@ -36,6 +37,7 @@ app.use('/api/chat',chatRoutes);
 app.use('/api/messages',messageRoutes);
 app.use('/api/research', projectRoutes);
 app.use('/api/admin',adminRoutes);
+app.use('/api/academicAdmin',academicAdminRoutes);
 app.get("/api/chat/:id",(req,res)=>{
     const singleChat=chats.find((c)=>c._id ===req.params.id);
     res.send(singleChat);
