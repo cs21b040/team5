@@ -37,7 +37,7 @@ const accessChat = asyncHandler(async(req,res)=>{
             res.send(fullchat);
             res.status(200);
         } catch (error) {
-            console.log(error.message);
+            throw new Error(error.message);
         }
     };
 });
@@ -58,7 +58,7 @@ const getChats = asyncHandler(async(req,res)=>{
         })
     } catch (error) {
         res.status(400);
-        console.log(error.message);
+        throw new Error(error.message);
     }
 });
 const getGroups = asyncHandler(async(req,res)=>{
@@ -78,7 +78,7 @@ const getGroups = asyncHandler(async(req,res)=>{
         })
     } catch (error) {
         res.status(400);
-        console.log(error.message);
+        throw new Error(error.message);
     }
 })
 const createGroup = asyncHandler(async(req,res)=>{
@@ -94,12 +94,10 @@ const createGroup = asyncHandler(async(req,res)=>{
         });
         const fullGroupChat=await Chat.findOne({_id:groupChat._id})
         .populate("latestMessage");
-        console.log(fullGroupChat);
-
         res.status(200).send(fullGroupChat);
     } catch (error) {
         res.status(400);
-        console.log(error.message);
+        throw new Error(error.message);
     }
 });
 const renameGroups = asyncHandler(async(req,res)=>{
@@ -116,4 +114,16 @@ const renameGroups = asyncHandler(async(req,res)=>{
     }
     res.status(200).json(Update);
 });
-module.exports = {accessChat,getChats,createGroup,renameGroups,getGroups};
+const deleteGroups = asyncHandler(async(req,res)=>{
+    const chatId=req.params.id;
+    console.log(chatId)
+   try {
+    const Update=await Chat.findByIdAndDelete(
+        chatId
+    );
+    res.status(200).json(Update);
+   } catch (error) {
+    res.status(400).send(error);
+   }
+});
+module.exports = {accessChat,getChats,createGroup,renameGroups,getGroups,deleteGroups};

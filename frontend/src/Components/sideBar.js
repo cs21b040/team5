@@ -6,6 +6,7 @@ import {IoChatbubblesSharp} from 'react-icons/io5'
 import axios from 'axios'
 import {ChatState} from '../context/chatProvider'
 import {useNavigate} from 'react-router-dom'
+import { ToastContainer, toast } from 'react-toastify';
 function SideBar() {
   const navigate=useNavigate();
   const {
@@ -38,13 +39,23 @@ function SideBar() {
         Authorization: `Bearer ${user.token}`,
       },
     };
+    //without admin
+    // try {
+    //   const {data}=await axios.post('http://localhost:5000/api/chat/group',{name:newGroup},config);
+    // } catch (error) {
+    //   console.log(error.message);
+    // }
     try {
-      const {data}=await axios.post('http://localhost:5000/api/chat/group',{name:newGroup},config);
+      const {data}=await axios.post('http://localhost:5000/api/admin',{
+        reqUser:user,
+        interest:newGroup,
+      },config);
+      if(data){
+        toast.success("Request sent");
+      }
     } catch (error) {
       console.log(error.message);
     }
-  }
-  const removeGroup=async ()=>{
   }
   useEffect(() => {
     if(!user) return;
@@ -53,10 +64,11 @@ function SideBar() {
     }).catch((error) => {
       console.error('Error fetching data:', error);
     });
-  }, [addGroup,removeGroup])
+  }, [addGroup])
   
   return (
     <div className='sideBar'>
+      <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} draggable theme="light" />
       <ul className='sideBarList'>
         <li className='yourchat'>
           <div className="row1" onClick={

@@ -32,36 +32,42 @@ function SignUp() {
   const [imagePreview, setImagePreview] = useState("/Profile.png");
   const [selectedImage, setSelectedImage] = useState(null);
 
+  const [nameTouched, setNameTouched] = useState(false);
+  const [emailTouched, setEmailTouched] = useState(false);
+  const [passwordTouched, setPasswordTouched] = useState(false);
+  const [collegeTouched, setCollegeTouched] = useState(false);
+  const [disciplineTouched, setDisciplineTouched] = useState(false);
+  const [branchTouched, setBranchTouched] = useState(false);
+  const [graduationyearTouched, setGraduationyearTouched] = useState(false);
+  const [highestDegreeOfQualificationTouched, setHighestDegreeOfQualificationTouched] = useState(false);
+  const [workingasTouched, setWorkingasTouched] = useState(false);
+  const [companyTouched, setCompanyTouched] = useState(false);
+
 
 
   const nextStep = () => {
     setStep(step + 1);
   };
-  // useEffect(() => {
-  //   const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-  //   setUser(userInfo);
-    
-  //   if (!userInfo) navigate("/login");
-  // }, [navigate]);
   const handleSignUp = async ()=> {
     const collegeName=college;
     const userType=user;
-    console.log(name);
-    console.log(email);
-    console.log(password);
-    console.log(collegeName);
-    console.log(userType);
-    console.log(image);
-    console.log(discipline);
-    console.log(branch);
-    console.log(graduationyear);
-    console.log(workingas);
-    console.log(company);
-    console.log(highestDegreeOfQualification);
-
-    if (!name||!email||!password||!college||!user) {
-      alert("Please Fill All The Details");
-      return;
+    if(user==="Alumni"){
+      if(!name || !email || !password || !collegeName || !userType || !discipline || !branch || !graduationyear || !highestDegreeOfQualification || !workingas || !company){
+        alert("Please Fill All The Details");
+        return;
+      }
+    }
+    if(user==="Professor"){
+      if(!name || !email || !password || !collegeName || !userType || !discipline || !branch || !graduationyear || !highestDegreeOfQualification || !workingas){
+        alert("Please Fill All The Details");
+        return;
+      }
+    }
+    if(user==="Student"){
+      if(!name || !email || !password || !collegeName || !userType || !discipline || !branch || !graduationyear || !highestDegreeOfQualification){
+        alert("Please Fill All The Details");
+        return;
+      }
     }
   
     const SignUpData = {
@@ -79,7 +85,6 @@ function SignUp() {
       highestDegreeOfQualification,
 
     };
-    console.log(SignUpData);
   
     try {
       setLoading(true);
@@ -89,7 +94,6 @@ function SignUp() {
         },
       };
       const pic=image;
-      console.log(pic);
       const { data } = await axios.post(
         'http://localhost:5000/api/user/',
         {
@@ -111,9 +115,6 @@ function SignUp() {
         ).catch((error)=>{
           console.log(error);
         });
-        console.log(image);
-        // console.log("ih");
-        console.log(data);
       localStorage.setItem('userInfo', JSON.stringify(data));
       setLoading(false);
       navigate('/');
@@ -154,7 +155,6 @@ const postDetails=(image)=>{
     alert("Please Select an Valid jpeg or png Image");
     return;
   }
-
 }
   return (
     <div className='box1'>
@@ -171,20 +171,40 @@ const postDetails=(image)=>{
               <div className='position3'>Credentials</div>
             </div>
             <div className='inputs1'>
-            <div className='input1'>
-                <input type='name' onChange={(e) => setName(e.target.value)} placeholder='Name' />
+            <div className='input1' style={{border: !nameTouched ? 'solid 1px red' :'none'}}>
+                <input type='name' style={{borderColor:'red'}} onChange={(e) => {
+                  setName(e.target.value)
+                  setNameTouched(true)
+                  if(e.target.value.length===0){
+                    setNameTouched(false);
+                  }
+                }} placeholder='Name' />
               </div>
-              <div className='input1'>
-                <input type='email' onChange={(e) => setEmail(e.target.value)} placeholder='Email ID' />
+              <div className='input1' style={{border: !emailTouched ? 'solid 1px red' :'none'}}>
+                <input type='email' onChange={(e) => {
+                  setEmail(e.target.value)
+                  setEmailTouched(true)
+                  if(e.target.value.length===0){
+                    setEmailTouched(false);
+                  }
+                }} placeholder='Email ID' />
               </div>
-              <div className='input1'>
-                <input type='password' onChange={(e) => setPassword(e.target.value)} placeholder='Password' />
+              <div className='input1' style={{border: !passwordTouched ? 'solid 1px red' :'none'}}>
+                <input type='password' onChange={(e) => {
+                  setPassword(e.target.value)
+                  setPasswordTouched(true)
+                  if(e.target.value.length===0){
+                    setPasswordTouched(false);
+                  }
+                }} placeholder='Password' />
               </div>
               <div className='input2'>
                <div className='radio-button'>
                  <input type="radio" name="userType" onClick={
                   ()=>{
                     setUser("Student");
+                    setWorkingasTouched(true);
+                    setCompanyTouched(true);
                   }
                 } /> Student
               </div>
@@ -192,6 +212,7 @@ const postDetails=(image)=>{
                 <input type="radio" name="userType" onClick={
                   ()=>{
                     setUser("Professor");
+                    setCompanyTouched(true);
                   }
                 } /> Professor
               </div>
@@ -219,10 +240,10 @@ const postDetails=(image)=>{
               //   postDetails(e.target.files[0])
               }} />
               {selectedImage ? (
-    <img src={URL.createObjectURL(selectedImage)} alt="Selected" />
-  ) : (
-    <img src={defaultImageURL} alt="Default" />
-  )}
+                <img src={URL.createObjectURL(selectedImage)} alt="Selected" />
+              ) : (
+                <img src={defaultImageURL} alt="Default" />
+              )}
 
             </div>
             <div className='switch1' onClick={()=>{setWantLogin(!wantLogin)}}>Have an account? 
@@ -240,20 +261,50 @@ const postDetails=(image)=>{
               <div className='position3'>Education</div>
             </div>
             <div className='inputs1'>
-            <div className='input1'>
-                <input type='cname' onChange={(e) => setCollege(e.target.value)} placeholder='College Name' />
+            <div className='input1' style={{border: !collegeTouched ? 'solid 1px red' :'none'}}>
+                <input type='cname' onChange={(e) => {
+                  setCollege(e.target.value)
+                  setCollegeTouched(true)
+                  if(e.target.value.length===0){
+                    setCollegeTouched(false);
+                  }
+                }} placeholder='College Name' />
               </div>
-            <div className='input1'>
-                <input type='discipline' onChange={(e) => setDiscipline(e.target.value)} placeholder='Discipline' />
+            <div className='input1' style={{border: !disciplineTouched ? 'solid 1px red' :'none'}}>
+                <input type='discipline' onChange={(e) => {
+                  setDiscipline(e.target.value)
+                  setDisciplineTouched(true)
+                  if(e.target.value.length===0){
+                    setDisciplineTouched(false);
+                  }
+                }} placeholder='Discipline' />
               </div>
-              <div className='input1'>
-                <input type='branch' onChange={(e) => setBranch(e.target.value)} placeholder='Branch' />
+              <div className='input1' style={{border: !branchTouched ? 'solid 1px red' :'none'}}>
+                <input type='branch' onChange={(e) => {
+                  setBranch(e.target.value)
+                  setBranchTouched(true)
+                  if(e.target.value.length===0){
+                    setBranchTouched(false);
+                  }
+                }} placeholder='Branch' />
               </div>
-              <div className='input1'>
-                <input type='graduationyear' onChange={(e) => setGraduationyear(e.target.value)} placeholder='Graduation Year' />
+              <div className='input1' style={{border: !graduationyearTouched ? 'solid 1px red' :'none'}}>
+                <input type='graduationyear' onChange={(e) => {
+                  setGraduationyear(e.target.value)
+                  setGraduationyearTouched(true)
+                  if(e.target.value.length===0){
+                    setGraduationyearTouched(false);
+                  }
+                }} placeholder='Graduation Year' />
               </div>
-              <div className='input1'>
-                <input type='highestdegreeofqualification' onChange={(e) => setHighestDegreeOfQualification(e.target.value)} placeholder='Highest degree of qualification' />
+              <div className='input1' style={{border: !highestDegreeOfQualificationTouched ? 'solid 1px red' :'none'}}>
+                <input type='highestdegreeofqualification' onChange={(e) => {
+                  setHighestDegreeOfQualification(e.target.value)
+                  setHighestDegreeOfQualificationTouched(true);
+                  if(e.target.value.length===0){
+                    setHighestDegreeOfQualificationTouched(false);
+                  }
+                  }} placeholder='Highest degree of qualification' />
               </div>
               <div className='button1'>
               <input type='submit' value='Next' onClick={nextStep} />
