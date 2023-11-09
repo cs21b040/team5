@@ -163,42 +163,116 @@ function ChatPage() {
   }
   const handleClose = () => setLoading(false);
   const handleShow = () => setLoading(true);
+  const handleClose2 = () => setLoading(false);
+  const handleShow2 = () => setLoading(true);
   const [imgClick, setImgClick] = useState(false);
+  const [chatUser, setChatUser] = useState(null);
+  const [reason, setReason] = useState(null);
+  const [proof, setProof] = useState(null);
+  const [reportClick, setReportClick] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const postDetails=(image)=>{
+    setLoading(true);
+    if(image===undefined){
+      alert("Please Select an Valid Image");
+      return;
+    }
+    if(image.type==="image/jpeg" || image.type==="image/png"){
+      const data=new FormData();
+      data.append("file",image);
+      data.append("upload_preset","chating");
+      data.append("cloud_name","dq7oyedtj");
+      fetch("https://api.cloudinary.com/v1_1/dq7oyedtj/image/upload",{
+        method:"post",
+        body:data
+      }).then(res=>res.json())
+      .then(data=>{
+        setProof(data.url.toString());
+        setLoading(false);
+      })
+      .catch((error)=>{
+        console.log(error);
+        setLoading(false);
+      })
+    }
+    else{
+      alert("Please Select an Valid jpeg or png Image");
+      return;
+    }
+  }
+  const reportToAdmin = async (chatUser) => {
+    postDetails(selectedImage);
+    console.log(proof)
+    if(!proof){
+      toast.error('Please upload a valid image');
+      return;
+    }
+    const config = {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    };
+    try {
+      const { data } = await axios.post(`http://localhost:5000/api/admin/`,{
+        reqUser:user,
+        accusedUser:chatUser,
+        reason:reason,
+        pic:proof
+      }, config);
+      toast.success('Reported to admin');
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className="chat-page">
       <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} draggable theme="light" />
-      {
+      {reportClick &&
+        <Modal centered show={reportClick} onHide={()=>{setReportClick(false);}}>
+          <Modal.Header>
+            <Modal.Title>Report User</Modal.Title>
+            <CloseButton onClick={()=>{setReportClick(false)}}/>
+          </Modal.Header>
+          <Modal.Body>
+            <form>
+              <div className="mb-3">
+                <label htmlFor="reportReason" className="form-label">Reason</label>
+                <textarea className="form-control" id="reportReason" rows="3" onChange={(e) => setReason(e.target.value)}></textarea>
+              </div>
+              <div className="mb-3">
+                <label htmlFor="reportProof" className="form-label">Proof</label>
+                <input type="file" className="form-control" id="reportProof" onChange={(e) => setSelectedImage(e.target.files[0])}/>
+              </div>
+            </form>
+          </Modal.Body>
+          <Modal.Footer>
+            <button type="button" className="btn btn-secondary" onClick={()=>{setReportClick(false);}}>Close</button>
+            <button type="button" className="btn btn-primary" onClick={()=>{reportToAdmin(chatUser);setReportClick(false);}}>Report</button>
+          </Modal.Footer>
+        </Modal>}
+        {
         imgClick && 
         <Modal centered show={imgClick} onHide={()=>{setImgClick(false);}}>
           <Modal.Body>
             <CloseButton onClick={()=>{setImgClick(false)}}/>
+            <button type="button"style={{ float: "right" }}
+              className="btn btn-danger" onClick={()=>{
+                setReportClick(true);
+            }}>Report</button>
             <div className="container">
-            {selectedChat?.users[0]._id!==user?._id?<div className="row">
+            <div className="row">
                 <div className="col d-flex justify-content-center">
                     <img
                      src={selectedChat?.users[0].pic} style={{
                         height:"10.5rem"}} />
                 </div>
                 <div className="col">
-                    <p>Name: {selectedChat?.users[0].name}</p>
-                    <p>Email: {selectedChat?.users[0].email}</p>
-                    <p>Branch: {selectedChat?.users[0].branch}</p>
-                    <p>Role: {selectedChat?.users[0].userType}</p>
-                </div>
-            </div>:<div className="row">
-                <div className="col d-flex justify-content-center">
-                    <img
-                     src={selectedChat?.users[1].pic} style={{
-                        height:"10.5rem"}} />
-                </div>
-                <div className="col">
-                    <p>Name: {selectedChat?.users[1].name}</p>
-                    <p>Email: {selectedChat?.users[1].email}</p>
-                    <p>Branch: {selectedChat?.users[1].branch}</p>
-                    <p>Role: {selectedChat?.users[1].userType}</p>
+                    <p>Name: {chatUser.name}</p>
+                    <p>Email: {chatUser.email}</p>
+                    <p>Branch: {chatUser.branch}</p>
+                    <p>Role: {chatUser.userType}</p>
                 </div>
             </div>
-            }
         </div>
           </Modal.Body>
       </Modal>
@@ -222,6 +296,7 @@ function ChatPage() {
                      marginLeft:'5px',
                     marginTop:'5px'}} 
                     onClick={()=>{
+                      setChatUser(selectedChat?.users[0]===user?._id ? selectedChat?.users[1] : selectedChat?.users[0]);
                       setImgClick(true);
                     }}/>
                 </Col>
