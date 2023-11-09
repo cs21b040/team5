@@ -86,16 +86,19 @@ const updateProfile = asyncHandler(async (req,res)=>{
         company:company,
         workingas:workingas,
         pic:pic}
-    const update=await User.findByIdAndUpdate(
-        userId,
-        temp,
+        let update=await User.findByIdAndUpdate(
+            userId,
+            temp,
+            {new:true}
     );
     if(!update){
         res.status(400);
         throw new Error('Invalid user id');
     }
     else{
-        res.status(200).json('Updated');
+        let temp=update.toObject();
+        temp.token=generateToken(update._info);
+        res.status(200).json(temp);
     }
 })
 const updateOpenMsg= asyncHandler(async(req,res)=>{
@@ -110,7 +113,7 @@ const updateOpenMsg= asyncHandler(async(req,res)=>{
         throw new Error('Invalid user id');
     }
     else{
-        res.status(200).json('Updated');
+        res.status(200).json(update);
     }
 })
 const renameGroups = asyncHandler(async(req,res)=>{

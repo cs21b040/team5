@@ -21,8 +21,7 @@ function Profile() {
   const [tempProfile, setTempProfile] = useState({}); 
   const [userType, setuserType] = useState('');
   const [openMsg, setOpenMsg] = useState(true);
-
-
+  const [selectedImage, setSelectedImage] = useState(null);
   useEffect(() => {
     if (!user) return;
     setName(user.name);
@@ -63,8 +62,8 @@ function Profile() {
     setHighestDegreeOfQualification(tempProfile.highestDegreeOfQualification);
     setWorkedin(tempProfile.Workedin);
     setWorkingin(tempProfile.Workingin);
-    setPic(tempProfile.pic);
-    setIsEditing(false);
+    setPic(selectedImage || tempProfile.pic);
+     setIsEditing(false);
     try {
       const config = {
         headers: {
@@ -82,28 +81,69 @@ function Profile() {
           highestDegreeOfQualification: tempProfile.highestDegreeOfQualification,
           company: tempProfile.Workedin,
           workingas: tempProfile.Workingin,
-          pic: tempProfile.pic,
+          pic: selectedImage || tempProfile.pic,
         },
         config
       );
-      localStorage.removeItem('userId');
-      localStorage.setItem('userId', JSON.stringify(data));
+      localStorage.removeItem('userInfo');
+      localStorage.setItem('userInfo', JSON.stringify(data));
     } catch (error) {
       console.log(error);
     }
   }
+
+
+
+  const postDetails=(image)=>{
+    if(image===undefined){
+      alert("Please Select an Valid Image");
+      return;
+    }
+    if(image.type==="image/jpeg" || image.type==="image/png"){
+      const data=new FormData();
+      data.append("file",image);
+      data.append("upload_preset","chating");
+      data.append("cloud_name","dq7oyedtj");
+      fetch("https://api.cloudinary.com/v1_1/dq7oyedtj/image/upload",{
+        method:"post",
+        body:data
+      })
+      .then(res=>res.json())
+      .then(data=>{
+        setSelectedImage(data.url.toString());
+        setTempProfile({ ...tempProfile, pic: data.url.toString() });
+            })
+      .catch((error)=>{
+        console.log(error);
+      })
+    }
+    else{
+      alert("Please Select an Valid jpeg or png Image");
+      return;
+    }
+
+  }
+
+  const defaultImageURL = selectedImage || pic;
   return (
     <div className="total">
       <Header />
-      <div className="containerProfile">
-        <div className="profile-picture">
-          <img src={pic} alt="Profile" />
-        </div>
-        <div className="profile-info">
-          <h1>Profile Page</h1>
-          {!isEditing ? 
+     
+     {!isEditing ? 
           ( 
             <div>
+     
+      <div className="containerProfile">
+     
+        
+                <div className="profile-picture">
+               <img src={pic} alt="Profile" />
+                </div>
+        <div className="profile-info">
+          <h1>Profile Page</h1>
+          {/* {!isEditing ? 
+          ( 
+            <div> */}
               <div className="state-box">
                 <p>Name: {name}</p>
               </div>
@@ -156,73 +196,119 @@ function Profile() {
               </Form>
               <button className="editbutton" onClick={handleEditClick}>Edit</button>
             </div>
+
+                    </div>
+            </div>
           ) : (
             <div>
-              <div className="state-box">
+            <div className="edit-form-container">
+              <div className="edit-form-label">
                 <label>Name:</label>
+              </div>
+              <div className="edit-form-input">
                 <input
                   type="text"
                   value={tempProfile.name}
                   onChange={(e) => setTempProfile({ ...tempProfile, name: e.target.value })}
                 />
               </div>
-
-             <div className="state-box">
+    
+              <div className="edit-form-label">
                 <label>graduatedYear:</label>
+              </div>
+              <div className="edit-form-input">
                 <input
                   type="text"
                   value={tempProfile.graduatedYear}
                   onChange={(e) => setTempProfile({ ...tempProfile, graduatedYear: e.target.value })}
                 />
               </div>
-
-              <div className="state-box">
+    
+              <div className="edit-form-label">
                 <label>highestDegreeOfQualification:</label>
+              </div>
+              <div className="edit-form-input">
                 <input
                   type="text"
                   value={tempProfile.highestDegreeOfQualification}
                   onChange={(e) => setTempProfile({ ...tempProfile, highestDegreeOfQualification: e.target.value })}
                 />
               </div>
-
-              <div className="state-box">
+    
+              <div className="edit-form-label">
                 <label>branch:</label>
+              </div>
+              <div className="edit-form-input">
                 <input
                   type="text"
                   value={tempProfile.branch}
                   onChange={(e) => setTempProfile({ ...tempProfile, branch: e.target.value })}
                 />
               </div>
-              <div className="state-box">
+              <div className="edit-form-label">
                 <label>Discipline:</label>
+              </div>
+              <div className="edit-form-input">
                 <input
                   type="text"
-                  value={tempProfile.Discipline}
-                  onChange={(e) => setTempProfile({ ...tempProfile, Discipline: e.target.value })}
+                  value={tempProfile.discipline}
+                  onChange={(e) => setTempProfile({ ...tempProfile, discipline: e.target.value })}
                 />
               </div>
-
-              <div className="state-box">
+    
+              <div className="edit-form-label">
                 <label>Workingin:</label>
+              </div>
+              <div className="edit-form-input">
                 <input
                   type="text"
                   value={tempProfile.Workingin}
                   onChange={(e) => setTempProfile({ ...tempProfile, Workingin: e.target.value })}
                 />
               </div>
-              <div className="state-box">
+              <div className="edit-form-label">
                 <label>Workedin:</label>
+              </div>
+              <div className="edit-form-input">
                 <input
                   type="text"
                   value={tempProfile.Workedin}
                   onChange={(e) => setTempProfile({ ...tempProfile, Workedin: e.target.value })}
                 />
               </div>
-              <button onClick={handleSaveClick}>Save</button>
+    
+              <div className="img">
+                <input
+                  type="file"
+                  name="avatar"
+                  accept="image/*"
+                  onChange={(e) => {
+                    const file = e.target.files[0];
+                    setSelectedImage(file);
+                    postDetails(file);
+                  }}
+                />
+    
+                {selectedImage ? (
+                  selectedImage instanceof Blob || selectedImage instanceof File ? (
+                    <img src={URL.createObjectURL(selectedImage)} alt="Selected" />
+                  ) : (
+                    <img src={defaultImageURL} alt="Default" />
+                  )
+                ) : (
+                  <img src={defaultImageURL} alt="Default" />
+                )}
+              </div>
+    
+              <button className="edit-form-button" onClick={handleSaveClick}>
+                Save
+              </button>
             </div>
+          </div>
+    
           )}
-        </div>
-      </div>
+        
+      
     </div>
   );
 }
