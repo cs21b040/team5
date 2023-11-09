@@ -21,7 +21,7 @@ function ProjectDetails() {
       const { data } = await axios.get(
         `http://localhost:5000/api/research/download/${project._id}`,
         config
-      ); 
+      );
       const fileURL = "/" + data.status;
       let alink = document.createElement("a");
       alink.href = fileURL;
@@ -34,44 +34,44 @@ function ProjectDetails() {
   }
 
   return (
+    <div className='projectdetails'>
       <div className='projectdetails'>
+        <h1>Details of the project</h1>
         <div className='projectdetails'>
-          <h1>Details of the project</h1>
-          <div className='projectdetails'>
-            <h4>Title:</h4>
-            <p>{project.title}</p>
-          </div>
-          <div className='projectdetails'>
-            <h4>Professor:</h4>
-            <p>{project.professor}</p>
-          </div>
-          <div className='projectdetails'>
-            <h4>Professor's Email</h4>
-            <p>{project.user.email}</p>
-          </div>
-          <div className='projectdetails'>
-            <h4>Description:</h4>
-            <p style={{whiteSpace:'break-spaces'}}>{project.description}</p>
-          </div>
-          <div className='projectdetails'>
-            <h4>Institute:</h4>
-            <p>{project.institute}</p>
-          </div>
-          <div className='projectdetails'>
-            <h4>Date:</h4>
-            <p>{project.updatedAt.substring(0,10)}</p>
-          </div>
-          <div className='projectdetails'>
-            <h4>Abstract:</h4>          
-            <p style={{whiteSpace:'break-spaces'}}>{project.abstract}</p>
-          </div>
-          <div className='projectdetails'>
-            <h4>Download File:</h4>
-            <Button variant='primary' onClick={downloadFile}>Download</Button>
-          </div>
+          <h4>Title:</h4>
+          <p>{project.title}</p>
         </div>
-        <Button variant='primary' href='/research'>Back</Button>
+        <div className='projectdetails'>
+          <h4>Professor:</h4>
+          <p>{project.professor}</p>
+        </div>
+        <div className='projectdetails'>
+          <h4>Professor's Email</h4>
+          <p>{project.email ? project.email : "Not Available"}</p>
+        </div>
+        <div className='projectdetails'>
+          <h4>Description:</h4>
+          <p style={{ whiteSpace: 'break-spaces' }}>{project.description}</p>
+        </div>
+        <div className='projectdetails'>
+          <h4>Institute:</h4>
+          <p>{project.institute}</p>
+        </div>
+        <div className='projectdetails'>
+          <h4>Date:</h4>
+          <p>{project.updatedAt.substring(0, 10)}</p>
+        </div>
+        <div className='projectdetails'>
+          <h4>Abstract:</h4>
+          <p style={{ whiteSpace: 'break-spaces' }}>{project.abstract}</p>
+        </div>
+        <div className='projectdetails'>
+          <h4>Download File:</h4>
+          <Button variant='primary' onClick={downloadFile}>Download</Button>
+        </div>
       </div>
+      <Button variant='primary' href='/research'>Back</Button>
+    </div>
   );
 }
 
