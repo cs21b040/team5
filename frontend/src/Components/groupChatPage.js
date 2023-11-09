@@ -124,6 +124,63 @@ function GroupChatPage() {
       console.error(error);
     }
   };
+  const [reportClick, setReportClick] = useState(false);
+  const [reason, setReason] = useState('');
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [proof,setProof]=useState(null);
+  const postDetails=(image)=>{
+    setLoading(true);
+    if(image===undefined){
+      alert("Please Select an Valid Image");
+      return;
+    }
+    if(image.type==="image/jpeg" || image.type==="image/png"){
+      const data=new FormData();
+      data.append("file",image);
+      data.append("upload_preset","chating");
+      data.append("cloud_name","dq7oyedtj");
+      fetch("https://api.cloudinary.com/v1_1/dq7oyedtj/image/upload",{
+        method:"post",
+        body:data
+      }).then(res=>res.json())
+      .then(data=>{
+        setProof(data.url.toString());
+        setLoading(false);
+      })
+      .catch((error)=>{
+        console.log(error);
+        setLoading(false);
+      })
+    }
+    else{
+      alert("Please Select an Valid jpeg or png Image");
+      return;
+    }
+  }
+  const reportToAdmin = async (chatUser) => {
+    postDetails(selectedImage);
+    console.log(proof)
+    if(!proof){
+      toast.error('Please upload a valid image');
+      return;
+    }
+    const config = {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    };
+    try {
+      const { data } = await axios.post(`http://localhost:5000/api/admin/`,{
+        reqUser:user,
+        accusedUser:chatUser,
+        reason:reason,
+        pic:proof
+      }, config);
+      toast.success('Reported to admin');
+    } catch (error) {
+      console.log(error);
+    }
+  };
   function upload() {
     document.getElementById("lightbox2").style.display = "block";
   }
@@ -162,11 +219,38 @@ function GroupChatPage() {
   return (
     <div className="groupchatpage">
       <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} draggable theme="light" />
+      {reportClick &&
+        <Modal centered show={reportClick} onHide={()=>{setReportClick(false);}}>
+          <Modal.Header>
+            <Modal.Title>Report User</Modal.Title>
+            <CloseButton onClick={()=>{setReportClick(false)}}/>
+          </Modal.Header>
+          <Modal.Body>
+            <form>
+              <div className="mb-3">
+                <label htmlFor="reportReason" className="form-label">Reason</label>
+                <textarea className="form-control" id="reportReason" rows="3" onChange={(e) => setReason(e.target.value)}></textarea>
+              </div>
+              <div className="mb-3">
+                <label htmlFor="reportProof" className="form-label">Proof</label>
+                <input type="file" className="form-control" id="reportProof" onChange={(e) => setSelectedImage(e.target.files[0])}/>
+              </div>
+            </form>
+          </Modal.Body>
+          <Modal.Footer>
+            <button type="button" className="btn btn-secondary" onClick={()=>{setReportClick(false);}}>Close</button>
+            <button type="button" className="btn btn-primary" onClick={()=>{reportToAdmin(userProfile);setReportClick(false);}}>Report</button>
+          </Modal.Footer>
+        </Modal>}
       {
         imgClick &&
         <Modal centered show={imgClick} onHide={() => { setImgClick(false); }}>
           <Modal.Body>
-            <CloseButton onClick={() => { setImgClick(false) }} />
+          <CloseButton onClick={()=>{setImgClick(false)}}/>
+            <button type="button"style={{ float: "right" }}
+              className="btn btn-danger" onClick={()=>{
+                setReportClick(true);
+            }}>Report</button>
             <div className="container">
               <div className="row">
                 <div className="col d-flex justify-content-center">

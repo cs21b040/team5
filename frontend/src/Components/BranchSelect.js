@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import axios from 'axios';
 import { ChatState } from '../context/chatProvider';
+import { ToastContainer, toast } from 'react-toastify';
 
 function BranchSelect() {
   const {
@@ -40,29 +41,42 @@ function BranchSelect() {
     if(!user) return;
     getBranches();
   },[user, branches]); 
-
-  
-  async function addBranch(){
-    const br=document.getElementById('br').value.toString();
-    try {
-      const response = await axios.post('http://localhost:5000/api/academics/',{branch:br,});
-      if (response.status === 200) {
-        navigate(`/Academic/${br}`);
-      } else {
-        console.log("Unexpected response status:", response.status);
-      }
-    } catch (err) {
-      console.error("Error submitting the project:", err);
-    }
-  }
   function fun(e){
     setBranch(e.target.innerHTML);
     handleClose();
     const x=e.target.innerHTML;
     navigate(`/Academic/${x}`);
   }
+  const reqBranch=async ()=>{
+    const br=document.getElementById('br').value.toString();
+    const config={
+      headers:{
+        Authorization: `Bearer ${user.token}`,
+      }
+    };
+    try {
+      const data=await axios.post('http://localhost:5000/api/academicAdmin/',{
+        user:user,
+        Branch:br
+      },config);
+      if(!data) toast.error("Request not sent");
+      else toast.success("Request sent");
+    } catch (error) {
+      
+    }
+  }
   return (
     <div>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        draggable
+        theme="light"
+      />
       <button variant="primary"  onClick={handleShow} style={{backgroundColor: 'transparent', margin: '0', border: '0',color:'white'}}>Academics</button>
       <Offcanvas show={show} onHide={handleClose}>
         <Offcanvas.Header closeButton>
@@ -81,7 +95,9 @@ function BranchSelect() {
           <Form>
             <Form.Group className="mb-3" controlId="br">
                 <Form.Control placeholder="Enter branch" />
-                <button onClick={addBranch}>ADD</button>
+                <button onClick={()=>{
+                  reqBranch();
+                }}>Request</button>
             </Form.Group>
           </Form>
         </div>

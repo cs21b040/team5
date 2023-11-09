@@ -34,7 +34,11 @@ function Login() {
           console.log(error);
         });
         console.log(data);
-        localStorage.setItem('userInfo',JSON.stringify(data));
+        if(data.banned==true){
+          alert('You are banned from the website');
+          return;
+        }
+        sessionStorage.setItem('userInfo',JSON.stringify(data));
         navigate('/');
     }
     catch(e){

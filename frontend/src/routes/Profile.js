@@ -20,7 +20,7 @@ function Profile() {
   const [isEditing, setIsEditing] = useState(false); 
   const [tempProfile, setTempProfile] = useState({}); 
   const [userType, setuserType] = useState('');
-  const [openMsg, setOpenMsg] = useState(true);
+  const [openMsg, setOpenMsg] = useState();
   const [selectedImage, setSelectedImage] = useState(null);
   useEffect(() => {
     if (!user) return;
@@ -85,8 +85,8 @@ function Profile() {
         },
         config
       );
-      localStorage.removeItem('userInfo');
-      localStorage.setItem('userInfo', JSON.stringify(data));
+      sessionStorage.removeItem('userInfo');
+      sessionStorage.setItem('userInfo', JSON.stringify(data));
     } catch (error) {
       console.log(error);
     }
@@ -169,11 +169,12 @@ function Profile() {
                 <p>Working in: {Workingin}</p>
               </div>
               <Form className='opentomessages'>
-                {userType === 'Alumni' && (
+                {user && userType === 'Alumni' && (
                   <Form.Check
                     label="Open to messages"
                     type="switch"
                     id="custom-switch"
+                    defaultChecked={openMsg}
                     onClick={async ()=>{
                       setOpenMsg(!openMsg);
                       user.openMsg=!openMsg;
@@ -183,10 +184,12 @@ function Profile() {
                         },
                       }
                       try {
-                        await axios.put('http://localhost:5000/api/user/openMsg',{
+                        const {data} = await axios.put('http://localhost:5000/api/user/openMsg',{
                           _id:user._id,
                           openMsg:openMsg,
                         },config);
+                        sessionStorage.removeItem('userInfo');
+                        sessionStorage.setItem('userInfo',JSON.stringify(data));
                       } catch (error) {
                         console.log(error);
                       }

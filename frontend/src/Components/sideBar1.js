@@ -33,21 +33,26 @@ function Sidebar({ branch, onSelect }) {
   };
 
   
-  async function addSubject(){
+  const reqSubject=()=>{
     const sub=document.getElementById('sub').value.toString();
-    console.log(sub);
-    try {
-      const response = await axios.post('http://localhost:5000/api/academics/subjects',{branchName:branch,subjectName:sub});
-      if (response.status === 200) {
-        // navigate(`/Academic/${br}`);
-      } else {
-        console.log("Unexpected response status:", response.status);
+    const config={
+      headers:{
+        Authorization: `Bearer ${user.token}`,
       }
-    } catch (err) {
-      console.error("Error submitting the project:", err);
+    }
+    try {
+      const response = axios.post('http://localhost:5000/api/academicAdmin/',{user:user,Subject:sub,Branch:branch},config);
+      console.log(branch+" "+sub)
+      if(response){
+        alert("Request Sent");
+      }
+      else{
+        alert("Request not sent");
+      }
+    } catch (error) {
+      console.log(error);
     }
   }
-
   return (
     <div className='sidebar'>
         <div className="sidebar__header">
@@ -62,12 +67,11 @@ function Sidebar({ branch, onSelect }) {
           <Form className="add_subject__form">
             <Form.Group className="mb-3" controlId="sub">
                 <Form.Control placeholder="Enter Subject"  />
-                <button onClick={addSubject}>ADD</button>
+                <button onClick={reqSubject}>Request</button>
             </Form.Group>
           </Form>
         </div>
     </div>
-
   )
 }
 

@@ -10,7 +10,7 @@ const ChatProvider = ({ children }) => {
   const navigate=useNavigate();
   const [wantLogin,setWantLogin]=useState(true);
   useEffect(() => {
-      const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+      const userInfo = JSON.parse(sessionStorage.getItem("userInfo"));
       setUser(userInfo);
       if (!userInfo) {
         if(wantLogin){

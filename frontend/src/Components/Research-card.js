@@ -38,7 +38,7 @@ function Project(props) {
 }
 
   function displayDeleteButton() {
-    const userInfo = localStorage.getItem('userInfo');
+    const userInfo = sessionStorage.getItem('userInfo');
     const key= props.projectKey;
     const deleteButton= document.getElementsByClassName('deleteButton')[key];
     if(userInfo){

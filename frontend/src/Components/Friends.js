@@ -37,7 +37,7 @@ function Friends() {
   };
 
   useEffect(() => {
-    setCurrentUser(JSON.parse(localStorage.getItem('userInfo')));
+    setCurrentUser(JSON.parse(sessionStorage.getItem('userInfo')));
     fetchChats();
   }, [user]);
 

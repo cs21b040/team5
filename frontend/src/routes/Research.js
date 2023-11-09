@@ -63,7 +63,7 @@ function Research() {
   }
           
   function GetUserInfo() {
-    const userInfo = localStorage.getItem('userInfo');
+    const userInfo = sessionStorage.getItem('userInfo');
     const addProjectButton = document.querySelector('.addProjectButton');
     if (userInfo) {
       if(JSON.parse(userInfo).userType==='Professor'){
