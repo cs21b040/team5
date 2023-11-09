@@ -30,7 +30,8 @@ function AlumniCard(props) {
   };
   const cardStyle = {
     width: '20rem',
-    backgroundColor: '#333',
+    height: '475px',
+    backgroundColor: '#e4e7ed',
     boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
   };
 
@@ -40,11 +41,11 @@ function AlumniCard(props) {
   };
 
   const cardTitleStyle = {
-    color: '#fff', 
+    color: '#000', 
   };
 
   const cardTextStyle = {
-    color: '#aaa',
+    color: '#333',
   };
 
   const buttonStyle = {

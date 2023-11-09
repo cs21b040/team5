@@ -2,7 +2,7 @@
     display: none;
 }
 .research{
-    background-color: #555;
+    background-color: #f0f2f5;
     padding: 20px;
     height: 100%;
 }
@@ -56,13 +56,13 @@
 }
 
 .templateContainer {
-    background-color: #222;
+    background-color: #e4e7ed;
     padding: 20px;
   }
   
 .searchInput_Container {
-    background-color: #222;
-    border: 1px solid #444;
+    background-color: #e4e7ed;
+    border: 1px solid #fff;
     border-radius: 5px;
     padding: 10px;
     display: flex;
@@ -70,7 +70,7 @@
   }
   
 .searchInput {
-    background-color: #555;
+    background-color: #f0f2f5;
     color: #fff;
     border: none;
     outline: none;
@@ -79,7 +79,7 @@
   }
 
 .full{
-    background-color: #333;
+    background-color: #f0f2f5;
     color: #fff;
     width: 100%;
     height: 100%;
