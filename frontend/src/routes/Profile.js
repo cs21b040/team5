@@ -17,8 +17,8 @@ function Profile() {
   const [branch, setBranch] = useState('');
   const { user } = ChatState();
   const [profile, setProfile] = useState([]);
-  const [isEditing, setIsEditing] = useState(false); 
-  const [tempProfile, setTempProfile] = useState({}); 
+  const [isEditing, setIsEditing] = useState(false);
+  const [tempProfile, setTempProfile] = useState({});
   const [userType, setuserType] = useState('');
   const [openMsg, setOpenMsg] = useState();
   const [selectedImage, setSelectedImage] = useState(null);
@@ -53,7 +53,7 @@ function Profile() {
     setIsEditing(true);
   };
 
-  const handleSaveClick =async () => {
+  const handleSaveClick = async () => {
     setName(tempProfile.name);
     setEmail(tempProfile.email);
     setGraduatedYear(tempProfile.graduatedYear);
@@ -63,7 +63,7 @@ function Profile() {
     setWorkedin(tempProfile.Workedin);
     setWorkingin(tempProfile.Workingin);
     setPic(selectedImage || tempProfile.pic);
-     setIsEditing(false);
+    setIsEditing(false);
     try {
       const config = {
         headers: {
@@ -94,30 +94,30 @@ function Profile() {
 
 
 
-  const postDetails=(image)=>{
-    if(image===undefined){
+  const postDetails = (image) => {
+    if (image === undefined) {
       alert("Please Select an Valid Image");
       return;
     }
-    if(image.type==="image/jpeg" || image.type==="image/png"){
-      const data=new FormData();
-      data.append("file",image);
-      data.append("upload_preset","chating");
-      data.append("cloud_name","dq7oyedtj");
-      fetch("https://api.cloudinary.com/v1_1/dq7oyedtj/image/upload",{
-        method:"post",
-        body:data
+    if (image.type === "image/jpeg" || image.type === "image/png") {
+      const data = new FormData();
+      data.append("file", image);
+      data.append("upload_preset", "chating");
+      data.append("cloud_name", "dq7oyedtj");
+      fetch("https://api.cloudinary.com/v1_1/dq7oyedtj/image/upload", {
+        method: "post",
+        body: data
       })
-      .then(res=>res.json())
-      .then(data=>{
-        setSelectedImage(data.url.toString());
-        setTempProfile({ ...tempProfile, pic: data.url.toString() });
-            })
-      .catch((error)=>{
-        console.log(error);
-      })
+        .then(res => res.json())
+        .then(data => {
+          setSelectedImage(data.url.toString());
+          setTempProfile({ ...tempProfile, pic: data.url.toString() });
+        })
+        .catch((error) => {
+          console.log(error);
+        })
     }
-    else{
+    else {
       alert("Please Select an Valid jpeg or png Image");
       return;
     }
@@ -128,82 +128,82 @@ function Profile() {
   return (
     <div className="total">
       <Header />
-     
-     {!isEditing ? 
-          ( 
-            <div>
-     
-      <div className="containerProfile">
-     
-        
-                <div className="profile-picture">
-               <img src={pic} alt="Profile" />
-                </div>
-        <div className="profile-info">
-          <h1>Profile Page</h1>
-          {/* {!isEditing ? 
+
+      {!isEditing ?
+        (
+          <div>
+
+            <div className="containerProfile">
+
+
+              <div className="profile-picture">
+                <img src={pic} alt="Profile" />
+              </div>
+              <div className="profile-info">
+                <h1>Profile Page</h1>
+                {/* {!isEditing ? 
           ( 
             <div> */}
-              <div className="state-box">
-                <p>Name: {name}</p>
+                <div className="state-box">
+                  <p>Name: {name}</p>
+                </div>
+                <div className="state-box">
+                  <p>Email: {email}</p>
+                </div>
+                <div className="state-box">
+                  <p>Graduated Year: {graduatedYear}</p>
+                </div>
+                <div className="state-box">
+                  <p>Branch: {branch}</p>
+                </div>
+                <div className="state-box">
+                  <p>Discipline: {discipline}</p>
+                </div>
+                <div className="state-box">
+                  <p>Highest Degree of Qualification: {highestDegreeOfQualification}</p>
+                </div>
+                <div className="state-box">
+                  <p>Worked in: {Workedin}</p>
+                </div>
+                <div className="state-box">
+                  <p>Working in: {Workingin}</p>
+                </div>
+                <Form className='opentomessages'>
+                  {user && userType === 'Alumni' && (
+                    <Form.Check
+                      label="Open to messages"
+                      type="switch"
+                      id="custom-switch"
+                      defaultChecked={openMsg}
+                      onClick={async () => {
+                        setOpenMsg(!openMsg);
+                        user.openMsg = !openMsg;
+                        const config = {
+                          headers: {
+                            Authorization: `Bearer ${user.token}`,
+                          },
+                        }
+                        try {
+                          const { data } = await axios.put('http://localhost:5000/api/user/openMsg', {
+                            _id: user._id,
+                            openMsg: openMsg,
+                          }, config);
+                          sessionStorage.removeItem('userInfo');
+                          sessionStorage.setItem('userInfo', JSON.stringify(data));
+                        } catch (error) {
+                          console.log(error);
+                        }
+                      }}
+                    />
+                  )}
+                </Form>
+                <button className="editbutton" onClick={handleEditClick}>Edit</button>
               </div>
-              <div className="state-box">
-                <p>Email: {email}</p>
-              </div>
-              <div className="state-box">
-                <p>Graduated Year: {graduatedYear}</p>
-              </div>
-              <div className="state-box">
-                <p>Branch: {branch}</p>
-              </div>
-              <div className="state-box">
-                <p>Discipline: {discipline}</p>
-              </div>
-              <div className="state-box">
-                <p>Highest Degree of Qualification: {highestDegreeOfQualification}</p>
-              </div>
-              <div className="state-box">
-                <p>Worked in: {Workedin}</p>
-              </div>
-              <div className="state-box">
-                <p>Working in: {Workingin}</p>
-              </div>
-              <Form className='opentomessages'>
-                {user && userType === 'Alumni' && (
-                  <Form.Check
-                    label="Open to messages"
-                    type="switch"
-                    id="custom-switch"
-                    defaultChecked={openMsg}
-                    onClick={async ()=>{
-                      setOpenMsg(!openMsg);
-                      user.openMsg=!openMsg;
-                      const config={
-                        headers:{
-                          Authorization: `Bearer ${user.token}`,
-                        },
-                      }
-                      try {
-                        const {data} = await axios.put('http://localhost:5000/api/user/openMsg',{
-                          _id:user._id,
-                          openMsg:openMsg,
-                        },config);
-                        sessionStorage.removeItem('userInfo');
-                        sessionStorage.setItem('userInfo',JSON.stringify(data));
-                      } catch (error) {
-                        console.log(error);
-                      }
-                    }}
-                  />
-                )}
-              </Form>
-              <button className="editbutton" onClick={handleEditClick}>Edit</button>
-            </div>
 
-                    </div>
             </div>
-          ) : (
-            <div>
+          </div>
+        ) : (
+          <div>
             <div className="edit-form-container">
               <div className="edit-form-label">
                 <label>Name:</label>
@@ -215,7 +215,7 @@ function Profile() {
                   onChange={(e) => setTempProfile({ ...tempProfile, name: e.target.value })}
                 />
               </div>
-    
+
               <div className="edit-form-label">
                 <label>graduatedYear:</label>
               </div>
@@ -226,7 +226,7 @@ function Profile() {
                   onChange={(e) => setTempProfile({ ...tempProfile, graduatedYear: e.target.value })}
                 />
               </div>
-    
+
               <div className="edit-form-label">
                 <label>highestDegreeOfQualification:</label>
               </div>
@@ -237,7 +237,7 @@ function Profile() {
                   onChange={(e) => setTempProfile({ ...tempProfile, highestDegreeOfQualification: e.target.value })}
                 />
               </div>
-    
+
               <div className="edit-form-label">
                 <label>branch:</label>
               </div>
@@ -258,7 +258,7 @@ function Profile() {
                   onChange={(e) => setTempProfile({ ...tempProfile, discipline: e.target.value })}
                 />
               </div>
-    
+
               <div className="edit-form-label">
                 <label>Workingin:</label>
               </div>
@@ -279,7 +279,7 @@ function Profile() {
                   onChange={(e) => setTempProfile({ ...tempProfile, Workedin: e.target.value })}
                 />
               </div>
-    
+
               <div className="img">
                 <input
                   type="file"
@@ -291,7 +291,7 @@ function Profile() {
                     postDetails(file);
                   }}
                 />
-    
+
                 {selectedImage ? (
                   selectedImage instanceof Blob || selectedImage instanceof File ? (
                     <img src={URL.createObjectURL(selectedImage)} alt="Selected" />
@@ -302,16 +302,16 @@ function Profile() {
                   <img src={defaultImageURL} alt="Default" />
                 )}
               </div>
-    
+
               <button className="edit-form-button" onClick={handleSaveClick}>
                 Save
               </button>
             </div>
           </div>
-    
-          )}
-        
-      
+
+        )}
+
+
     </div>
   );
 }
