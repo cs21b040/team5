@@ -306,8 +306,8 @@ const sendMail = asyncHandler(async (req, res) => {
       text: 'Hello world?',
       html: '<b>Hello world?</b>'
     });
-    console.log('Message sent: %s', info.messageId);
-    res.json({ message: "Mail Sent" });
+    console.log('Message sent: %s', "Mail Sent");
+    // res.json({ message: "Mail Sent" });
   } catch (error) {
     console.error(error.message);
     res.status(500).json({ message: "Internal Server Error" });
