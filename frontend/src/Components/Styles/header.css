@@ -1,11 +1,9 @@
 .custom-navbar {
-    background-color: #0F0F0F;
-    color: white;
     height: 65px;
     font-size: 17px;
     
 }
 .navbar-nav .nav-item a {
-    color: white !important;
+    color: #000000a6 !important;
   }
   

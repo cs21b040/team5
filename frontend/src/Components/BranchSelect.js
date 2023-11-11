@@ -77,7 +77,7 @@ function BranchSelect() {
         draggable
         theme="light"
       />
-      <button variant="primary"  onClick={handleShow} style={{backgroundColor: 'transparent', margin: '0', border: '0',color:'white'}}>Academics</button>
+      <button variant="primary"  onClick={handleShow} style={{backgroundColor: 'transparent', margin: '0', border: '0',color:'#000000a6'}}>Academics</button>
       <Offcanvas show={show} onHide={handleClose}>
         <Offcanvas.Header closeButton>
           <Offcanvas.Title>ACADEMICS</Offcanvas.Title>

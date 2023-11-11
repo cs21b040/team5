@@ -19,6 +19,7 @@
     font-weight: 500; /* Increased font weight */
     color: #333333; /* Darker text */
     margin: auto;
+    font-weight: bold;
 }
 
 .sidebar_subjects{
