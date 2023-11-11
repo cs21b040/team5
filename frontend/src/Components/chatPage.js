@@ -7,6 +7,7 @@ import CloseButton from 'react-bootstrap/CloseButton';
 import { ChatState } from '../context/chatProvider';
 import { FiPlusSquare } from 'react-icons/fi';
 import Typewriter from 'typewriter-effect/dist/core';
+import {IoIosArrowBack} from 'react-icons/io';
 import { BiCloudUpload } from 'react-icons/bi';
 import { CgSoftwareDownload } from 'react-icons/cg';
 import Spinner from 'react-bootstrap/Spinner';
@@ -23,6 +24,7 @@ var socket, selectedChatCompare;
 function ChatPage() {
   const {
     selectedChat,
+    setSelectedChat,
     user,
   } = ChatState();
   const messagesEndRef = React.useRef(null);
@@ -227,7 +229,7 @@ function ChatPage() {
     }
   };
   return (
-    <div className="chat-page">
+    <div className={selectedChat ? "chat-page":"hide"}>
       <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} draggable theme="light" />
       {reportClick &&
         <Modal centered show={reportClick} onHide={() => { setReportClick(false); }}>
@@ -289,20 +291,12 @@ function ChatPage() {
         <div className="chat-header-user" >
           <Card className='headerCard'>
             <Row>
-              <Col xs={1}>
-                <Card.Img src={
-                  selectedChat?.users[0]._id !== user?._id ? selectedChat?.users[0].pic :
-                    selectedChat?.users[1].pic
-                } style={{
-                  height: "3rem",
-                  width: "auto",
-                  marginLeft: '5px',
-                  marginTop: '5px'
-                }}
-                  onClick={() => {
-                    setChatUser(selectedChat?.users[0] === user?._id ? selectedChat?.users[1] : selectedChat?.users[0]);
-                    setImgClick(true);
-                  }} />
+              <Col>
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                  <IoIosArrowBack size={30} style={{marginTop:'10px'}} onClick={() => {
+                    setSelectedChat(null);
+                  }}/>
+                </div>
               </Col>
               <Col>
                 <Card.Body className='headerText'>
@@ -310,11 +304,28 @@ function ChatPage() {
                     selectedChat?.users[1].name}</Card.Text>
                 </Card.Body>
               </Col>
+              <Col>
+                  <Card.Img src={
+                    selectedChat?.users[0]._id !== user?._id ? selectedChat?.users[0].pic :
+                      selectedChat?.users[1].pic
+                  } style={{
+                    float:'right',
+                    height: "3rem",
+                    width: "auto",
+                    marginRight: '15px',
+                    marginLeft: '5px',
+                    marginTop: '5px'
+                  }}
+                    onClick={() => {
+                      setChatUser(selectedChat?.users[0] === user?._id ? selectedChat?.users[1] : selectedChat?.users[0]);
+                      setImgClick(true);
+                    }} />
+              </Col>
             </Row>
           </Card>
         </div>
       </div>
-      <div className="chat-container">
+      <div className="chat-container" >
         {
           loading && <Modal centered show={loading}>
             <Modal.Body>

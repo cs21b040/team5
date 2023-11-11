@@ -13,5 +13,18 @@
     width: 80%;
     background-color: #efeae2;
     float: right;
-
+}
+@media screen and (max-width: 600px) {
+    .right {
+        width: 100%;
+        background-color: #efeae2;
+    }    
+    .hide{
+        display:none;
+    }
+    .left{
+        background-color: #ffffff;
+        width: 100%;
+    }
+    
 }

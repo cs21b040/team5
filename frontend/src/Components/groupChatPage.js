@@ -13,7 +13,9 @@ import { BiCloudUpload } from 'react-icons/bi';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { CgSoftwareDownload } from 'react-icons/cg';
 import Modal from 'react-bootstrap/Modal';
+import { Col ,Row} from 'react-bootstrap';
 import { TypeAnimation } from 'react-type-animation';
+import {IoIosArrowBack} from 'react-icons/io';
 import {VscSend} from 'react-icons/vsc';
 const EndPoint = "http://localhost:5000";
 var socket, selectedGroupCompare;
@@ -277,9 +279,20 @@ function GroupChatPage() {
           <div className="chat-header1">
             <div className="chat-header-user1">
               <Card className='headerCard1'>
-                <Card.Body className='headerText1'>
-                  <Card.Text className='text1'>{selectedGroup?.chatName}</Card.Text>
-                </Card.Body>
+              <Row>
+                <Col style={{maxWidth:'10px'}}>
+                  <IoIosArrowBack color='black'
+                  size={25}
+                    style={{cursor: 'pointer',marginTop:'5px' }} onClick={() => {
+                      setSelectedGroup(null);
+                  }}/>
+                </Col>
+                <Col>
+                  <Card.Body className='headerText1'>
+                    <Card.Text className='text1'>{selectedGroup?.chatName}</Card.Text>
+                  </Card.Body>
+                </Col>
+              </Row>
               </Card>
             </div>
           </div>

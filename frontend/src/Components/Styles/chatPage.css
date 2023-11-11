@@ -100,11 +100,6 @@ main {
   justify-content: center;
   margin:0;
 }
-@media (max-width: 600px) {
-  .chat-page .message-input{
-    width: 100%;
-  }
-}
 #lightbox2 {
   display: none;
   position: fixed;
@@ -121,4 +116,16 @@ main {
 .chat-page .close2 {
   top: 1rem;
   right: 2rem;
+}
+@media (max-width: 600px) {
+  .chat-page {
+    display:block;
+  }
+  .chat-page .message-input{
+    width: 100%;
+  }
+  .hide{
+    display: none;
+  }
+  
 }

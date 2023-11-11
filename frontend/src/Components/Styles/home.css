@@ -15,9 +15,12 @@
 }
 @media (max-width: 600px) {
     .left1{
-        display: none;
+        width: 100%;
     }
     .right1{
         width: 100%;
+    }
+    .hide{
+        display: none;
     }
   }

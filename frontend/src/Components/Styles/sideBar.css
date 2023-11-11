@@ -141,9 +141,3 @@
     background-color: black; /* Change the color to black */
     margin: 15px 0; /* Add some vertical margin */
 }
-
-@media screen and (max-width: 600px) {
-    .sideBar{
-        display: none;
-    }
-}
