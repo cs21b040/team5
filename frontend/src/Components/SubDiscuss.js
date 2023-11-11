@@ -160,34 +160,36 @@ function SubDiscuss({ branch, selectedSubject }) {
           <button className='btn btn-primary' onClick={onSubmit}>Submit</button>
         </div>
       </div>
-      <div className='post_question__wrapper'>
-        <Form className="post_question__form">
-          <Form.Group className="mb-3" controlId="br" style={{ display: 'flex' }}>
-            <Form.Control
-              placeholder="Post your question"
-              style={{ marginRight: '10px' }}
-              value={question}
-              onChange={(e) => setQuestion(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter') {
-                  handlePostQuestion();
-                }
-              }}
-            />
-            <Dropdown>
-              <Dropdown.Toggle variant="success" id="dropdown-basic">
-                <FiPlusSquare size={25} color={"white"} />
-              </Dropdown.Toggle>
-              <Dropdown.Menu>
-                <Dropdown.Item onClick={() => {
-                  upload();
-                }}>Insert File</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
-            <button type="button" onClick={handlePostQuestion}>POST</button>
-          </Form.Group>
-        </Form>
-      </div>
+      {selectedSubject && (
+        <div className='post_question__wrapper'>
+          <Form className="post_question__form">
+            <Form.Group className="mb-3" controlId="br" style={{ display: 'flex' }}>
+              <Form.Control
+                placeholder="Post your question"
+                style={{ marginRight: '10px' }}
+                value={question}
+                onChange={(e) => setQuestion(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    handlePostQuestion();
+                  }
+                }}
+              />
+              <Dropdown>
+                <Dropdown.Toggle variant="success" id="dropdown-basic">
+                  <FiPlusSquare size={25} color={"white"} />
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                  <Dropdown.Item onClick={() => {
+                    upload();
+                  }}>Insert File</Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+              <button type="button" onClick={handlePostQuestion}>POST</button>
+            </Form.Group>
+          </Form>
+        </div>
+      )}
     </div>
   )
 }
