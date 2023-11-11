@@ -4,6 +4,7 @@ import Subjects from './Subjects.js';
 import axios from 'axios';
 import {useEffect} from 'react';
 import { useState } from 'react';
+import Button from 'react-bootstrap/Button';
 // import { useNavigate } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import { ChatState } from '../context/chatProvider';
@@ -64,10 +65,10 @@ function Sidebar({ branch, onSelect }) {
           ))}
         </div>
         <div className="add_subject__wrapper">
-          <Form className="add_subject__form">
+          <Form>
             <Form.Group className="mb-3" controlId="sub">
                 <Form.Control placeholder="Enter Subject"  />
-                <button onClick={reqSubject}>Request</button>
+                <Button onClick={reqSubject} variant='success' className='my-2'>Request</Button>
             </Form.Group>
           </Form>
         </div>
