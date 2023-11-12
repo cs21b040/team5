@@ -71,7 +71,7 @@ function Profile() {
         },
       };
       const { data } = await axios.put(
-        'http://localhost:5000/api/user/update',
+        'https://temp-mmw0.onrender.com/api/user/update',
         {
           userId: user._id,
           name: tempProfile.name,
@@ -184,7 +184,7 @@ function Profile() {
                           },
                         }
                         try {
-                          const { data } = await axios.put('http://localhost:5000/api/user/openMsg', {
+                          const { data } = await axios.put('https://temp-mmw0.onrender.com/api/user/openMsg', {
                             _id: user._id,
                             openMsg: openMsg,
                           }, config);
