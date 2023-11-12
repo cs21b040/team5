@@ -75,6 +75,20 @@ const users = asyncHandler(async (req,res)=>{
     }
     :{};
     const userlist = await User.find(user).find({_id:{$ne:req.user._id}});
+    let openMsgUsers=userlist.filter((user)=>user.openMsg==true);
+    console.log(openMsgUsers);
+    res.send(openMsgUsers);
+})
+const allUsers = asyncHandler(async (req,res)=>{
+    const user = req.query.search ? {
+        $or:[
+            {name : {$regex:req.query.search,$options:'i'}},
+            {email : {$regex:req.query.search,$options:'i'}},
+        ],
+    }
+    :{};
+    const userlist = await User.find(user);
+    console.log(userlist);
     res.send(userlist);
 })
 const updateProfile = asyncHandler(async (req,res)=>{ 
@@ -108,9 +122,10 @@ const updateOpenMsg= asyncHandler(async(req,res)=>{
     const userId=req.body._id;
     const openMsg=req.body.openMsg;
     console.log(openMsg)
+    const user=await User.findById(userId);
     const update=await User.findByIdAndUpdate(
         userId,
-        {openMsg:openMsg},
+        {openMsg:!user.openMsg},
         {new:true}
     );
     if(!update){
@@ -172,4 +187,4 @@ const getBanned = asyncHandler(async (req, res) => {
     const result = await User.countDocuments({banned:true});
     res.json(result);
 });
-module.exports = {registerUser,authUser,users,updateProfile,updateOpenMsg,banUser,getCnt,getBanned};
+module.exports = {registerUser,authUser,users,updateProfile,updateOpenMsg,banUser,getCnt,getBanned,allUsers};

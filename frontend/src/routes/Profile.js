@@ -6,6 +6,7 @@ import axios from 'axios';
 import Form from 'react-bootstrap/Form';
 
 function Profile() {
+  const { user } = ChatState();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [graduatedYear, setGraduatedYear] = useState('');
@@ -15,12 +16,11 @@ function Profile() {
   const [Workingin, setWorkingin] = useState('');
   const [pic, setPic] = useState('');
   const [branch, setBranch] = useState('');
-  const { user } = ChatState();
   const [profile, setProfile] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [tempProfile, setTempProfile] = useState({});
   const [userType, setuserType] = useState('');
-  const [openMsg, setOpenMsg] = useState();
+  const [openMsg, setOpenMsg] = useState(user?.openMsg);
   const [selectedImage, setSelectedImage] = useState(null);
   useEffect(() => {
     if (!user) return;
@@ -71,7 +71,7 @@ function Profile() {
         },
       };
       const { data } = await axios.put(
-        'https://temp-mmw0.onrender.com/api/user/update',
+        'http://localhost:5000/api/user/update',
         {
           userId: user._id,
           name: tempProfile.name,
@@ -184,7 +184,7 @@ function Profile() {
                           },
                         }
                         try {
-                          const { data } = await axios.put('https://temp-mmw0.onrender.com/api/user/openMsg', {
+                          const { data } = await axios.put('http://localhost:5000/api/user/openMsg', {
                             _id: user._id,
                             openMsg: openMsg,
                           }, config);

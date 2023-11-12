@@ -1,13 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const {registerUser,authUser,users,updateProfile,updateOpenMsg,banUser,getCnt,getBanned} = require('../Controllers/userController');
+const {registerUser,authUser,users,updateProfile,updateOpenMsg,banUser,getCnt,getBanned,allUsers} = require('../Controllers/userController');
 const {protect} = require('../middleware/authMiddleware');
 router.route('/').post(registerUser).get(protect,users);
 router.route('/login').post(authUser);
+router.route('/all').get(protect,allUsers);
 router.route('/search/:name').get(protect,users);
 router.route('/update').put(protect,updateProfile);
 router.route('/openMsg').put(protect,updateOpenMsg);
 router.route('/delete/:id').put(protect,banUser);
-router.get('/usertypes/count', getCnt);
-router.get('/banned', getBanned)
+router.route('/usertypes/count').get(getCnt);
+router.route('/banned').get(getBanned);
 module.exports = router;

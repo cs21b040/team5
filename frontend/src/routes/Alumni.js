@@ -19,7 +19,7 @@ function Alumni() {
       const fetchData = async () => {
         if(!user) return;
         try {
-          const response = await axios.get('http://localhost:5000/api/user/', {
+          const response = await axios.get('http://localhost:5000/api/user/all', {
             headers: {
               Authorization: `Bearer ${user.token}`,
             },
