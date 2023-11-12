@@ -137,9 +137,10 @@ const renameGroups = asyncHandler(async(req,res)=>{
 const banUser = asyncHandler(async (req,res)=>{
     const userId=req.params.id;
     try {
+        const usr=await(User.findById(userId));
         const result=await User.findByIdAndUpdate(
             userId,
-            {banned:true},
+            {banned:!usr.banned},
             {new:true}
         );
         if(result===null){
@@ -153,4 +154,19 @@ const banUser = asyncHandler(async (req,res)=>{
         throw new Error(error);
     }
 });
-module.exports = {registerUser,authUser,users,updateProfile,updateOpenMsg,banUser};
+const getCnt = asyncHandler(async (req, res) => {
+        const result = await User.aggregate([{
+            $group: {
+              _id: '$userType',
+              count: { $sum: 1 }
+            }
+          }
+        ]);
+        res.json(result);
+      }
+)
+const getBanned = asyncHandler(async (req, res) => {
+    const result = await User.countDocuments({banned:true});
+    res.json(result);
+});
+module.exports = {registerUser,authUser,users,updateProfile,updateOpenMsg,banUser,getCnt,getBanned};
