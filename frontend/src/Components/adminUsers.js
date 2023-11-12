@@ -6,6 +6,10 @@ import {ChatState} from '../context/chatProvider';
 import Modal from 'react-bootstrap/Modal';
 import CloseButton from 'react-bootstrap/CloseButton';
 import axios from 'axios';
+import { ToastContainer,toast } from 'react-toastify';
+import { Bar,Scatter } from 'react-chartjs-2';
+import { Chart,BarController, BarElement, LinearScale, CategoryScale } from 'chart.js';
+Chart.register(BarController, BarElement, LinearScale, CategoryScale);
 export default function AdminUsers() {
     const {
       user,
@@ -51,7 +55,7 @@ export default function AdminUsers() {
         console.log(error)
       }
     }
-    const handleDelete=async (id)=>{
+    const handleDelete=async (usr)=>{
       const config={
         headers:{
           "Authorization":`Bearer ${user.token}`,
@@ -59,11 +63,16 @@ export default function AdminUsers() {
       }
       try {
         const {data} = await axios.put(
-          `http://localhost:5000/api/user/delete/${id}`,{},
+          `http://localhost:5000/api/user/delete/${usr._id}`,{},
           config
         );
         if (data) {
-          alert ('User banned!!!');
+          if(!usr.banned){
+            toast.success('User Unbanned');
+          }
+          else{
+            toast.danger('User Banned');
+          }
         }
       } catch (error) {
         console.log(error)
@@ -80,7 +89,7 @@ export default function AdminUsers() {
       };
       try {
         const {data} = await axios.get(
-          `http://localhost:5000/api/admin`,
+          `http://localhost:5000/api/admin/`,
           config
         );
         // console.log(data)
@@ -90,9 +99,38 @@ export default function AdminUsers() {
       }
     }
     useEffect(() => {
-      getMessages()
+      getUsersData();
+      getMessages();
+      getBannedCnt();
     }, [user])
-    
+    const [userData,setUserData]=useState([])
+    const getUsersData = async ()=>{
+      const config={
+        headers:{
+          "Authorization":`Bearer ${user.token}`,
+        }
+      };
+      const data=await axios.get('http://localhost:5000/api/user/usertypes/count',config);
+      if(userData.length>=5) {return;}
+      setUserData(data.data);
+    }
+    const [bannedCnt,setBannedCnt]=useState(0);
+    const getBannedCnt = async ()=>{
+      const config={
+        headers:{
+          "Authorization":`Bearer ${user.token}`,
+        }
+      };
+      const data=await axios.get('http://localhost:5000/api/user/banned',config);
+      setBannedCnt(data.data);
+    }
+    const dataType = {
+      labels: userData.map(stat => stat._id),
+      datasets: [{
+        data: userData.map(stat => stat.count),
+        backgroundColor: ['#F875AA', '#B15EFF', '#FFA33C', '#FFFB73'],
+      }],
+    };
     return (
       <div className='adminUser'>
         <div className="row">
@@ -115,7 +153,7 @@ export default function AdminUsers() {
                   deleteMessage(data._id);
                 }}>Reject</button>
                 <button type="button" className="btn btn-danger" onClick={()=>{
-                  handleDelete(data.accusedUser._id);
+                  handleDelete(data.accusedUser);
                   deleteMessage(data._id);
                   setData(null);
                 }}>Ban User</button>
@@ -201,7 +239,11 @@ export default function AdminUsers() {
                     <div>
                       <p style={{fontSize: '20px',  fontWeight: 'bold', marginBottom: '10px',}}>{data.name}</p>
                       <p style={{fontSize: '14px', color: '#555',}}>{data.email}</p>
-                      <Button variant="danger" onClick={()=>{handleDelete(data._id)}}>Ban</Button>
+                      {
+                        !data.banned ? <Button variant="danger" onClick={()=>{handleDelete(data)}}>Ban</Button>:
+                        <Button variant="success" onClick={()=>{handleDelete(data)}}>UnBan</Button>
+                      }
+                      
                     </div>
                     <img 
                       src={data.pic} 
@@ -218,7 +260,18 @@ export default function AdminUsers() {
             }
           </div>
           <div className="col-md-4 border-box">
-            <h4>Application Info</h4>
+            <h4>Users Info</h4>
+  {
+  user && 
+     <div>
+      <Bar 
+      data={dataType} 
+      height={'200px'}
+      width={'200px'}
+      />
+     </div> 
+    }
+    <b>No of Banned Users : {bannedCnt}</b>
           </div>
         </div>
       </div>

@@ -46,7 +46,6 @@ function Friends() {
       <div style={{ display: 'flex', alignItems: 'center' }}>
   <h1 style={{ margin: '0', color: '#343a40', marginRight: '5rem' }}>Friends</h1>
   <FaSearch
-    className="search-icon"
     size='3rem'
     color='#343a40'
     style={{
