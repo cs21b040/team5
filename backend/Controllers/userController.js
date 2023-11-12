@@ -24,6 +24,7 @@ const registerUser = asyncHandler(async (req,res)=>{
             userType:user.userType,
             password:user.password,
             pic:user.pic,
+            openMsg:user.openMsg,
             discipline:user.discipline,
             branch:user.branch,
             graduationyear:user.graduationyear,
@@ -117,7 +118,9 @@ const updateOpenMsg= asyncHandler(async(req,res)=>{
         throw new Error('Invalid user id');
     }
     else{
-        res.status(200).json(update);
+        let temp=update.toObject();
+        temp.token=generateToken(update._info);
+        res.status(200).json(temp);
     }
 })
 const renameGroups = asyncHandler(async(req,res)=>{
