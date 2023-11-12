@@ -395,14 +395,7 @@ function ChatPage() {
         </div>
       </div>
       <div id='lightbox2'>
-        <CloseButton
-          className='close2'
-          onClick={() => {
-            document.getElementById("lightbox2").style.display = "none";
-          }}
-        />
-        {/* <UploadFile chatId={selectedChat}/> */}
-        <div className='content'>
+        <div className='content my-5'>
           <BiCloudUpload size={150} color='black' />
           <form>
             <input
@@ -410,7 +403,14 @@ function ChatPage() {
               onChange={(e) => setSelectedFile(e.target.files[0])}
             />
           </form>
-          <button className='btn btn-primary' onClick={onSubmit}>Submit</button>
+          <Button
+            className='close2 btn-secondary'
+            onClick={() => {
+              document.getElementById("lightbox2").style.display = "none";
+            }}
+            style={{ marginTop: '100px' , marginRight: '10px'}} // Add right margin to the first button
+          >Cancel</Button>
+          <button className='btn btn-primary' onClick={onSubmit} style={{ marginTop: '100px' }}>Submit</button>
         </div>
       </div>
       <div className="hi" style={{ paddingBottom: "3rem" }}>

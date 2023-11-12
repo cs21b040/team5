@@ -18,7 +18,8 @@ const ChatProvider = ({ children }) => {
         }
         else if(window.location.href==='http://localhost:3000/signup'){
           setWantLogin(false);
-          navigate("/signup")}
+          navigate("/signup")
+        }
         else if(wantLogin){
           navigate("/login");
         }

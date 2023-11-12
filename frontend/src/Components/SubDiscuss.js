@@ -16,6 +16,7 @@ import Spinner from 'react-bootstrap/Spinner';
 import { TypeAnimation } from 'react-type-animation';
 import { FaSearch } from 'react-icons/fa';
 import { FaEye, FaThumbsUp, FaThumbsDown } from 'react-icons/fa';
+import Button from 'react-bootstrap/Button';
 
 
 function SubDiscuss({ branch, selectedSubject }) {
@@ -378,21 +379,22 @@ function SubDiscuss({ branch, selectedSubject }) {
             )))}
       </div>
       <div id='lightbox3'>
-        <CloseButton
-          className='close2'
-          onClick={() => {
-            document.getElementById("lightbox3").style.display = "none";
-          }}
-        />
-        <div className='content'>
-          <BiCloudUpload size={80} color='black' />
+        <div className='content my-5'>
+          <BiCloudUpload size={150} color='black' />
           <form>
             <input
               type="file"
               onChange={(e) => setSelectedFile(e.target.files[0])}
             />
           </form>
-          <button className='btn btn-primary' onClick={onSubmit}>Submit</button>
+          <Button
+            className='close2 btn-secondary'
+            onClick={() => {
+              document.getElementById("lightbox3").style.display = "none";
+            }}
+            style={{ marginTop: '100px' , marginRight: '10px'}} // Add right margin to the first button
+          >Cancel</Button>
+          <button className='btn btn-primary' onClick={onSubmit} style={{ marginTop: '100px' }}>Submit</button>
         </div>
       </div>
       {selectedSubject && (

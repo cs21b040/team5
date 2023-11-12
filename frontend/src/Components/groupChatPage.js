@@ -13,10 +13,10 @@ import { BiCloudUpload } from 'react-icons/bi';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { CgSoftwareDownload } from 'react-icons/cg';
 import Modal from 'react-bootstrap/Modal';
-import { Col ,Row} from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 import { TypeAnimation } from 'react-type-animation';
-import {IoIosArrowBack} from 'react-icons/io';
-import {VscSend} from 'react-icons/vsc';
+import { IoIosArrowBack } from 'react-icons/io';
+import { VscSend } from 'react-icons/vsc';
 const EndPoint = "http://localhost:5000";
 var socket, selectedGroupCompare;
 function GroupChatPage() {
@@ -132,32 +132,32 @@ function GroupChatPage() {
   const [reportClick, setReportClick] = useState(false);
   const [reason, setReason] = useState('');
   const [selectedImage, setSelectedImage] = useState(null);
-  const [proof,setProof]=useState(null);
-  const postDetails=(image)=>{
+  const [proof, setProof] = useState(null);
+  const postDetails = (image) => {
     setLoading(true);
-    if(image===undefined){
+    if (image === undefined) {
       alert("Please Select an Valid Image");
       return;
     }
-    if(image.type==="image/jpeg" || image.type==="image/png"){
-      const data=new FormData();
-      data.append("file",image);
-      data.append("upload_preset","chating");
-      data.append("cloud_name","dq7oyedtj");
-      fetch("https://api.cloudinary.com/v1_1/dq7oyedtj/image/upload",{
-        method:"post",
-        body:data
-      }).then(res=>res.json())
-      .then(data=>{
-        setProof(data.url.toString());
-        setLoading(false);
-      })
-      .catch((error)=>{
-        console.log(error);
-        setLoading(false);
-      })
+    if (image.type === "image/jpeg" || image.type === "image/png") {
+      const data = new FormData();
+      data.append("file", image);
+      data.append("upload_preset", "chating");
+      data.append("cloud_name", "dq7oyedtj");
+      fetch("https://api.cloudinary.com/v1_1/dq7oyedtj/image/upload", {
+        method: "post",
+        body: data
+      }).then(res => res.json())
+        .then(data => {
+          setProof(data.url.toString());
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.log(error);
+          setLoading(false);
+        })
     }
-    else{
+    else {
       alert("Please Select an Valid jpeg or png Image");
       return;
     }
@@ -165,7 +165,7 @@ function GroupChatPage() {
   const reportToAdmin = async (chatUser) => {
     postDetails(selectedImage);
     console.log(proof)
-    if(!proof){
+    if (!proof) {
       toast.error('Please upload a valid image');
       return;
     }
@@ -175,11 +175,11 @@ function GroupChatPage() {
       },
     };
     try {
-      const { data } = await axios.post(`http://localhost:5000/api/admin/`,{
-        reqUser:user,
-        accusedUser:chatUser,
-        reason:reason,
-        pic:proof
+      const { data } = await axios.post(`http://localhost:5000/api/admin/`, {
+        reqUser: user,
+        accusedUser: chatUser,
+        reason: reason,
+        pic: proof
       }, config);
       toast.success('Reported to admin');
     } catch (error) {
@@ -225,10 +225,10 @@ function GroupChatPage() {
     <div className="groupchatpage">
       <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} draggable theme="light" />
       {reportClick &&
-        <Modal centered show={reportClick} onHide={()=>{setReportClick(false);}}>
+        <Modal centered show={reportClick} onHide={() => { setReportClick(false); }}>
           <Modal.Header>
             <Modal.Title>Report User</Modal.Title>
-            <CloseButton onClick={()=>{setReportClick(false)}}/>
+            <CloseButton onClick={() => { setReportClick(false) }} />
           </Modal.Header>
           <Modal.Body>
             <form>
@@ -238,24 +238,24 @@ function GroupChatPage() {
               </div>
               <div className="mb-3">
                 <label htmlFor="reportProof" className="form-label">Proof</label>
-                <input type="file" className="form-control" id="reportProof" onChange={(e) => setSelectedImage(e.target.files[0])}/>
+                <input type="file" className="form-control" id="reportProof" onChange={(e) => setSelectedImage(e.target.files[0])} />
               </div>
             </form>
           </Modal.Body>
           <Modal.Footer>
-            <button type="button" className="btn btn-secondary" onClick={()=>{setReportClick(false);}}>Close</button>
-            <button type="button" className="btn btn-primary" onClick={()=>{reportToAdmin(userProfile);setReportClick(false);}}>Report</button>
+            <button type="button" className="btn btn-secondary" onClick={() => { setReportClick(false); }}>Close</button>
+            <button type="button" className="btn btn-primary" onClick={() => { reportToAdmin(userProfile); setReportClick(false); }}>Report</button>
           </Modal.Footer>
         </Modal>}
       {
         imgClick &&
         <Modal centered show={imgClick} onHide={() => { setImgClick(false); }}>
           <Modal.Body>
-          <CloseButton onClick={()=>{setImgClick(false)}}/>
-            <button type="button"style={{ float: "right" }}
-              className="btn btn-danger" onClick={()=>{
+            <CloseButton onClick={() => { setImgClick(false) }} />
+            <button type="button" style={{ float: "right" }}
+              className="btn btn-danger" onClick={() => {
                 setReportClick(true);
-            }}>Report</button>
+              }}>Report</button>
             <div className="container">
               <div className="row">
                 <div className="col d-flex justify-content-center">
@@ -282,20 +282,20 @@ function GroupChatPage() {
           <div className="chat-header1">
             <div className="chat-header-user1">
               <Card className='headerCard1'>
-              <Row>
-                <Col style={{maxWidth:'10px'}}>
-                  <IoIosArrowBack color='black'
-                  size={25}
-                    style={{cursor: 'pointer',marginTop:'5px' }} onClick={() => {
-                      setSelectedGroup(null);
-                  }}/>
-                </Col>
-                <Col>
-                  <Card.Body className='headerText1'>
-                    <Card.Text className='text1'>{selectedGroup?.chatName}</Card.Text>
-                  </Card.Body>
-                </Col>
-              </Row>
+                <Row>
+                  <Col style={{ maxWidth: '10px' }}>
+                    <IoIosArrowBack color='black'
+                      size={25}
+                      style={{ cursor: 'pointer', marginTop: '5px' }} onClick={() => {
+                        setSelectedGroup(null);
+                      }} />
+                  </Col>
+                  <Col>
+                    <Card.Body className='headerText1'>
+                      <Card.Text className='text1'>{selectedGroup?.chatName}</Card.Text>
+                    </Card.Body>
+                  </Col>
+                </Row>
               </Card>
             </div>
           </div>
@@ -390,13 +390,7 @@ function GroupChatPage() {
         </div>
       </div>
       <div id='lightbox2'>
-        <CloseButton
-          className='close2'
-          onClick={() => {
-            document.getElementById("lightbox2").style.display = "none";
-          }}
-        />
-        <div className='content'>
+        <div className='content my-5'>
           <BiCloudUpload size={150} color='black' />
           <form>
             <input
@@ -404,7 +398,14 @@ function GroupChatPage() {
               onChange={(e) => setSelectedFile(e.target.files[0])}
             />
           </form>
-          <button className='btn btn-primary' onClick={onSubmit}>Submit</button>
+          <Button
+            className='close2 btn-secondary'
+            onClick={() => {
+              document.getElementById("lightbox2").style.display = "none";
+            }}
+            style={{ marginTop: '100px' , marginRight: '10px'}} // Add right margin to the first button
+          >Cancel</Button>
+          <button className='btn btn-primary' onClick={onSubmit} style={{ marginTop: '100px' }}>Submit</button>
         </div>
       </div>
       <div style={{
