@@ -36,7 +36,6 @@ function QuestionAnswers() {
         setQuestion(question);
         setAnswers(answers);
         setLoading(false);
-        // console.log(answers);
       } catch (error) {
         console.error('Error occurred while fetching answers', error);
       }
@@ -66,7 +65,7 @@ function QuestionAnswers() {
       });
       if (response.status === 200) {
         console.log('Answer posted successfully');
-        setAnswers([...answers, { answer: newAnswer }]);
+        setAnswers([...answers, response.data]);
         console.log(question.userEmail);
         setNewAnswer('');
         func();
@@ -99,7 +98,7 @@ function QuestionAnswers() {
         <h3>{question.question}</h3>
       </div>
       <div className='discuss_body'>
-        <h5>Answers:{answers.length}</h5>
+        <h5>Answers: {answers.length}</h5>
         {answers.map((answer, key) => (
           <div className="discuss_answer" key={key}>
             <p>Posted by: <b>{answer.postedBy}</b></p>

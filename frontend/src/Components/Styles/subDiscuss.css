@@ -5,13 +5,14 @@
   background-image: url('../assets/img1.png');
   background-size: cover;
   background-repeat: no-repeat;
-  /* background-attachment: fixed; */
+  height: 85vh;
 }
 
 .discuss__header {
   padding: 10px;
   display: flex;
-  border-bottom: 1px solid lightgray;
+  /* border-bottom: 1px solid rgb(254, 163, 163); */
+  background-color: #f0f2f5;
 }
 
 .discuss__header>h3 {
@@ -57,8 +58,9 @@
 }
 
 .post_question__wrapper {
-  margin-top: auto;
-  display: flex;
+  bottom: 0;
+  position: fixed;
+  width: 75%;
   justify-content: flex-start;
   padding: 10px;
   background-color: #f0f0f0;
@@ -177,13 +179,12 @@
   }
 }
 
-/* Add these styles to your CSS file */
 
 .search-input-wrapper {
   position: relative;
   width: 80%;
-  margin: 1rem auto;
-  margin-bottom: 20px;
+  margin-top: 3px;
+  margin-bottom: 2px;
 }
 
 .search-input {
