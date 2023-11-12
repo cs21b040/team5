@@ -5,6 +5,7 @@ import Card from 'react-bootstrap/Card';
 import axios from 'axios';
 import { ChatState } from '../context/chatProvider';
 import {useNavigate} from 'react-router-dom';
+import {MdDelete} from 'react-icons/md';
 import './Styles/research.css'
 
 function Project(props) {
@@ -59,7 +60,7 @@ function Project(props) {
   
   const cardStyle = {
     width: '20rem',
-    height: '558px',
+    height: '550px',
     backgroundColor: '#e4e7ed', 
     boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)', 
     color: '#fff', 
@@ -107,7 +108,9 @@ function Project(props) {
         </Card.Body>
         <div className='cardButtons my-3'>
           <Button variant="info" onClick={info_click} className='mx-2' style={infoButtonStyle}>Get Info</Button>
-          <Button variant="primary" className="deleteButton" style={deleteButtonStyle} onClick={onDeleteClick}>Delete Project</Button>
+            <Button variant="danger" className="deleteButton btn btn-danger" style={deleteButtonStyle} onClick={onDeleteClick}>
+            Delete Project <MdDelete style={{marginLeft: '5px'}}/>
+            </Button>
         </div>
       </Card>
     </div>

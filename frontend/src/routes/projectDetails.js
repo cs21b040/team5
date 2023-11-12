@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 import '../Components/Styles/projectdetails.css';
 import Button from 'react-bootstrap/Button';
+import { BsDownload } from 'react-icons/bs';
 
 function ProjectDetails() {
   const { user } = ChatState();
@@ -32,6 +33,8 @@ function ProjectDetails() {
       console.error(error);
     }
   }
+
+
 
   return (
     <div className='projectdetails'>
@@ -65,12 +68,18 @@ function ProjectDetails() {
           <h4>Abstract:</h4>
           <p style={{ whiteSpace: 'break-spaces' }}>{project.abstract}</p>
         </div>
-        <div className='projectdetails'>
-          <h4>Download File:</h4>
-          <Button variant='primary' onClick={downloadFile}>Download</Button>
+        {project.file &&
+          <div className='projectdetails' style={{ display: 'flex', alignItems: 'center' }}>
+            <h4>Download File:</h4>
+            <Button variant='primary' onClick={downloadFile} style={{ marginLeft: '10px' }}>
+              <BsDownload height='5px' />
+            </Button>
+          </div>
+        }
+        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+          <Button variant='primary' href='/research' style={{ padding: '10px 20px' }}>Back</Button>
         </div>
       </div>
-      <Button variant='primary' href='/research'>Back</Button>
     </div>
   );
 }

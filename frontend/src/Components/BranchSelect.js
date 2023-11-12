@@ -1,3 +1,4 @@
+
 import React from 'react'
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { useState, useEffect } from 'react';
@@ -6,10 +7,7 @@ import Form from 'react-bootstrap/Form';
 import axios from 'axios';
 import { ChatState } from '../context/chatProvider';
 import { ToastContainer, toast } from 'react-toastify';
-import Modal from 'react-bootstrap/Modal';
-import Spinner from 'react-bootstrap/Spinner';
-import { TypeAnimation } from 'react-type-animation';
-
+import { BiBookBookmark } from 'react-icons/bi';
 
 function BranchSelect() {
   const {
@@ -21,11 +19,9 @@ function BranchSelect() {
 
   const [branch, setBranch] = useState("");
   const [branches, setBranches] = useState([]);
-  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   async function getBranches() {
-    setLoading(true);
     try {
       const response = await axios.get('http://localhost:5000/api/academics/', {
         headers: {
@@ -33,12 +29,10 @@ function BranchSelect() {
         }
       });
       if (response.status === 200) {
-        setLoading(false);
         setBranches(response.data);
       } else {
         console.log("Unexpected response status:", response.status);
       }
-
     } catch (err) {
       console.error("Error fetching branches:", err);
     }
@@ -47,7 +41,7 @@ function BranchSelect() {
   useEffect(() => {
     if (!user) return;
     getBranches();
-  }, [user]);
+  }, [user, branches]);
   function fun(e) {
     setBranch(e.target.innerHTML);
     handleClose();
@@ -69,12 +63,11 @@ function BranchSelect() {
       if (!data) toast.error("Request not sent");
       else toast.success("Request sent");
     } catch (error) {
-      console.log(error);
+
     }
   }
   return (
     <div>
-
       <ToastContainer
         position="top-right"
         autoClose={5000}
@@ -85,29 +78,27 @@ function BranchSelect() {
         draggable
         theme="light"
       />
-      {
-        loading && <Modal centered show={loading}>
-          <Modal.Body>
-            <Spinner />
-            <TypeAnimation
-              sequence={["Loading ...",]}
-              cursor=""
-              speed={5}
-              style={{ fontSize: "1rem", marginLeft: "1rem" }}
-            />
-          </Modal.Body>
-        </Modal>
-      }
       <button variant="primary" onClick={handleShow} style={{ backgroundColor: 'transparent', margin: '0', border: '0', color: '#000000a6' }}>Academics</button>
-      <Offcanvas show={show} onHide={handleClose}>
-        <Offcanvas.Header closeButton>
-          <Offcanvas.Title >ACADEMICS</Offcanvas.Title>
+      <Offcanvas show={show} onHide={handleClose} style={{ backgroundColor: '#f8f9fa' }}>
+        <Offcanvas.Header closeButton style={{ borderBottom: '1px solid #dee2e6' }}>
+          <Offcanvas.Title style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <span style={{ fontSize: '2rem', fontWeight: 'bold' }}>Academics</span>
+            <BiBookBookmark style={{ marginLeft: '15px' }} size={30} />
+          </Offcanvas.Title>
         </Offcanvas.Header>
-        <Offcanvas.Body>
+        <Offcanvas.Body style={{ padding: '5px', color: '#343a40' }}>
           <ul style={{ listStyle: 'none' }}>
             {branches.map((br, index) => (
-              <li key={index} style={{ padding: '10px', border: '0' }}>
-                <h6 style={{ textDecoration: 'none', color: '#3B4045', cursor: 'pointer' }} onClick={fun}>{br.name}</h6>
+              <li key={index} style={{ padding: '10px', border: '0', transition: 'all 0.3s ease', cursor: 'pointer' }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-3px)';
+                  e.currentTarget.style.backgroundColor = '#d3d3d3';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = '';
+                  e.currentTarget.style.backgroundColor = '';
+                }}>
+                <h6 style={{ textDecoration: 'none', color: '#3B4045' }}>{br.name}</h6>
               </li>
             ))}
           </ul>
