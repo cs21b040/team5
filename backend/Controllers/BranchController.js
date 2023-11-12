@@ -74,7 +74,6 @@ const addSubject = asyncHandler(async (req, res) => {
     const branch = await Branch.findOne({ name: branchName });
 
     if (!branch) {
-      // return res.status(404).json({ message: "Branch not found" });
       console.log("Branch not found");
     }
     const newSubject = {
@@ -189,8 +188,7 @@ const postAnswers = asyncHandler(async (req, res) => {
     const newAnswer = { answer: answer, postedBy: postedBy };
     question.answers.push(newAnswer);
     await branch.save();
-
-    res.status(200).json({ message: 'Answer posted successfully' });
+    res.status(200).json(question.answers[question.answers.length - 1]);
   } catch (error) {
     console.error('Error occurred while posting answer', error);
     res.status(500).json({ message: 'Failed to post answer' });
