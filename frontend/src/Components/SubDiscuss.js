@@ -253,7 +253,7 @@ function SubDiscuss({ branch, selectedSubject }) {
         </Modal>
       }
       <div className="discuss__header">
-        <h3>{selectedSubject ? selectedSubject : 'Subject Discussions'}</h3>
+        <h3><b>{selectedSubject ? selectedSubject : 'Subject Discussions'}</b></h3>
       </div>
       <div className='discuss_body'>
         {(selectedSubject && questions.length > 0) && (
@@ -411,7 +411,7 @@ function SubDiscuss({ branch, selectedSubject }) {
                 }}
               />
               <Dropdown>
-              <Dropdown.Toggle variant="success" id="dropdown-basic" style={{ width: '3.5rem', marginRight: '3px' }}>
+                <Dropdown.Toggle variant="success" id="dropdown-basic" style={{ width: '3.5rem', marginRight: '3px' }}>
                   <FiPlusSquare size={25} color={"white"} />
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
