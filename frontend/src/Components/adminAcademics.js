@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import { ChatState } from '../context/chatProvider';
+import { Button } from 'react-bootstrap';
 export default function AdminAcademics() {
   const navigate = useNavigate();
   const {
@@ -146,21 +147,19 @@ export default function AdminAcademics() {
           <div style={{ display: 'flex' }}>
             <div style={{ flex: 1 }}>
               <h3>Add Branch</h3>
-              <input type="text" id="br" placeholder="Branch Name" />
-              <button onClick={() => {
-                addBranch();
-              }}>Add</button>
+              <input type="text" id="br" placeholder="Branch Name" style={{ height: '40px' , borderRadius: '5px', margin: '2px' }} />
+              <Button onClick={addBranch}>Add</Button>
             </div>
             <div style={{ flex: 1 }}>
               <h3>Search & Delete Branch</h3>
-              <input type="text" placeholder="Branch Name" onChange={(e) => {
+              <input type="text" style={{ height: '40px', borderRadius: '5px' , margin: '2px' }} placeholder="Branch Name" onChange={(e) => {
                 setSearch(e.target.value);
               }
               } />
-              <button onClick={() => {
+              <Button onClick={() => {
                 searchBranch();
               }
-              }>Search</button>{
+              }>Search</Button>{
                 searchData.map((val, key) => {
                   return (
                     <div key={key} style={{
