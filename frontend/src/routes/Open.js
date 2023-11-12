@@ -207,7 +207,7 @@ function Open() {
             </motion.span>
           </motion.h2>
 
-          <motion.p variants={fadeInUp}>When, while lovely valley teems with vapor around meand <br/>meridian sun strikes the upper impenetrable.</motion.p>
+          <motion.p variants={fadeInUp}>Fostering Inter-Institutional Partnerships for Collective Innovation</motion.p>
 
           <motion.div className="btn_group" variants={stagger}>
             <motion.div className="btn btn_primary" variants={btnGroup} whileHover={{scale:1.05}} whileTap={{scale:0.95}} onClick={()=>{

@@ -117,7 +117,7 @@ function Card() {
                         <IoPieChart/>
                     </IconContext.Provider>
                 </motion.span>
-                <h3>connect with<br/>& alumini</h3>
+                <h3>connect with<br/> alumini</h3>
                 
             </motion.div>
             <motion.div className="card" variants={item}>
