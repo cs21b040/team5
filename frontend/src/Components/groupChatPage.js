@@ -52,7 +52,10 @@ function GroupChatPage() {
     }
   }, [user]);
   useEffect(() => {
-    if (!selectedGroup) return;
+    if (!selectedGroup) {
+      setMessages([]);
+      return;
+    }
     fetchMessages();
     selectedGroupCompare = selectedGroup;
   }, [selectedGroup]);

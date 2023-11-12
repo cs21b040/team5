@@ -13,7 +13,10 @@ const ChatProvider = ({ children }) => {
       const userInfo = JSON.parse(sessionStorage.getItem("userInfo"));
       setUser(userInfo);
       if (!userInfo) {
-        if(wantLogin){
+        if(window.location.href==='http://localhost:3000/'){
+          /* DO Nothing */
+        }
+        else if(wantLogin){
           navigate("/login");
         }
         else{

@@ -20,7 +20,7 @@ function App() {
     <Router>
       <ChatContext>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Open />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
           <Route path="/academic/:branch" element={<Academic />} />
@@ -28,7 +28,7 @@ function App() {
           <Route path="/research" element={<Research />} />
           <Route path="/profile" element={<Profile/>} />
           <Route path="/personalchat" element={<PersonalChat/>} />
-          <Route path="/open" element={<Open/>} />
+          <Route path="/home" element={<Home/>} />
           <Route path="/research/projectDetails" element={<ProjectDetails />} />
           <Route path="/answers/:questionId" element={<QuestionAnswers />} />
           <Route path="/admin" element={<Admin/>} />
