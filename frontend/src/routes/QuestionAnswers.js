@@ -4,6 +4,10 @@ import Form from 'react-bootstrap/Form';
 import { useParams } from 'react-router-dom';
 import '../Components/Styles/QuestionAnswers.css';
 import { ChatState } from '../context/chatProvider';
+import Modal from 'react-bootstrap/Modal';
+import Spinner from 'react-bootstrap/Spinner';
+import { TypeAnimation } from 'react-type-animation';
+
 function QuestionAnswers() {
   const { questionId } = useParams();
   const branch = new URLSearchParams(window.location.search).get('branch');
@@ -11,6 +15,8 @@ function QuestionAnswers() {
   const [answers, setAnswers] = useState([]);
   const [question, setQuestion] = useState('');
   const [newAnswer, setNewAnswer] = useState('');
+  const [loading, setLoading] = useState(false);
+
   const {
     user
   } = ChatState();
@@ -18,6 +24,7 @@ function QuestionAnswers() {
   useEffect(() => {
     const fetchQuestionAndAnswers = async () => {
       try {
+        setLoading(true);
         const response = await Axios.get(`http://localhost:5000/api/academics/subjects/questions/answers`, {
           params: {
             branchName: branch,
@@ -28,6 +35,7 @@ function QuestionAnswers() {
         const { question, answers } = response.data;
         setQuestion(question);
         setAnswers(answers);
+        setLoading(false);
         // console.log(answers);
       } catch (error) {
         console.error('Error occurred while fetching answers', error);
@@ -48,6 +56,7 @@ function QuestionAnswers() {
   }
   const handlePostAnswer = async () => {
     try {
+      setLoading(true);
       const response = await Axios.post(`http://localhost:5000/api/academics/subjects/questions/answers`, {
         postedBy: user.name,
         branchName: branch,
@@ -61,6 +70,7 @@ function QuestionAnswers() {
         console.log(question.userEmail);
         setNewAnswer('');
         func();
+        setLoading(false);
       } else {
         console.error('Failed to post answer');
       }
@@ -71,7 +81,20 @@ function QuestionAnswers() {
 
 
   return (
-    <div className='discuss'>
+    <div className={`discuss ${answers.length > 0 ? 'has-answers' : ''}`}>
+      {
+        loading && <Modal centered show={loading}>
+          <Modal.Body>
+            <Spinner />
+            <TypeAnimation
+              sequence={["Loading ..!!!.",]}
+              cursor=""
+              speed={5}
+              style={{ fontSize: "1rem", marginLeft: "1rem" }}
+            />
+          </Modal.Body>
+        </Modal>
+      }
       <div className="discuss__header_question">
         <h3>{question.question}</h3>
       </div>
