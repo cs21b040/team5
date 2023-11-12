@@ -1,9 +1,8 @@
 const mongoose = require("mongoose");
 
 const AnswerSchema = {
-    // type:mongoose.Schema.Types.ObjectId,
     answer: String,
-    PostedBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" }
+    postedBy: String,
 }
 const Answer = mongoose.model("Answer", AnswerSchema);
 
@@ -13,9 +12,20 @@ const QuestionSchema = new mongoose.Schema({
     PostedBy: String,
     userEmail: String,
     answers: [AnswerSchema],
+    views: Number,
+    likes: Number,
+    dislikes: Number,
     file: {
         type: Buffer,
-    }
+    },
+    likedBy: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+    }],
+    dislikedBy: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+    }],
 });
 const Question = mongoose.model("Question", QuestionSchema);
 
