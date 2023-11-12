@@ -101,7 +101,7 @@ function BranchSelect() {
           </Modal.Body>
         </Modal>
       }
-      <button variant="primary" onClick={handleShow} style={{ backgroundColor: 'transparent', margin: '0', border: '0', color: '#000000a6' }}>Academics</button>
+      <button variant="primary" onClick={handleShow} style={{ backgroundColor: 'transparent', margin: '0', border: '0', color: 'white' }}>Academics</button>
       <Offcanvas show={show} onHide={handleClose} style={{ backgroundColor: '#f8f9fa' }}>
         <Offcanvas.Header closeButton style={{ borderBottom: '1px solid #dee2e6' }}>
           <Offcanvas.Title style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>

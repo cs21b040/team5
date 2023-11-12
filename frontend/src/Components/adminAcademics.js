@@ -4,18 +4,20 @@ import axios from 'axios';
 import {useNavigate} from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import {ChatState} from '../context/chatProvider';
+import {Modal,CloseButton} from 'react-bootstrap';
 export default function AdminAcademics() {
   const navigate=useNavigate();
   const {
     user
   }=ChatState();
-  async function addSubject(data){
+  async function addSubject(){
     try {
       const response = await axios.post('http://localhost:5000/api/academics/subjects',{
-        branchName:data.branch,subjectName:data.sub
+        branchName:branch,subjectName:subject
       });
       if (response.status === 200) {
         // navigate(`/Academic/${br}`);
+        toast.success('Subject Added');
       } else {
         console.log("Unexpected response status:", response.status);
       }
@@ -29,6 +31,7 @@ export default function AdminAcademics() {
     try {
       const response = await axios.post('http://localhost:5000/api/academics/',{branch:br,});
       if (response.status === 200) {
+        toast.success('Branch Added');
       } else {
         console.log("Unexpected response status:", response.status);
       }
@@ -96,6 +99,9 @@ export default function AdminAcademics() {
         console.log(error)
       }
     }
+    const [visible,setVisible]=useState(false);
+    const [subject,setSubject]=useState();
+    const [branch,setBranch]=useState();
     return (
       <div className='adminAcad'>
           <ToastContainer
@@ -108,6 +114,25 @@ export default function AdminAcademics() {
             draggable
             theme="light"
           />
+          {visible && <Modal centered show={visible} onHide={()=>{setVisible(null)} }>
+              <Modal.Header>
+                <Modal.Title>Add New Subject In </Modal.Title>
+                <CloseButton onClick={()=>{setVisible(null)}} />
+              </Modal.Header>
+              <Modal.Body>
+                <p>Subject Name:</p><input type="text" onChange={
+                  (e)=>{
+                    setSubject(e.target.value);
+                  }
+                } />
+              </Modal.Body>
+              <Modal.Footer>
+                <button type="button" className="btn btn-primary" onClick={()=>{
+                  addSubject();
+                  setVisible(false);
+                }}>Add Interest</button>
+              </Modal.Footer>
+            </Modal>}
           <div className="row">
             <div className="col-md-4 border-box">
               <h4>Requests</h4>
@@ -155,18 +180,14 @@ export default function AdminAcademics() {
                   <h3>Search & Delete Branch</h3>
                   <input type="text" placeholder="Branch Name" onChange={(e)=>{
                     setSearch(e.target.value);
-                  }
-                  } />
+                  }}/>
                   <button onClick={()=>{
                     searchBranch();
-                  }
-                }>Search</button>{
+                  }}>Search</button>
+                  {
                     searchData.map((val,key)=>{
                       return (
                         <div key={key} style={{
-                          display: 'flex', 
-                          justifyContent: 'space-between', 
-                          alignItems: 'center', 
                           border: '1px solid #ccc', 
                           borderRadius: '5px', 
                           padding: '10px', 
@@ -175,7 +196,11 @@ export default function AdminAcademics() {
                           marginTop: '10px',
                         }}>
                           <h4>{val.name}</h4>
-                          <button style={{float:'right'}} className="btn btn-danger" onClick={()=>{
+                          <button  className="btn btn-primary" onClick={()=>{
+                            setBranch(val.name)
+                            setVisible(true);
+                          }}>Add Subject</button>
+                          <button className="btn btn-danger" onClick={()=>{
                             {console.log(val._id)}
                             deleteBranch(val._id);
                           }}>Delete</button>
