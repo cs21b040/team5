@@ -411,7 +411,7 @@ function SubDiscuss({ branch, selectedSubject }) {
                 }}
               />
               <Dropdown>
-                <Dropdown.Toggle variant="success" id="dropdown-basic">
+              <Dropdown.Toggle variant="success" id="dropdown-basic" style={{ width: '3.5rem', marginRight: '3px' }}>
                   <FiPlusSquare size={25} color={"white"} />
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
