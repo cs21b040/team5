@@ -80,12 +80,7 @@ function Card() {
                     </IconContext.Provider>
                 </motion.span>
                 <h3>Chat functionality<br/>To chat with your friends</h3>
-                <a href="#">
-                    <span>learn more</span>
-                    <IconContext.Provider value={{color:"#14da8f", size:"18px"}}>
-                        <IoChevronForward/>
-                    </IconContext.Provider>
-                </a>
+                
             </motion.div>
 
             <motion.div className="card" variants={item}>
@@ -95,12 +90,7 @@ function Card() {
                     </IconContext.Provider>
                 </motion.span>
                 <h3>Interact with students <br/>of similar intrests and ideas</h3>
-                <a href="#">
-                    <span>learn more</span>
-                    <IconContext.Provider value={{color:"#14da8f", size:"18px"}}>
-                        <IoChevronForward/>
-                    </IconContext.Provider>
-                </a>
+                
             </motion.div>
             {/* <motion.div className="card" variants={item}>
                 <motion.span className="service_icon" style={{backgroundColor:"#ffede6"}} variants={hoverEffect} whileHover="whileHover" whileTap='whileTap'>
@@ -109,27 +99,9 @@ function Card() {
                     </IconContext.Provider>
                 </motion.span>
                 <h3>Illustration Design<br/>(Flat, 3d & More)</h3>
-                <a href="#">
-                    <span>learn more</span>
-                    <IconContext.Provider value={{color:"#14da8f", size:"18px"}}>
-                        <IoChevronForward/>
-                    </IconContext.Provider>
-                </a>
+                
             </motion.div> */}
-            <motion.div className="card" variants={item}>
-                <motion.span className="service_icon" style={{backgroundColor:"#ffe1e9"}} variants={hoverEffect} whileHover="whileHover" whileTap='whileTap'>
-                    <IconContext.Provider value={{color:"#fa3970", size:"22px"}}>
-                        <IoNotifications/>
-                    </IconContext.Provider>
-                </motion.span>
-                <h3>Announcements<br/>Posts</h3>
-                <a href="#">
-                    <span>learn more</span>
-                    <IconContext.Provider value={{color:"#14da8f", size:"18px"}}>
-                        <IoChevronForward/>
-                    </IconContext.Provider>
-                </a>
-            </motion.div>
+           
             <motion.div className="card" variants={item}>
                 <motion.span className="service_icon" style={{backgroundColor:"#dcedff"}} variants={hoverEffect} whileHover="whileHover" whileTap='whileTap'>
                     <IconContext.Provider value={{color:"#56a8f4", size:"22px"}}>
@@ -137,12 +109,7 @@ function Card() {
                     </IconContext.Provider>
                 </motion.span>
                 <h3>Post your doubts<br/>and get them clarified</h3>
-                <a href="#">
-                    <span>learn more</span>
-                    <IconContext.Provider value={{color:"#14da8f", size:"18px"}}>
-                        <IoChevronForward/>
-                    </IconContext.Provider>
-                </a>
+                
             </motion.div>
             <motion.div className="card" variants={item}>
                 <motion.span className="service_icon" style={{backgroundColor:"#dbf9ed"}} variants={hoverEffect} whileHover="whileHover" whileTap='whileTap'>
@@ -151,12 +118,7 @@ function Card() {
                     </IconContext.Provider>
                 </motion.span>
                 <h3>connect with<br/>& alumini</h3>
-                <a href="#">
-                    <span>learn more</span>
-                    <IconContext.Provider value={{color:"#14da8f", size:"18px"}}>
-                        <IoChevronForward/>
-                    </IconContext.Provider>
-                </a>
+                
             </motion.div>
             <motion.div className="card" variants={item}>
                 <motion.span className="service_icon" style={{backgroundColor:"#fffada"}} variants={hoverEffect} whileHover="whileHover" whileTap='whileTap'>
@@ -165,12 +127,7 @@ function Card() {
                     </IconContext.Provider>
                 </motion.span>
                 <h3>Research projects<br/>(work with professors)</h3>
-                <a href="#">
-                    <span>learn more</span>
-                    <IconContext.Provider value={{color:"#14da8f", size:"18px"}}>
-                        <IoChevronForward/>
-                    </IconContext.Provider>
-                </a>
+                
             </motion.div>
             {/* <motion.div className="card dark" variants={item}>
                 <img src={process.env.PUBLIC_URL + '/images/line.png'} alt="line" className="line"/>               

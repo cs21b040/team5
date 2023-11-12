@@ -39,7 +39,7 @@ function Login() {
           return;
         }
         sessionStorage.setItem('userInfo',JSON.stringify(data));
-        navigate('/');
+        navigate('/home');
     }
     catch(e){
       console.log(e)

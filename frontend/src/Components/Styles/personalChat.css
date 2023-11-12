@@ -3,23 +3,23 @@
     height: 93.8vh;
     background-color: #efeae2;
 }
-.left{
+.left ,.hide1{
     width: 20%;
     background-color: #ffffff;
     float: left;
 
 }
-.right {
+.right,.hide2 {
     width: 80%;
     background-color: #efeae2;
     float: right;
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 1250px) {
     .right {
         width: 100%;
         background-color: #efeae2;
     }    
-    .hide{
+    .hide1,.hide2{
         display:none;
     }
     .left{

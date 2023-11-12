@@ -117,7 +117,7 @@ function SignUp() {
         });
       sessionStorage.setItem('userInfo', JSON.stringify(data));
       setLoading(false);
-      navigate('/');
+      navigate('/home');
     } 
     catch (error) {
       if (error.response && error.response.status === 409) {

@@ -12,8 +12,8 @@ function personalChat() {
     <div>
       <Header/>
       <div className="divide">
-        <div className={!selectedChat? "left":"hide"} style={{overflowX:"auto"}}><Friends/></div>
-        <div className={selectedChat ? "right" : "hide"} style={{overflowX:"auto"}}><ChatPage/></div>
+        <div className={!selectedChat? "left":"hide1"} ><Friends/></div>
+        <div className={selectedChat ? "right" : "hide2"}><ChatPage/></div>
       </div>
     </div>
   )

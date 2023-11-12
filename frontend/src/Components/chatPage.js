@@ -312,7 +312,6 @@ function ChatPage() {
                     float:'right',
                     height: "3rem",
                     width: "auto",
-                    marginRight: '15px',
                     marginLeft: '5px',
                     marginTop: '5px'
                   }}
@@ -351,7 +350,6 @@ function ChatPage() {
                     backgroundColor: message.sender._id === user._id ? '#DCF8C6' : 'white',
                     borderRadius: '10px',
                     marginLeft: '10px',
-                    marginRight: '10px',
                     marginBottom: '4px',
                     padding: '10px',
                     boxShadow: '0px 2px 5px 0px rgba(0, 0, 0, 0.1)',
@@ -364,7 +362,7 @@ function ChatPage() {
                   <p style={{ margin: 0, padding: 0, display: 'inline-block' }}>
                     {message.content}
                     {message.file && (
-                      <CgSoftwareDownload style={{ marginLeft: "1rem", marginRight: "0.5rem", marginTop: "10px", marginBottom: "10px" }} size={25} onClick={() => { downloadFile(message) }} />
+                      <CgSoftwareDownload style={{ marginLeft: "1rem", marginTop: "10px", marginBottom: "10px" }} size={25} onClick={() => { downloadFile(message) }} />
                     )}
                     <sub style={{
                       marginLeft: '10px',

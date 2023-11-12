@@ -62,7 +62,7 @@ function BranchSelect() {
       if(!data) toast.error("Request not sent");
       else toast.success("Request sent");
     } catch (error) {
-      
+      console.log(error);
     }
   }
   return (

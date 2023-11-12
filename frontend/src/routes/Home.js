@@ -12,8 +12,8 @@ function Home() {
     <div>
       <Header />
       <div className="divide">
-        <div className={!selectedGroup ?"left1":'hide'}><SideBar /></div>
-        <div className={selectedGroup ?'right1':'hide'}><GroupChatPage /></div>
+        <div className={!selectedGroup ?"left1":'hide1'}><SideBar /></div>
+        <div className={selectedGroup ?'right1':'hide2'}><GroupChatPage /></div>
       </div>
     </div>
   )
