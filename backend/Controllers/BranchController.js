@@ -111,7 +111,13 @@ const addQuestion = asyncHandler(async (req, res) => {
         userEmail: userEmail,
         question: req.files.file.name,
         file: new binary(binaryData),
-        answers: []
+        answers: [],
+        views: 0,
+        likes: 0,
+        dislikes: 0,
+        likedBy: [],
+        dislikedBy: []
+
       }
       subject.questions.push(newQuestion);
     }
@@ -120,11 +126,15 @@ const addQuestion = asyncHandler(async (req, res) => {
         PostedBy: postedBy,
         userEmail: userEmail,
         question: question,
-        answers: []
+        answers: [],
+        views: 0,
+        likes: 0,
+        dislikes: 0,
+        likedBy: [],
+        dislikedBy: []
       };
       subject.questions.push(newQuestion);
     }
-    // await newQuestion.save();
 
     await branch.save();
     res.status(200).json(subject.questions[subject.questions.length - 1]);
@@ -161,7 +171,7 @@ const getQuestions = asyncHandler(async (req, res) => {
 
 const postAnswers = asyncHandler(async (req, res) => {
   try {
-    const { branchName, subjectName, questionId, answer } = req.body;
+    const { postedBy, branchName, subjectName, questionId, answer } = req.body;
 
     const branch = await Branch.findOne({ name: branchName });
     if (!branch) {
@@ -176,7 +186,7 @@ const postAnswers = asyncHandler(async (req, res) => {
       return res.status(404).json({ message: 'Question not found' });
     }
 
-    const newAnswer = { answer: answer };
+    const newAnswer = { answer: answer, postedBy: postedBy };
     question.answers.push(newAnswer);
     await branch.save();
 
@@ -270,14 +280,6 @@ const sendMail = asyncHandler(async (req, res) => {
       body: {
         name: 'John Appleseed',
         intro: 'Welcome to Mailgen! We’re very excited to have you on board.',
-        action: {
-          instructions: 'To get started with IITHUB, please click here:',
-          button: {
-            color: '#22BC66',
-            text: 'Confirm your account',
-            link: `http://localhost:3000/academics/${questionId}`
-          }
-        },
         outro: 'Need help, or have questions? Just reply to this email, we\'d love to help.'
       }
     };
@@ -314,5 +316,53 @@ const sendMail = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { getBranches, addBranch, getSubjects, addSubject, addQuestion, getQuestions, getQuestionAndAnswers, postAnswers, searchBranch, deleteBranch, sendMail, downloadFile };
+const details = asyncHandler(async (req, res) => {
+  const { action, userId, questionId, branchName, subjectName } = req.body;
+  try {
+    const branch = await Branch.findOne({ name: branchName });
+    if (!branch) {
+      return res.status(404).json({ message: "Branch not found" });
+    }
+
+    const subject = branch.subjects.find((sub) => sub.name === subjectName);
+    if (!subject) {
+      return res.status(404).json({ message: "Subject not found" });
+    }
+
+    const question = subject.questions.find((ques) => ques.id === questionId);
+    if (!question) {
+      return res.status(404).json({ message: "Question not found" });
+    }
+    const hasUserLiked = question.likedBy.some(user => user.equals(userId));
+    const hasUserDisliked = question.dislikedBy.some(user => user.equals(userId));
+    // console.log(action, hasUserLiked, hasUserDisliked);
+    if (action === "like") {
+      if (!hasUserLiked) {
+        question.likes += 1;
+        question.likedBy.push(userId);
+      } else {
+        question.likes -= 1;
+        question.likedBy.pull(userId);
+      }
+    } else if (action === "dislike") {
+      if (!hasUserDisliked) {
+        question.dislikes += 1;
+        question.dislikedBy.push(userId);
+      }
+      else {
+        question.dislikes -= 1;
+        question.dislikedBy.pull(userId);
+      }
+    } else if (action === "view") {
+      question.views += 1;
+    }
+
+    await branch.save();
+    res.status(200).json({ likeStat: hasUserLiked, dislikeStat: hasUserDisliked });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+module.exports = { getBranches, addBranch, getSubjects, addSubject, addQuestion, getQuestions, getQuestionAndAnswers, postAnswers, searchBranch, deleteBranch, sendMail, downloadFile, details };
 

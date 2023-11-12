@@ -3,6 +3,7 @@ import Axios from 'axios';
 import Form from 'react-bootstrap/Form';
 import { useParams } from 'react-router-dom';
 import '../Components/Styles/QuestionAnswers.css';
+import { ChatState } from '../context/chatProvider';
 function QuestionAnswers() {
   const { questionId } = useParams();
   const branch = new URLSearchParams(window.location.search).get('branch');
@@ -10,7 +11,9 @@ function QuestionAnswers() {
   const [answers, setAnswers] = useState([]);
   const [question, setQuestion] = useState('');
   const [newAnswer, setNewAnswer] = useState('');
-
+  const {
+    user
+  } = ChatState();
 
   useEffect(() => {
     const fetchQuestionAndAnswers = async () => {
@@ -25,6 +28,7 @@ function QuestionAnswers() {
         const { question, answers } = response.data;
         setQuestion(question);
         setAnswers(answers);
+        // console.log(answers);
       } catch (error) {
         console.error('Error occurred while fetching answers', error);
       }
@@ -45,6 +49,7 @@ function QuestionAnswers() {
   const handlePostAnswer = async () => {
     try {
       const response = await Axios.post(`http://localhost:5000/api/academics/subjects/questions/answers`, {
+        postedBy: user.name,
         branchName: branch,
         subjectName: selectedSubject,
         questionId: questionId,
@@ -71,15 +76,14 @@ function QuestionAnswers() {
         <h3>{question.question}</h3>
       </div>
       <div className='discuss_body'>
-        <h5>{answers.length}</h5>
+        <h5>Answers:{answers.length}</h5>
         {answers.map((answer, key) => (
-          <h6>{answer._id}</h6>,
           <div className="discuss_answer" key={key}>
+            <p>Posted by: <b>{answer.postedBy}</b></p>
             <p>{answer.answer}</p>
           </div>
         ))}
       </div>
-
       <div className='post_answer__wrapper'>
         <Form className="post_answer__form">
           <Form.Group controlId="answerForm" className="mb-3" style={{ display: 'flex' }}>
