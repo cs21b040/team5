@@ -20,7 +20,7 @@
   flex-direction: column;
   scrollbar-width: thin;
   scrollbar-color: #ddd transparent;
-  height: 99%;
+  height: 99vh;
 }
 .groupchatpage .messageCard{
   display: flex;
@@ -68,7 +68,7 @@
   border-color: #fff;
 }
 .groupchatpage .chat-header1{
-  outline: none;
+  z-index: 1;
   height: 5%;
   width: 100%;
   top: 58px;

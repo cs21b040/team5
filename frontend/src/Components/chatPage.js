@@ -282,11 +282,6 @@ function ChatPage() {
           </Modal.Body>
         </Modal>
       }
-      <div style={{
-        marginTop: "1rem",
-      }}>
-
-      </div>
       <div className={!selectedChat ? 'passive' : 'chat-header'}>
         <div className="chat-header-user" >
           <Card className='headerCard'>
@@ -413,10 +408,6 @@ function ChatPage() {
           <button className='btn btn-primary' onClick={onSubmit} style={{ marginTop: '100px' }}>Submit</button>
         </div>
       </div>
-      <div className="hi" style={{ paddingBottom: "3rem" }}>
-        {/* just to give some space  */}
-      </div>
-
       <div className="message-input">
         <div className="typing">
           {isTyping && <p>Typing...</p>}

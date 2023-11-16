@@ -279,11 +279,11 @@ function GroupChatPage() {
       }
       <div className="chat-container"  >
         <div className="message-list">
-          <div className="chat-header1">
+          <div className={!selectedGroup ? 'passive':"chat-header1"}>
             <div className="chat-header-user1">
               <Card className='headerCard1'>
                 <Row>
-                  <Col style={{ maxWidth: '10px' }}>
+                  <Col style={{ maxWidth: '10px',paddingRight:'1rem' }}>
                     <IoIosArrowBack color='black'
                       size={25}
                       style={{ cursor: 'pointer', marginTop: '5px' }} onClick={() => {

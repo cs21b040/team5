@@ -276,18 +276,19 @@ const sendMail = asyncHandler(async (req, res) => {
 
     let response = {
       body: {
-        name: 'John Appleseed',
-        intro: 'Welcome to Mailgen! We’re very excited to have you on board.',
-        outro: 'Need help, or have questions? Just reply to this email, we\'d love to help.'
+        name: 'IIT HUB',
+        intro: 'Welcome to the IIT HUB! We are very excited to have you on board.',
+        outro: 'PLease check your question page in IIT HUB for answer of your question'
       }
     };
 
     let mail = mailGenerator.generate(response);
 
     let message = {
-      from: '"IIT_HUB@iit" ',
+      from: '"IIT_HUB@iit" <IIT_HUB@gmail.com>',
       to: userEmail,
-      subject: 'Welcome to the IIT HUB',
+      subject: 'Your question has been answered',
+      text:'Please check your question page in IIT HUB for answer of your question',
       html: mail
     };
 
@@ -297,17 +298,7 @@ const sendMail = asyncHandler(async (req, res) => {
       return res.status(400).json({ message: "Mail not sent" });
     });
 
-
-
-    let info = transporter.sendMail({
-      from: '"IIT_HUB@iit" <IITHUB@gmail.com >',
-      to: userEmail,
-      subject: 'Hello ✔',
-      text: 'Hello world?',
-      html: '<b>Hello world?</b>'
-    });
-    console.log('Message sent: %s', "Mail Sent");
-    // res.json({ message: "Mail Sent" });
+    console.log("Mail Sent");
   } catch (error) {
     console.error(error.message);
     res.status(500).json({ message: "Internal Server Error" });

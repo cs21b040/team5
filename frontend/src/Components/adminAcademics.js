@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import { ChatState } from '../context/chatProvider';
 import { Button } from 'react-bootstrap';
+import { Modal, CloseButton } from 'react-bootstrap';
 export default function AdminAcademics() {
   const navigate = useNavigate();
   const {
@@ -97,6 +98,9 @@ export default function AdminAcademics() {
       console.log(error)
     }
   }
+  const [visible,setVisible]=useState(false);
+  const [subject,setSubject]=useState();
+  const [branch,setBranch]=useState();
   return (
     <div className='adminAcad'>
       <ToastContainer
@@ -109,6 +113,25 @@ export default function AdminAcademics() {
         draggable
         theme="light"
       />
+      {visible && <Modal centered show={visible} onHide={()=>{setVisible(null)} }>
+              <Modal.Header>
+                <Modal.Title>Add New Subject In </Modal.Title>
+                <CloseButton onClick={()=>{setVisible(null)}} />
+              </Modal.Header>
+              <Modal.Body>
+                <p>Subject Name:</p><input type="text" onChange={
+                  (e)=>{
+                    setSubject(e.target.value);
+                  }
+                } />
+              </Modal.Body>
+              <Modal.Footer>
+                <button type="button" className="btn btn-primary" onClick={()=>{
+                  addSubject();
+                  setVisible(false);
+                }}>Add Interest</button>
+              </Modal.Footer>
+            </Modal>}
       <div className="row">
         <div className="col-md-4 border-box">
           <h4>Requests</h4>
@@ -174,6 +197,10 @@ export default function AdminAcademics() {
                       marginTop: '10px',
                     }}>
                       <h4>{val.name}</h4>
+                      <button  className="btn btn-primary" onClick={()=>{
+                            setBranch(val.name)
+                            setVisible(true);
+                          }}>Add Subject</button>
                       <button style={{ float: 'right' }} className="btn btn-danger" onClick={() => {
                         { console.log(val._id) }
                         deleteBranch(val._id);
