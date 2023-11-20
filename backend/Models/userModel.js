@@ -1,4 +1,5 @@
 const mongoose =require('mongoose')
+const {ObjectId}=mongoose.Schema.Types
 const userSchema =mongoose.Schema({
     name:{
         type:String,
@@ -57,7 +58,9 @@ const userSchema =mongoose.Schema({
     banned:{
         type:Boolean,
         default:false
-    }
+    },
+    followers:[{type:ObjectId,ref:"User"}],
+    following:[{type:ObjectId,ref:"User"}]
 
 },
 {

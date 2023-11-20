@@ -28,6 +28,7 @@ function Header() {
           </Navbar>
           <Nav.Link href="/Research" style={{ color: '#fff' }}>Research</Nav.Link>
           <Nav.Link href="/Alumni" className='me-3' style={{ color: '#fff' }}>Alumni</Nav.Link>
+          <Nav.Link href="/announcements" className='me-3' style={{ color: '#fff' }}>Announcements</Nav.Link>
           {
             user && user.userType === "Admin" ? <Nav.Link href="/admin" className='me-3' style={{ color: '#fff' }}>Admin</Nav.Link> : null
           }

@@ -31,6 +31,7 @@ const registerUser = asyncHandler(async (req,res)=>{
             workingas:user.workingas,
             company:user.company,
             highestDegreeOfQualification:user.highestDegreeOfQualification,
+            following:user.following,
             token:generateToken(user._id)
         });
     }else{
@@ -57,6 +58,7 @@ const authUser = asyncHandler(async (req,res)=>{
         company:user.company,
         banned:user.banned,
         openMsg:user.openMsg,
+        following:user.following,
         highestDegreeOfQualification:user.highestDegreeOfQualification,
         token:generateToken(user._id)
         });

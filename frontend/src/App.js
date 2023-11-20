@@ -6,6 +6,7 @@ import Alumni from './routes/Alumni';
 import Research from './routes/Research';
 import SignUp from './routes/SignUp';
 import Login from './routes/Login';           
+import Announcements from './routes/Announcements';
 import Profile from './routes/Profile';
 import Open from './routes/Open';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -32,6 +33,7 @@ function App() {
           <Route path="/research/projectDetails" element={<ProjectDetails />} />
           <Route path="/answers/:questionId" element={<QuestionAnswers />} />
           <Route path="/admin" element={<Admin/>} />
+          <Route path="announcements" element={<Announcements/>}/>
         </Routes>
       </ChatContext>
     </Router>
