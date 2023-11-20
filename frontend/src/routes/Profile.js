@@ -21,7 +21,6 @@ function Profile() {
   const [tempProfile, setTempProfile] = useState({});
   const [userType, setuserType] = useState('');
   const [openMsg, setOpenMsg] = useState(user?.openMsg);
-  const [followersCnt,getFollowersCnt]=useState(Math.max(user?.followers.length,0));
   const [selectedImage, setSelectedImage] = useState(null);
   useEffect(() => {
     if (!user) return;
@@ -139,7 +138,6 @@ function Profile() {
 
               <div className="profile-picture">
                 <img src={pic} alt="Profile" />
-                <p style={{marginTop:'1rem'}}>Followers : {followersCnt}</p>
               </div>
               <div className="profile-info">
                 <h1>Profile Page</h1>
